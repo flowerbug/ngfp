@@ -46,16 +46,16 @@ class main(pyglet.window.Window):
         self.window_squares = self.window_rows*self.window_cols
 
         MyInitStuff (self)
-        
+
         if (self.use_test_board):
-          print (self.test_board)
+            print (self.test_board)
         else:
-          print (self.board)
+            print (self.board)
         print (self.pic_list)
         print (self.spr_mv_list)
 
         InitRandomBoardItems (self)
-        
+
         DrawBordersAndBackgrounds (self)
         DrawBoard (self)
 

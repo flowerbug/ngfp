@@ -62,7 +62,7 @@ def MyInitStuff (self):
     self.test_board = [[0 for i in range(2)] for j in range(self.board_squares)]
 
     for i in range(32):
-      self.test_board[i] = [i+1, 0] 
+        self.test_board[i] = [i+1, 0] 
 
     self.test_widget_pile_list_counts = [1, 1, 2, 4, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 4, 4, 1, 1]
 
@@ -113,22 +113,22 @@ def MyInitStuff (self):
         "png/32_move.png",         # moving mirror: right: <--/X/<-- /X/<----
         "png/33_bg.png"            # background
         ]
-    
+
     self.spr_mv_list = []
-    
+
     for i in range(len(self.pic_list)):
         image = pyglet.image.load(self.pic_list[i]),
         sprite = pyglet.sprite.Sprite(pyglet.image.load(self.pic_list[i]))
         self.spr_mv_list.append([0, image, sprite, 0, 0])
-    
+
     # these flags are for the widget pile list
     self.widget_pile_list = [1,2,3,5,9,10,11,12,14,15,16,18,19,20,21,22,23,27,31,32]
     for i in self.widget_pile_list:
         self.spr_mv_list[i][0] = 1
     self.widget_pile_list_counts = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    
+
     # these flags are for the configuration of each group percentages images list
     self.config_percent_list = [1,2,3,5,9,10,11,14,15,18,19,22,23,31]
     for i in self.config_percent_list:
-       self.spr_mv_list[i][3] = 1
+        self.spr_mv_list[i][3] = 1
 
