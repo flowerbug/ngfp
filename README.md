@@ -10,8 +10,21 @@ License Notes on parts:
         
   some code created by me (all under Unlicense)
         the *.py files
-        
-        
+
+
+General Information:
+
 ngfp aka new gfpoken aka gfpoken-in-python is my learning project for python, 
 pyglet and many other things (I'm not that familiar with git or Debian 
 packaging and ...).  So be gentle with me here ok?  :)
+
+
+To make spacing consistent I've used:
+
+ # to see what the changes would look like:
+ $ autopep8 . --recursive --select=E101,E121 --diff
+
+ # to make the changes:
+ $ autopep8 . --recursive --select=E101,E121 --in-place
+
+
