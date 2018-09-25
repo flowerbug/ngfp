@@ -8,6 +8,7 @@ from board import DrawBoard
 from labels import AddLabels
 from active import ActiveAreaAction
 
+
 class main(pyglet.window.Window):
 
     def __init__ (
@@ -18,12 +19,10 @@ class main(pyglet.window.Window):
             *args,
             **kwargs):
 
-
         # to start with, i'm not sure yet how this works when
         # i want to change it during the game...
         #    width=(game_cols+control_cols+3)*img_pix
         #    height=(game_rows+2)*img_pix
-
 
         super(main, self).__init__(width, height, *args, **kwargs)
 
@@ -80,8 +79,10 @@ class main(pyglet.window.Window):
     def on_draw(self):
         self.render()
 
+
     def on_close(self):
         self.alive = 0
+
 
     def on_mouse_press(self, x, y, button, modifiers):
         img_pix = self.img_pix
@@ -97,17 +98,22 @@ class main(pyglet.window.Window):
             self.gcube.x = (x // img_pix) * img_pix
             self.gcube.y = (y // img_pix) * img_pix
 
+
     def on_mouse_release(self, x, y, button, modifiers):
         print ("The mouse was released")
+
 
     def on_mouse_motion(self, x, y, dx, dy):
         pass
 
+
     def on_mouse_drag(self, x, y, dx, dy, buttons, modifiers):
         pass
 
+
     def on_mouse_leave(self, x, y):
         pass
+
 
     def on_mouse_enter(self, x, y):
         pass
@@ -143,12 +149,14 @@ class main(pyglet.window.Window):
             # board (0 or 1)...
             self.show_board = (self.show_board + 1) % 2
 
+
     def on_key_release(self, symbol, modifiers):
         try:
             self.keys_held.pop(self.keys_held.index(symbol))
             print ("The key was released")
         except:
             pass
+
 
     def render(self):
         ## == Clear the frame
@@ -170,6 +178,7 @@ class main(pyglet.window.Window):
         ## == And flip the current buffer to become the active viewed buffer.
         self.flip()
 
+
     def run(self):
         while self.alive == 1:
             self.render()
@@ -179,6 +188,7 @@ class main(pyglet.window.Window):
             # but is required for the GUI to not freeze
             #
             event = self.dispatch_events()
+
 
 window = main()
 

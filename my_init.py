@@ -1,5 +1,6 @@
 import pyglet
 
+
 def MyInitStuff (self):
 
     display = pyglet.canvas.get_display()
@@ -55,7 +56,6 @@ def MyInitStuff (self):
 
     # temporary to help with testing things out
     self.use_test_board = True
-
 
     self.board = [[0 for i in range(2)] for j in range(self.board_squares)]
 

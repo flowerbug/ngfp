@@ -5,6 +5,7 @@ from random import randrange, getrandbits, seed
 from time import sleep
 import copy
 
+
 def InitRandomBoardItems (self):
 
     # use "./gfpoken" configuration file if it exists
@@ -48,7 +49,6 @@ def InitRandomBoardItems (self):
 
     self.test_class_list = [['ClSimple', [[0, 1], [1, 2]]], ['ClFlipper', [[2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 8]]], ['ClBoxSink', [[8, 9], [9, 10]]], ['ClAxis', [[10, 11], [11, 12], [12, 13], [13, 14]]], ['ClRotator', [[14, 15], [15, 16], [16, 17], [17, 18]]], ['ClOneWay', [[18, 19], [19, 20], [20, 21], [21, 22]]], ['ClEvil', [[22, 23], [23, 24], [24, 25], [25, 26], [26, 27], [27, 28], [28, 29], [29, 30], [30, 31], [31, 32]]]]
 
-
     if (self.use_test_board):
         self.class_list = list(self.test_class_list)
         self.widget_pile_list_counts = list(self.test_widget_pile_list_counts)
@@ -78,7 +78,7 @@ def InitRandomBoardItems (self):
                     upperbound += self.classweight[counter]
                     print ('    upperbound', upperbound)
                     if (upperbound == 0):
-                        continue                                         #  Base case
+                        continue                                           #  Base case
 
                     if (randchance < upperbound):
                         if (self.class_list[counter][0] == 'ClSimple'):

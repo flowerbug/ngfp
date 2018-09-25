@@ -1,5 +1,6 @@
 import pyglet
 
+
 def DrawBordersAndBackgrounds (self):
 
     # draw four blue corner squares
@@ -11,8 +12,6 @@ def DrawBordersAndBackgrounds (self):
     y_pos = self.img_pix * (self.game_rows+1)
     self.fixed_sprites.append( pyglet.sprite.Sprite( self.blue_bg_image, batch=self.fixed_batch, group=self.background, x = x_pos, y = y_pos))
     self.fixed_sprites.append( pyglet.sprite.Sprite( self.blue_bg_image, batch=self.fixed_batch, group=self.background, x = x_pos_right, y = y_pos))
-
-
 
     # draw white game border
     y_pos = self.img_pix
