@@ -1,6 +1,7 @@
 import pyglet
 import copy
 
+
 def AddLabels (self):
 
     self.widget_count_list = copy.deepcopy(self.widget_pile_list_counts)
