@@ -1,4 +1,5 @@
 import pyglet
+import copy
 
 
 def MyInitStuff (self):
@@ -54,17 +55,23 @@ def MyInitStuff (self):
     #
     self.show_board = 1
 
-    # temporary to help with testing things out
-    self.use_test_board = True
-
     self.board = [[0 for i in range(2)] for j in range(self.board_squares)]
 
-    self.test_board = [[0 for i in range(2)] for j in range(self.board_squares)]
-
-    for i in range(32):
-        self.test_board[i] = [i+1, 0] 
-
-    self.test_widget_pile_list_counts = [1, 1, 2, 4, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 4, 4, 1, 1]
+    if (self.use_test_board):
+        self.test_board = [[0 for i in range(2)] for j in range(self.board_squares)]
+        local_counts = [1, 1, 2, 4, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 4, 4, 1, 1]
+        if (self.board_squares >= 32):
+            for i in range(32):
+                self.test_board[i] = [i+1, 0]
+            self.test_widget_pile_list_counts = copy.deepcopy(local_counts)
+        else:
+            self.test_widget_pile_list_counts = copy.deepcopy(local_counts[:self.board_squares])
+            for i in range(self.board_squares):
+                self.test_board[i] = [i+1, 0]
+            print (self.test_widget_pile_list_counts, self.test_board)
+    else:
+        self.test_board = []
+        self.test_widget_pile_list_counts = []
 
     self.game_bg_image  = pyglet.image.load('png/00_bg.png')
     self.white_bg_image = pyglet.image.load('png/wbg.png')

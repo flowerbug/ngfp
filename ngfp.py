@@ -41,8 +41,11 @@ class main(pyglet.window.Window):
         self.control_cols = control_cols
         self.img_pix = img_pix
         self.window_rows = (self.game_rows+2)
-        self.window_cols = (self.game_cols+1+self.control_cols)
+        self.window_cols = (self.game_cols+self.control_cols+3)
         self.window_squares = self.window_rows*self.window_cols
+
+        # temporary to help with testing things out
+        self.use_test_board = True
 
         MyInitStuff (self)
 
