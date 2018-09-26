@@ -89,17 +89,23 @@ class main(pyglet.window.Window):
 
     def on_mouse_press(self, x, y, button, modifiers):
         img_pix = self.img_pix
+        x_win = x // img_pix
+        x_rec = x_win * img_pix
+        y_win = y // img_pix
+        y_rec = y_win * img_pix
+        win_pos = (y_win * self.window_cols) + x_win
+        
         if button == mouse.LEFT:
-            print('The LEFT mouse button was pressed.', x, x // img_pix, y, y // img_pix)
-            ActiveAreaAction(self, x, y)
-            self.cube.x = (x // img_pix) * img_pix
-            self.cube.y = (y // img_pix) * img_pix
+            print('The LEFT mouse button was pressed.', x, x_rec, x_win, y, y_rec, y_win, win_pos)
+            ActiveAreaAction(self, x_rec, y_rec, win_pos)
+            self.cube.x = x_rec
+            self.cube.y = y_rec
         elif button == mouse.MIDDLE:
-            print('The MIDDLE mouse button was pressed.', x, x // img_pix, y, y // img_pix)
+            print('The MIDDLE mouse button was pressed.', x, x_rec, x_win, y, y_rec, y_win, win_pos)
         elif button == mouse.RIGHT:
-            print('The RIGHT mouse button was pressed.', x, x // img_pix, y, y // img_pix)
-            self.gcube.x = (x // img_pix) * img_pix
-            self.gcube.y = (y // img_pix) * img_pix
+            print('The RIGHT mouse button was pressed.', x, x_rec, x_win, y, y_rec, y_win, win_pos)
+            self.gcube.x = x_rec
+            self.gcube.y = y_rec
 
 
     def on_mouse_release(self, x, y, button, modifiers):
