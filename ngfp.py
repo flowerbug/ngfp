@@ -6,7 +6,7 @@ from background import DrawBordersAndBackgrounds
 from randboard import InitRandomBoardItems
 from board import DrawBoard
 from labels import AddLabels
-from active import ActiveAreaAction
+from active import ActiveAreaAction, ActiveAreaMouseAction
 
 
 class main(pyglet.window.Window):
@@ -74,7 +74,10 @@ class main(pyglet.window.Window):
         self.top_sprites.append(self.cube)
 
         self.picked_up = False
-        self.picked_up_sprite = []
+        self.picked_up_window_square = -1
+        self.picked_up_sprite = pyglet.sprite.Sprite( self.game_bg_image, batch=self.pointer_top_batch, group=self.foreground, x = 0, y = 0)
+        self.picked_up_sprite.visible = False
+        self.picked_up_sprite.opacity = 150
 
         self.alive = 1
 
@@ -88,6 +91,7 @@ class main(pyglet.window.Window):
 
 
     def on_mouse_press(self, x, y, button, modifiers):
+
         img_pix = self.img_pix
         x_win = x // img_pix
         x_rec = x_win * img_pix
@@ -113,7 +117,18 @@ class main(pyglet.window.Window):
 
 
     def on_mouse_motion(self, x, y, dx, dy):
-        pass
+
+        img_pix = self.img_pix
+        x_win = x // img_pix
+        x_rec = x_win * img_pix
+        y_win = y // img_pix
+        y_rec = y_win * img_pix
+        win_pos = (y_win * self.window_cols) + x_win
+        
+        if (self.picked_up):
+            ActiveAreaMouseAction(self, x, x_rec, y, y_rec, win_pos)
+        else:
+            pass
 
 
     def on_mouse_drag(self, x, y, dx, dy, buttons, modifiers):
