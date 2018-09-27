@@ -25,6 +25,7 @@ def MyInitStuff (self):
 
     # batches for rendering
     self.fixed_batch = pyglet.graphics.Batch()
+    self.fixed_board_batch = pyglet.graphics.Batch()
     self.variable_board_batch = pyglet.graphics.Batch()
     self.variable_guess_batch = pyglet.graphics.Batch()
     self.pointer_bottom_batch = pyglet.graphics.Batch()
@@ -32,13 +33,9 @@ def MyInitStuff (self):
     self.text_batch = pyglet.graphics.Batch()
     self.widgets = pyglet.graphics.Batch()
 
-    # ordered groups
-    #   you have to place the foreground last in the queue.
-    self.background = pyglet.graphics.OrderedGroup(0)
-    self.foreground = pyglet.graphics.OrderedGroup(1)
-
     # lists of sprites
     self.fixed_sprites = []
+    self.fixed_board_sprites = []
     self.board_sprites = []
     self.guess_sprites = []
     self.top_sprites = []
@@ -53,7 +50,7 @@ def MyInitStuff (self):
     # 1 - guesses placed
     # 2 - blank background
     #
-    self.show_board = 1
+    self.show_board = 2
 
     self.board = [[0 for i in range(2)] for j in range(self.board_squares)]
 
