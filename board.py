@@ -4,7 +4,6 @@ from time import sleep
 
 def DrawBoard (self):
 
-    # make previous sprites invisible
     if (self.show_board == 2):
 
         self.guess_active_squares = []
