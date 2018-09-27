@@ -25,7 +25,7 @@ def InitRandomBoardItems (self):
     #    12 12 59 15 100 25 11 5 5 5 5
     #
     # and random seed 8 for testing
-    random.seed(a=8)
+    random.seed(a=12)
 
     # these will come from configuration file eventually...
     gridx = self.game_rows

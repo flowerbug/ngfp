@@ -22,7 +22,7 @@ def AddLabels (self):
                         width=self.img_pix, height=self.img_pix,
                         x=x_pos+34, y=y_pos+24,
                         anchor_x='center', anchor_y='center',
-                        batch=self.text_batch, group=self.foreground)
+                        batch=self.text_batch)
                 except:
                     break
             x_pos += self.img_pix

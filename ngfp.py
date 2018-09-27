@@ -66,16 +66,16 @@ class main(pyglet.window.Window):
         # a function for now...
         y_pos = 0
         x_pos = img_pix*6
-        self.gcube = pyglet.sprite.Sprite( self.gcube_image, batch=self.pointer_bottom_batch, group=self.background, x = x_pos, y = y_pos)
+        self.gcube = pyglet.sprite.Sprite( self.gcube_image, batch=self.pointer_bottom_batch, x = x_pos, y = y_pos)
         self.top_sprites.append(self.gcube)
         y_pos = 0
         x_pos = img_pix*5
-        self.cube = pyglet.sprite.Sprite( self.cube_image, batch=self.pointer_top_batch, group=self.foreground, x = x_pos, y = y_pos)
+        self.cube = pyglet.sprite.Sprite( self.cube_image, batch=self.pointer_top_batch, x = x_pos, y = y_pos)
         self.top_sprites.append(self.cube)
 
         self.picked_up = False
         self.picked_up_window_square = -1
-        self.picked_up_sprite = pyglet.sprite.Sprite( self.game_bg_image, batch=self.pointer_top_batch, group=self.foreground, x = 0, y = 0)
+        self.picked_up_sprite = pyglet.sprite.Sprite( self.game_bg_image, batch=self.pointer_top_batch, x = 0, y = 0)
         self.picked_up_sprite.visible = False
         self.picked_up_sprite.opacity = 150
 
@@ -166,12 +166,13 @@ class main(pyglet.window.Window):
                 self.cube.y -= self.img_pix
             print ("The 'DOWN' key was pressed")
         elif symbol == pyglet.window.key.F1:
-            print ("The 'F1' key was pressed")
+            print ("The 'F1' key was pressed, show board ", self.show_board)
             # after the initial showing of the background we
             # don't ever need to see the background again so 
             # only toggle between the game board and the guess 
             # board (0 or 1)...
             self.show_board = (self.show_board + 1) % 2
+            print ("The 'F1' key was pressed, show board changed to ", self.show_board)
 
 
     def on_key_release(self, symbol, modifiers):
@@ -191,6 +192,7 @@ class main(pyglet.window.Window):
         AddLabels(self)
 
         self.fixed_batch.draw()
+        self.fixed_board_batch.draw()
         self.variable_board_batch.draw()
         self.variable_guess_batch.draw()
         self.pointer_bottom_batch.draw()
