@@ -101,7 +101,7 @@ class main(pyglet.window.Window):
         
         if button == mouse.LEFT:
             print('The LEFT mouse button was pressed.', x, x_rec, x_win, y, y_rec, y_win, win_pos)
-            ActiveAreaAction(self, x_rec, y_rec, win_pos)
+            ActiveAreaAction(self, x, x_rec, y, y_rec, win_pos)
             self.cube.x = x_rec
             self.cube.y = y_rec
         elif button == mouse.MIDDLE:
@@ -172,6 +172,10 @@ class main(pyglet.window.Window):
             # only toggle between the game board and the guess 
             # board (0 or 1)...
             self.show_board = (self.show_board + 1) % 2
+            if ((self.show_board == 0) and (self.picked_up == True)):
+                self.picked_up_sprite.visible = False
+            elif ((self.show_board == 1) and (self.picked_up == True)):
+                self.picked_up_sprite.visible = True
             print ("The 'F1' key was pressed, show board changed to ", self.show_board)
 
 
@@ -230,6 +234,7 @@ print (
     window.screen_width, window.screen_height,
     window.game_x_offset, window.game_y_offset,
     game_x, game_y,
-    window.game_board_x_limit, window.game_board_y_limit
+    window.game_board_x_limit, window.game_board_y_limit,
+    window.board
     )
 

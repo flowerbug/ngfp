@@ -15,6 +15,8 @@ def MyInitStuff (self):
     self.x, self.y = self.get_location()
     self.set_location(self.x + self.game_x_offset, self.y + self.game_y_offset)
 
+    self.half_img_pix = self.img_pix // 2
+
     self.game_board_x_limit = 0
     self.game_board_y_limit = 0
 
@@ -126,6 +128,10 @@ def MyInitStuff (self):
         self.spr_mv_list.append([0, image, sprite, 0, 0])
 
     # these flags are for the widget pile list
+    #     position is taken from widget list location index
+    #     when self.widget_pile_list_counts[position] != 0 then the index
+    #        can be used to get the number from this list to index into
+    #         self.spr_mv_list for the image or sprite or ...
     self.widget_pile_list = [1,2,3,5,9,10,11,12,14,15,16,18,19,20,21,22,23,27,31,32]
     for i in self.widget_pile_list:
         self.spr_mv_list[i][0] = 1
@@ -135,4 +141,6 @@ def MyInitStuff (self):
     self.config_percent_list = [1,2,3,5,9,10,11,14,15,18,19,22,23,31]
     for i in self.config_percent_list:
         self.spr_mv_list[i][3] = 1
+
+    self.widget_labels = []
 
