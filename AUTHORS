@@ -1,0 +1,33 @@
+Notes from ant@anthive.com are above the =====
+
+The AUTHORS file from gfpoken (edited to only include 
+references to artwork/graphics since it that is all 
+that is included/used in the python code):
+
+I did rescale the artwork from 32 to 64 pixels and
+fixed one image (see other project:
+
+https://salsa.debian.org/ant-guest/bits-of-gfpoken
+
+All of my own new images and changes to existing images
+are very simple and have no copyright.
+
+If anyone ever actually really cares about this you
+will have to either go back and trace the history of
+each file looking at the gfpoken source code/history
+or come up with new artwork/files (I'm not going to 
+do that unless absolutely required...).
+
+=====
+Patches to the code and all artwork in the art directory
+by Bas Wijnen (wijnen@debian.org)
+Copyright 2005 Bas Wijnen
+Some graphics by Jason Reed (godel@cmu.edu) 
+Copyright 1999 Jason Reed.
+
+Borrowed from GNOME (used with permission of author):
+Button icons by Tuomas Kuosmanen (tigert@gimp.org) downloaded from
+http://tigert.gimp.org/gnome/gnome-stock/
+Copyright 1999 Tuomas Kuosmanen.
+(One icon, picIFlipBack, was created by Dylan Thurston slightly modifying
+the gnome-stock tb_convert.xpm.)
