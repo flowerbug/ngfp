@@ -1,15 +1,30 @@
+Sat Sep 29 10:37:33 EDT 2018
 
-# License Notes on parts:
 
-  png/
-     some files taken from gfpoken/png or gfpoken/art (licensed GPL v2?)
-       then scaled up to 64 x 64 pixels (is this really any kind of change
-                                         needing a copyright?   don't think so)
-     some modified by me (changes can go under GPL v2 or Unlicense)
+# License Notes on various parts:
+
+  - png/* art/* (see AUTHORS file):
+
+    - some files taken from gfpoken/png or gfpoken/art
+      - licensed GPL v2
+      - then scaled up to 64 x 64 pixels
+        - is this really any kind of change needing a copyright?
+          don't think so...
+
+    - some png/ files modified by me 
+      - changes can go under GPL v2 or Unlicense
         see bits-of-gfpoken project...
-        
-  some code created by me (all under Unlicense)
-        the *.py files
+
+    - some made by me (in png/)
+      - nothing major but they can all go under Unlicense
+        solid color background files, a few cubes and ...
+
+  - code created by me *.py
+    - all under Unlicense
+
+  - document and administrivia files
+    - this README.md, TODO.md and AUTHORS
+      - all under Unlicense
 
 
 # General Information:
