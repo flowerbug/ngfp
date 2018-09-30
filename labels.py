@@ -13,18 +13,18 @@ def AddLabels (self):
             for j in range(self.control_cols):
                 if ((i % 2) == 0):
                     try:
-#                        count_m1 = self.widget_count_list[0] - 1
-#                        count_str = str(count_m1)
-#                        self.widget_labels.append(pyglet.text.Label(
-#                            count_str,
-#                            font_name='Sans Regular',
-#                            font_size=28,
-#                            bold=True,
-#                            color=[211, 211, 211, 255],
-#                            width=self.img_pix, height=self.img_pix,
-#                            x=x_pos+34, y=y_pos+24,
-#                            anchor_x='center', anchor_y='center',
-#                            batch=self.text_batch))
+                        count_m1 = self.widget_count_list[0] - 1
+                        count_str = str(count_m1)
+                        self.widget_labels.append(pyglet.text.Label(
+                            count_str,
+                            font_name='Sans Regular',
+                            font_size=28,
+                            bold=True,
+                            color=[211, 211, 211, 255],
+                            width=self.img_pix, height=self.img_pix,
+                            x=x_pos+34, y=y_pos+24,
+                            anchor_x='center', anchor_y='center',
+                            batch=self.text_batch))
                         count_p1 = self.widget_count_list[0] + 1
                         count_str = str(count_p1)
                         self.widget_labels.append(pyglet.text.Label(
