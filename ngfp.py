@@ -61,15 +61,15 @@ class main(pyglet.window.Window):
         DrawBordersAndBackgrounds (self)
         DrawBoard (self)
 
-        # put the cube and gcube someplace.
+        # put the gcube and cube someplace.
         # i may not need these eventually so not going to make this
         # a function for now...
+        x_pos = self.img_pix * (self.game_cols+1)
         y_pos = 0
-        x_pos = img_pix*6
         self.gcube = pyglet.sprite.Sprite( self.gcube_image, batch=self.pointer_bottom_batch, x = x_pos, y = y_pos)
         self.top_sprites.append(self.gcube)
+        x_pos = 0
         y_pos = 0
-        x_pos = img_pix*5
         self.cube = pyglet.sprite.Sprite( self.cube_image, batch=self.pointer_top_batch, x = x_pos, y = y_pos)
         self.top_sprites.append(self.cube)
 
@@ -102,8 +102,6 @@ class main(pyglet.window.Window):
         if button == mouse.LEFT:
             print('The LEFT mouse button was pressed.', x, x_rec, x_win, y, y_rec, y_win, win_pos)
             ActiveAreaAction(self, x, x_rec, y, y_rec, win_pos)
-            self.cube.x = x_rec
-            self.cube.y = y_rec
         elif button == mouse.MIDDLE:
             print('The MIDDLE mouse button was pressed.', x, x_rec, x_win, y, y_rec, y_win, win_pos)
         elif button == mouse.RIGHT:

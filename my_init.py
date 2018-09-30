@@ -59,8 +59,10 @@ def MyInitStuff (self):
     if (self.use_test_board):
         self.test_board = [[0 for i in range(2)] for j in range(self.board_squares)]
         local_counts = [1, 1, 2, 4, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 4, 4, 1, 1]
+#        local_counts = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         if (self.board_squares >= 32):
             for i in range(32):
+#            for i in range(1):
                 self.test_board[i] = [i+1, 0]
             self.test_widget_pile_list_counts = copy.deepcopy(local_counts)
         else:
@@ -137,6 +139,20 @@ def MyInitStuff (self):
         self.spr_mv_list[i][0] = 1
     self.widget_pile_list_counts = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
+    # eventually we're going to have to index any widget no matter how it
+    # is rotated...
+    self.widget_lookup_table = [0, 1, 2, 3, 3,
+                                4, 4, 4, 4,
+                                5, 6, 7,
+                                8, 8,
+                                9, 10,
+                                11, 11, 12, 
+                                13, 14, 15, 16,
+                                17, 17, 17, 17,
+                                18, 18, 18, 18,
+                                19, 20
+                               ]
+
     # these flags are for the configuration of each group percentages images list
     self.config_percent_list = [1,2,3,5,9,10,11,14,15,18,19,22,23,31]
     for i in self.config_percent_list:
@@ -144,3 +160,6 @@ def MyInitStuff (self):
 
     self.widget_labels = []
 
+    # 0 = nowhere, 1 = widget, 2 = board
+    self.picked_up_from = 0
+    self.picked_up = False
