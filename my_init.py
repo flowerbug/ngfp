@@ -134,24 +134,30 @@ def MyInitStuff (self):
     #     when self.widget_pile_list_counts[position] != 0 then the index
     #        can be used to get the number from this list to index into
     #         self.spr_mv_list for the image or sprite or ...
-    self.widget_pile_list = [1,2,3,5,9,10,11,12,14,15,16,18,19,20,21,22,23,27,31,32]
+    self.widget_pile_list = [1,2,3,5,9,10,11,12,13,15,16,17,19,20,21,22,23,27,31,32]
     for i in self.widget_pile_list:
         self.spr_mv_list[i][0] = 1
-    self.widget_pile_list_counts = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    self.widget_pile_list_counts = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
     # eventually we're going to have to index any widget no matter how it
     # is rotated...
-    self.widget_lookup_table = [0, 1, 2, 3, 3,
+    self.widget_lookup_table = [0, 1, 2, 
+                                3, 3,
                                 4, 4, 4, 4,
-                                5, 6, 7,
-                                8, 8,
-                                9, 10,
-                                11, 11, 12, 
+                                5, 6, 7, 8,
+                                9, 9,
+                                10, 11,
+                                12, 12,
                                 13, 14, 15, 16,
                                 17, 17, 17, 17,
                                 18, 18, 18, 18,
                                 19, 20
                                ]
+
+    # speaking of rotating, we need to know how many places it 
+    #   rotates through - of course 0 means it doesn't rotate at all
+    # note that this aligns with self.widget_lookup_table
+    self.widget_rotate_modulus = [0,0,0,2,4,0,0,0,0,2,0,0,2,0,0,0,0,4,4,0,0]
 
     # these flags are for the configuration of each group percentages images list
     self.config_percent_list = [1,2,3,5,9,10,11,14,15,18,19,22,23,31]

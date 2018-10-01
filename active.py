@@ -19,7 +19,7 @@ def MarbleInMotion (self, x_rec, y_rec, win_pos):
     pass
 
 
-def DoWhiteAction (self, x, x_rec, y, y_rec, win_pos):
+def DoLeftClickWhiteAction (self, x, x_rec, y, y_rec, win_pos):
 
     ShowWhiteInArrow (self, x_rec, y_rec, win_pos)
     MarbleInMotion (self, x_rec, y_rec, win_pos)
@@ -66,7 +66,7 @@ def WidgetPick (self, x, x_rec, y, y_rec, win_pos, pick_from, widget_index, widg
     self.cube.visible = False
 
 
-def DoWidgetAction (self, x, x_rec, y, y_rec, win_pos):
+def DoLeftClickWidgetAction (self, x, x_rec, y, y_rec, win_pos):
 
     widget_index = self.widget_active_squares.index(win_pos)
     widget_spr_index = self.widget_pile_list[widget_index]
@@ -123,7 +123,7 @@ def GuessPick (self, x, x_rec, y, y_rec, win_pos, board_index):
     self.picked_up_sprite_snap_back_y = y_rec
 
 
-def DoGuessAction (self, x, x_rec, y, y_rec, win_pos):
+def DoLeftClickGuessAction (self, x, x_rec, y, y_rec, win_pos):
 
     guess_board_index = self.board_to_window_index.index(win_pos)
     print ("Clicked on square ", guess_board_index)
@@ -136,31 +136,87 @@ def DoGuessAction (self, x, x_rec, y, y_rec, win_pos):
             print ("Put it on the board")
     else:
         if (self.board[guess_board_index][1] == 0):
-            print ("Guess board is empty...  Nothing to move or remove...")
+            print ("Guess board square is empty.  Nothing to move or remove...")
         else:
             GuessPick (self, x, x_rec, y, y_rec, win_pos, guess_board_index)
             self.picked_up_from = 1
             print ("Moving or Removing...")
 
 
-def ActiveAreaAction (self, x, x_rec, y, y_rec, win_pos):
+def ActiveAreaLeftMouseClickAction (self, x, x_rec, y, y_rec, win_pos):
 
     this.square = win_pos
     if (self.show_board == 1):
         if (win_pos in self.white_active_squares):
             print ("selected ", win_pos, " which is an active White square.")
-            DoWhiteAction (self, x, x_rec, y, y_rec, win_pos)
+            DoLeftClickWhiteAction (self, x, x_rec, y, y_rec, win_pos)
         elif (win_pos in self.widget_active_squares):
             print ("selected ", win_pos, " which is an active Widget square.")
-            DoWidgetAction (self, x, x_rec, y, y_rec, win_pos)
+            DoLeftClickWidgetAction (self, x, x_rec, y, y_rec, win_pos)
         elif (win_pos in self.guess_active_squares):
             print ("selected ", win_pos, " which is an active Guess square.")
-            DoGuessAction (self, x, x_rec, y, y_rec, win_pos)
+            DoLeftClickGuessAction (self, x, x_rec, y, y_rec, win_pos)
         else:
             pass
 
 
-def ActiveAreaMouseAction (self, x, x_rec, y, y_rec, win_pos):
+def DoGuessRotateWidgetAction (self, x, x_rec, y, y_rec, win_pos):
+
+    board_index = self.board_to_window_index.index(win_pos)
+    picked_widget = self.board[board_index][1]
+    if (picked_widget == 0):
+        print ("Nothing there to rotate...")
+    else:
+        widget_lut = self.widget_lookup_table[picked_widget]
+        widget_base = self.widget_pile_list[widget_lut-1]
+        ft_wrm = self.widget_rotate_modulus[widget_lut]
+
+#        print ("Before ==>\nboard_index ", board_index,
+#               "widget_base", widget_base,
+#               "picked_widget ", picked_widget,
+#               "widget_lut ", widget_lut,
+#               "ft_wrm ", ft_wrm
+#              )
+        if (ft_wrm == 0):
+            print ("Can't rotate that one...")
+            return
+        elif ((picked_widget + 1) >= (widget_base + ft_wrm)):
+            print ("roll around ")
+            picked_widget = widget_base
+        else:
+            print ("show next in sequence ")
+            picked_widget += 1
+
+#        print ("After ==>\nboard_index ", board_index,
+#               "widget_base", widget_base,
+#               "picked_widget ", picked_widget,
+#               "widget_lut ", widget_lut,
+#               "ft_wrm ", ft_wrm
+#              )
+
+        self.board[board_index][1] = picked_widget
+        self.guess_sprites[board_index].image = self.spr_mv_list[picked_widget][1][0]
+#        print ("lut ", self.widget_lookup_table)
+#        print ("wpl ", self.widget_pile_list)
+#        print ("wrm ", self.widget_rotate_modulus)
+
+
+def ActiveAreaRightMouseClickAction (self, x, x_rec, y, y_rec, win_pos):
+
+    this.square = win_pos
+    if (self.show_board == 1):
+        if (win_pos in self.white_active_squares):
+            print ("selected ", win_pos, " which is an active White square.")
+        elif (win_pos in self.widget_active_squares):
+            print ("selected ", win_pos, " which is an active Widget square.")
+        elif (win_pos in self.guess_active_squares):
+            print ("selected ", win_pos, " which is an active Guess square.")
+            DoGuessRotateWidgetAction (self, x, x_rec, y, y_rec, win_pos)
+        else:
+            pass
+
+
+def ActiveAreaMouseMoveAction (self, x, x_rec, y, y_rec, win_pos):
 
     if (self.show_board == 1):
         if (win_pos in self.widget_active_squares):

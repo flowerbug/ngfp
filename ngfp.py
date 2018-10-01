@@ -6,7 +6,7 @@ from background import DrawBordersAndBackgrounds
 from randboard import InitRandomBoardItems
 from board import DrawBoard
 from labels import AddLabels
-from active import ActiveAreaAction, ActiveAreaMouseAction
+from active import ActiveAreaLeftMouseClickAction, ActiveAreaRightMouseClickAction, ActiveAreaMouseMoveAction
 
 
 class main(pyglet.window.Window):
@@ -101,13 +101,12 @@ class main(pyglet.window.Window):
         
         if button == mouse.LEFT:
             print('The LEFT mouse button was pressed.', x, x_rec, x_win, y, y_rec, y_win, win_pos)
-            ActiveAreaAction(self, x, x_rec, y, y_rec, win_pos)
+            ActiveAreaLeftMouseClickAction(self, x, x_rec, y, y_rec, win_pos)
         elif button == mouse.MIDDLE:
             print('The MIDDLE mouse button was pressed.', x, x_rec, x_win, y, y_rec, y_win, win_pos)
         elif button == mouse.RIGHT:
             print('The RIGHT mouse button was pressed.', x, x_rec, x_win, y, y_rec, y_win, win_pos)
-            self.gcube.x = x_rec
-            self.gcube.y = y_rec
+            ActiveAreaRightMouseClickAction(self, x, x_rec, y, y_rec, win_pos)
 
 
     def on_mouse_release(self, x, y, button, modifiers):
@@ -124,7 +123,7 @@ class main(pyglet.window.Window):
         win_pos = (y_win * self.window_cols) + x_win
         
         if (self.picked_up):
-            ActiveAreaMouseAction(self, x, x_rec, y, y_rec, win_pos)
+            ActiveAreaMouseMoveAction(self, x, x_rec, y, y_rec, win_pos)
         else:
             pass
 
