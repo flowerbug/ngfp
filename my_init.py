@@ -88,14 +88,14 @@ def MyInitStuff (self):
     self.cube = pyglet.sprite.Sprite(self.cube_image, x=self.img_pix, y=0)
 
     self.pic_arrow_list = [
-        "png/picDrescaled/picDDown.png",
-        "png/picDrescaled/picDDownW.png",
         "png/picDrescaled/picDLeft.png",
-        "png/picDrescaled/picDLeftW.png",
         "png/picDrescaled/picDRight.png",
-        "png/picDrescaled/picDRightW.png",
         "png/picDrescaled/picDUp.png",
-        "png/picDrescaled/picDUpW.png"
+        "png/picDrescaled/picDDown.png",
+        "png/picDrescaled/picDLeftW.png",
+        "png/picDrescaled/picDRightW.png",
+        "png/picDrescaled/picDUpW.png",
+        "png/picDrescaled/picDDownW.png"
         ]
 
     for i in range(len(self.pic_arrow_list)):
@@ -187,3 +187,10 @@ def MyInitStuff (self):
     # 0 = nowhere, 1 = widget, 2 = board
     self.picked_up_from = 0
     self.picked_up = False
+
+    # direction sets will make things easier later
+    self.dir_down = []
+    self.dir_left = []
+    self.dir_right = []
+    self.dir_up = []
+   

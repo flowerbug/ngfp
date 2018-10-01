@@ -1,29 +1,11 @@
 import pyglet
 import sys
+from marbles import DoLeftClickWhiteAction
 
 # this is a pointer to the module object instance itself.
 this = sys.modules[__name__]
 
 this.square = None
-
-
-def ShowWhiteInArrow (self, x_rec, y_rec, win_pos):
-    pass
-
-
-def ShowWhiteOutArrow (self, x_rec, y_rec, win_pos):
-    pass
-
-
-def MarbleInMotion (self, x_rec, y_rec, win_pos):
-    pass
-
-
-def DoLeftClickWhiteAction (self, x, x_rec, y, y_rec, win_pos):
-
-    ShowWhiteInArrow (self, x_rec, y_rec, win_pos)
-    MarbleInMotion (self, x_rec, y_rec, win_pos)
-    ShowWhiteOutArrow (self, x_rec, y_rec, win_pos)
 
 
 def WidgetPutClear (self):
