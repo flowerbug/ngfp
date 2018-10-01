@@ -33,6 +33,7 @@ def MyInitStuff (self):
     self.pointer_bottom_batch = pyglet.graphics.Batch()
     self.pointer_top_batch = pyglet.graphics.Batch()
     self.text_batch = pyglet.graphics.Batch()
+    self.arrow_batch = pyglet.graphics.Batch()
     self.widgets = pyglet.graphics.Batch()
 
     # lists of sprites
@@ -41,6 +42,7 @@ def MyInitStuff (self):
     self.board_sprites = []
     self.guess_sprites = []
     self.top_sprites = []
+    self.arrow_sprites = []
     self.text_sprites = []
 
     # to make sure we only do the background and fixed sprites once
@@ -85,6 +87,22 @@ def MyInitStuff (self):
     self.cube_image  = pyglet.image.load('png/cube.png')
     self.cube = pyglet.sprite.Sprite(self.cube_image, x=self.img_pix, y=0)
 
+    self.pic_arrow_list = [
+        "png/picDrescaled/picDDown.png",
+        "png/picDrescaled/picDDownW.png",
+        "png/picDrescaled/picDLeft.png",
+        "png/picDrescaled/picDLeftW.png",
+        "png/picDrescaled/picDRight.png",
+        "png/picDrescaled/picDRightW.png",
+        "png/picDrescaled/picDUp.png",
+        "png/picDrescaled/picDUpW.png"
+        ]
+
+    for i in range(len(self.pic_arrow_list)):
+        image = pyglet.image.load(self.pic_arrow_list[i])
+        self.arrow_sprites.append(pyglet.sprite.Sprite(image, batch=self.arrow_batch))
+        self.arrow_sprites[i].visible = False
+
     self.pic_list = [
         "png/00_bg.png",           # background
         "png/01_normal.png",       # [0] simple mirrors: left: \
@@ -125,8 +143,8 @@ def MyInitStuff (self):
     self.spr_mv_list = []
 
     for i in range(len(self.pic_list)):
-        image = pyglet.image.load(self.pic_list[i]),
-        sprite = pyglet.sprite.Sprite(pyglet.image.load(self.pic_list[i]))
+        image = pyglet.image.load(self.pic_list[i])
+        sprite = pyglet.sprite.Sprite(image)
         self.spr_mv_list.append([0, image, sprite, 0, 0])
 
     # these flags are for the widget pile list
