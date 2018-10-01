@@ -54,7 +54,7 @@ def WidgetPick (self, x, x_rec, y, y_rec, win_pos, pick_from, widget_index, widg
     self.picked_up_window_square = win_pos
     self.picked_up_widget = widget_spr_index
     self.picked_up_widget_index = widget_index
-    self.picked_up_sprite.image = self.spr_mv_list[widget_spr_index][1][0]
+    self.picked_up_sprite.image = self.spr_mv_list[widget_spr_index][1]
     self.picked_up_sprite.x = x - self.half_img_pix - 4
     self.picked_up_sprite.y = y - self.half_img_pix - 4
     self.picked_up_sprite.visible = True
@@ -96,7 +96,7 @@ def DoLeftClickWidgetAction (self, x, x_rec, y, y_rec, win_pos):
 
 def GuessPut (self, x, x_rec, y, y_rec, win_pos, board_index):
 
-    self.guess_sprites[board_index].image = self.spr_mv_list[self.picked_up_widget][1][0]
+    self.guess_sprites[board_index].image = self.spr_mv_list[self.picked_up_widget][1]
     self.board[board_index][1] = self.picked_up_widget
     if (self.picked_up_from == 1):
         self.widget_pile_list_counts[self.picked_up_widget_index] -= 1
@@ -195,7 +195,7 @@ def DoGuessRotateWidgetAction (self, x, x_rec, y, y_rec, win_pos):
 #              )
 
         self.board[board_index][1] = picked_widget
-        self.guess_sprites[board_index].image = self.spr_mv_list[picked_widget][1][0]
+        self.guess_sprites[board_index].image = self.spr_mv_list[picked_widget][1]
 #        print ("lut ", self.widget_lookup_table)
 #        print ("wpl ", self.widget_pile_list)
 #        print ("wrm ", self.widget_rotate_modulus)

@@ -24,9 +24,9 @@ def DrawBoard (self):
                 if (self.show_board == 2):
                     if (self.board_initialized == False):
                         self.fixed_board_sprites.append( pyglet.sprite.Sprite( self.game_bg_image, batch=self.fixed_board_batch, x = x_pos, y = y_pos))
-                        image = self.spr_mv_list[self.board[board_position][0]][1][0]
+                        image = self.spr_mv_list[self.board[board_position][0]][1]
                         self.board_sprites.append( pyglet.sprite.Sprite( image, batch=self.variable_board_batch, x = x_pos, y = y_pos))
-                        image = self.spr_mv_list[self.board[board_position][1]][1][0]
+                        image = self.spr_mv_list[self.board[board_position][1]][1]
                         self.guess_sprites.append( pyglet.sprite.Sprite( image, batch=self.variable_guess_batch, x = x_pos, y = y_pos))
                         self.guess_active_squares.append(win_pos)
                         self.guess_active_squares_position.append([x_pos,y_pos])

@@ -198,6 +198,7 @@ class main(pyglet.window.Window):
         self.variable_guess_batch.draw()
         self.pointer_bottom_batch.draw()
         self.pointer_top_batch.draw()
+        self.arrow_batch.draw()
         self.text_batch.draw()
 
         self.fps.draw()
