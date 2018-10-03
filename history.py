@@ -2,6 +2,26 @@ import pyglet
 import sys
 
 
+def HideInArrow (self):
+
+    print ("HideInArrow ", self.arrow_index)
+    self.arrow_history_sprites[self.arrow_index][0].visible = False
+    self.history_color_sprites[self.arrow_index][0].visible = False
+
+
+def HideOutArrow (self):
+
+    print ("HideOutArrow ", self.arrow_index)
+    self.arrow_history_sprites[self.arrow_index][1].visible = False
+    self.history_color_sprites[self.arrow_index][1].visible = False
+
+
+def HideBothArrows (self):
+
+    print ("HideBothArrows ", self.arrow_index)
+    HideInArrow (self)
+    HideOutArrow (self)
+
 def UpdateAndShowArrow (self, image, spot, xy_coord, rotate):
 
     print ("Update Arrow  arrow_index ", self.arrow_index,

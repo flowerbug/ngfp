@@ -95,7 +95,7 @@ def MyInitStuff (self):
         "png/colors/green_half.png",
         "png/colors/yellow_half.png",
         "png/colors/purple_half.png",
-        "png/colors/orange_half.png"
+        "png/colors/black_half.png"
         ]
 
     self.color_images = []
@@ -129,10 +129,8 @@ def MyInitStuff (self):
         self.arrow_history_sprites.append([spr_a, spr_b])
 
         spr_c = pyglet.sprite.Sprite(self.color_images[i], batch=self.color_batch)
-        spr_c.opacity = 128
         spr_c.visible = False
         spr_d = pyglet.sprite.Sprite(self.color_images[i], batch=self.color_batch)
-        spr_d.opacity = 128
         spr_d.visible = False
         self.history_color_sprites.append([spr_c, spr_d])
 

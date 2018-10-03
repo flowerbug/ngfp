@@ -1,7 +1,7 @@
 import pyglet
 import sys
 import copy
-from history import UpdateAndShowArrow, HistoryNext
+from history import UpdateAndShowArrow, HideBothArrows, HideOutArrow, HistoryNext
 
 
 # this is a pointer to the module object instance itself.
@@ -143,6 +143,7 @@ def MarbleInMotion (self, x_rec, y_rec, win_pos):
     start_pos = win_pos
     self.start_direction = None
     self.stop_direction = None
+    HideBothArrows (self)
     ShowWhiteInArrow (self, win_pos)
     print ("Starting to move marble from ", start_pos, "in direction ", self.start_direction)
 
@@ -170,6 +171,7 @@ def MarbleInMotion (self, x_rec, y_rec, win_pos):
         print ("Exceeded tick_count of 100")
     elif (current_direction == None):
         print ("No Arrow Out...")
+        HideOutArrow (self)
     else:
         ShowWhiteOutArrow (self, current_pos)
     HistoryNext (self)
