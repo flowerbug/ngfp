@@ -33,6 +33,7 @@ def MyInitStuff (self):
     self.pointer_bottom_batch = pyglet.graphics.Batch()
     self.pointer_top_batch = pyglet.graphics.Batch()
     self.text_batch = pyglet.graphics.Batch()
+    self.color_batch = pyglet.graphics.Batch()
     self.arrow_batch = pyglet.graphics.Batch()
     self.widgets = pyglet.graphics.Batch()
 
@@ -42,7 +43,8 @@ def MyInitStuff (self):
     self.board_sprites = []
     self.guess_sprites = []
     self.top_sprites = []
-    self.arrow_sprites = []
+    self.arrow_history_sprites = []
+    self.history_color_sprites = []
     self.text_sprites = []
 
     # to make sure we only do the background and fixed sprites once
@@ -87,21 +89,52 @@ def MyInitStuff (self):
     self.cube_image  = pyglet.image.load('png/cube.png')
     self.cube = pyglet.sprite.Sprite(self.cube_image, x=self.img_pix, y=0)
 
+    self.pic_color_list = [
+        "png/colors/red_half.png",
+        "png/colors/blue_half.png",
+        "png/colors/green_half.png",
+        "png/colors/yellow_half.png",
+        "png/colors/purple_half.png",
+        "png/colors/orange_half.png"
+        ]
+
+    self.color_images = []
+    for i in range(len(self.pic_color_list)):
+        self.color_images.append(pyglet.image.load(self.pic_color_list[i]))
+
     self.pic_arrow_list = [
-        "png/picDrescaled/picDLeft.png",
-        "png/picDrescaled/picDRight.png",
-        "png/picDrescaled/picDUp.png",
-        "png/picDrescaled/picDDown.png",
         "png/picDrescaled/picDLeftW.png",
         "png/picDrescaled/picDRightW.png",
         "png/picDrescaled/picDUpW.png",
-        "png/picDrescaled/picDDownW.png"
+        "png/picDrescaled/picDDownW.png",
+        "png/picDrescaled/picDLeft.png",
+        "png/picDrescaled/picDRight.png",
+        "png/picDrescaled/picDUp.png",
+        "png/picDrescaled/picDDown.png"
         ]
 
+    self.arrow_images = []
     for i in range(len(self.pic_arrow_list)):
-        image = pyglet.image.load(self.pic_arrow_list[i])
-        self.arrow_sprites.append(pyglet.sprite.Sprite(image, batch=self.arrow_batch))
-        self.arrow_sprites[i].visible = False
+        self.arrow_images.append(pyglet.image.load(self.pic_arrow_list[i]))
+
+    # arrow history list and current index, set up colors too...
+    self.history_limit = 6
+    self.arrow_index = 0
+    for i in range(self.history_limit):
+
+        spr_a = pyglet.sprite.Sprite(self.arrow_images[0], batch=self.arrow_batch)
+        spr_a.visible = False
+        spr_b = pyglet.sprite.Sprite(self.arrow_images[0], batch=self.arrow_batch)
+        spr_b.visible = False
+        self.arrow_history_sprites.append([spr_a, spr_b])
+
+        spr_c = pyglet.sprite.Sprite(self.color_images[i], batch=self.color_batch)
+        spr_c.opacity = 128
+        spr_c.visible = False
+        spr_d = pyglet.sprite.Sprite(self.color_images[i], batch=self.color_batch)
+        spr_d.opacity = 128
+        spr_d.visible = False
+        self.history_color_sprites.append([spr_c, spr_d])
 
     self.pic_list = [
         "png/00_bg.png",           # background
@@ -189,8 +222,8 @@ def MyInitStuff (self):
     self.picked_up = False
 
     # direction sets will make things easier later
-    self.dir_down = []
     self.dir_left = []
     self.dir_right = []
     self.dir_up = []
+    self.dir_down = []
    
