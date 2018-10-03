@@ -68,12 +68,13 @@ def MyInitStuff (self):
 
     if (self.use_test_board):
         self.test_board = [[0 for i in range(2)] for j in range(self.board_squares)]
-        local_counts = [1, 1, 2, 4, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 4, 4, 1, 1]
-#        local_counts = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+#        local_counts = [1, 1, 2, 4, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 4, 4, 1, 1]
+        local_counts = [0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         if (self.board_squares >= 32):
-            for i in range(32):
-#            for i in range(1):
-                self.test_board[i] = [i+1, 0]
+#            for i in range(32):
+            for i in range(2):
+                self.test_board[i] = [i+13, 0]
+#                self.test_board[i] = [i+1, 0]
             self.test_widget_pile_list_counts = copy.deepcopy(local_counts)
         else:
             self.test_widget_pile_list_counts = copy.deepcopy(local_counts[:self.board_squares])
@@ -141,14 +142,14 @@ def MyInitStuff (self):
 
     self.pic_list = [
         "png/00_bg.png",           # background
-        "png/01_normal.png",       # [0] simple mirrors: left: \
-        "png/02_normal.png",       # [0] simple mirrors: right: /
-        "png/03_flip2.png",        # [1] flipping mirrors: left: \
-        "png/04_flip2.png",        # [1] flipping mirrors: right: /
-        "png/05_flip4.png",        # flipping mirrors: left: \
-        "png/06_flip4.png",        # flipping mirrors: bounce: o
-        "png/07_flip4.png",        # flipping mirrors: right: /
-        "png/08_flip4.png",        # flipping mirrors: bounce: o
+        "png/01_normal.png",       # simple mirrors: left: \
+        "png/02_normal.png",       # simple mirrors: right: /
+        "png/03_flip2.png",        # simple flipping mirrors: left: \
+        "png/04_flip2.png",        # simple flipping mirrors: right: /
+        "png/05_flip4.png",        # quad flipping mirrors: left: \
+        "png/06_flip4.png",        # quad flipping mirrors: bounce: o
+        "png/07_flip4.png",        # quad flipping mirrors: right: /
+        "png/08_flip4.png",        # quad flipping mirrors: bounce: o
         "png/09_block.png",        # box and sink: box: bounce: o  (reflect all)
         "png/10_sink.png",         # box and sink: sink: grab: x  (absorb all)
         "png/11_axial.png",        # axial mirrors: simple vertical: |
@@ -212,6 +213,19 @@ def MyInitStuff (self):
     #   rotates through - of course 0 means it doesn't rotate at all
     # note that this aligns with self.widget_lookup_table
     self.widget_rotate_modulus = [0,0,0,2,4,0,0,0,0,2,0,0,2,0,0,0,0,4,4,0,0]
+
+    # this says what the next widget will be in the sequence if it isn't 0
+    self.widget_next_widget = [
+    #   0 1 2 3 4 5 6 7 8 9 0 1 2
+        0,0,0,4,3,6,7,8,5,0,0,0,0,
+        14,13,0,0,19,18,
+        0,0,0,0,
+    #   23-26 
+        24, 25, 26, 23,
+    #   27-30
+        28, 29, 30, 27,
+    #   31, 32
+        0, 0]
 
     # these flags are for the configuration of each group percentages images list
     self.config_percent_list = [1,2,3,5,9,10,11,14,15,18,19,22,23,31]
