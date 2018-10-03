@@ -109,6 +109,20 @@ def MirrorMagic (self, cur_pos, cur_dir):
             return (MoveRight (self))
         else:
             return (cur_dir)
+    elif (widget == 21):   # 1-way mirrors: right: lower reflects: ->/
+        if (MovingLeft (self, cur_dir)):
+            return (MoveDown (self))
+        elif (MovingUp (self, cur_dir)):
+            return (MoveRight (self))
+        else:
+            return (cur_dir)
+    elif (widget == 22):   # 1-way mirrors: right: upper reflects: /<-
+        if (MovingRight (self, cur_dir)):
+            return (MoveUp (self))
+        elif (MovingDown (self, cur_dir)):
+            return (MoveLeft (self))
+        else:
+            return (cur_dir)
     else:
         return (cur_dir)
 
