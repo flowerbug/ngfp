@@ -155,8 +155,8 @@ def MyInitStuff (self):
         "png/12_axial.png",        # axial mirrors: simple horizontal: -
         "png/13_axial2.png",       # axial mirrors: flipping vertical: ||
         "png/14_axial2.png",       # axial mirrors: flipping horizontal: =
-        "png/15_rotator.png",      # rotators simple clockwise: left: \\
-        "png/16_rotator.png",      # rotators simple counterclockwise: right: //
+        "png/15_rotator.png",      # rotators simple counterclockwise: left: \\
+        "png/16_rotator.png",      # rotators simple clockwise: right: //
         "png/17_rotator2.png",     # rotators flipper clockwise: left: []
         "png/18_rotator2.png",     # rotators flipper counterclockwise: right: ][
         "png/19_half.png",         # 1-way mirrors: left: lower reflects: \<-

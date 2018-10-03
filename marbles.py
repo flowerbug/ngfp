@@ -95,6 +95,24 @@ def MirrorMagic (self, cur_pos, cur_dir):
             return (MoveUp (self))
         else:
             return (cur_dir)
+    elif (widget == 15):  # rotators simple counterclockwise: left: \\
+        if (MovingLeft (self, cur_dir)):
+            return (MoveUp (self))
+        elif (MovingRight (self, cur_dir)):
+            return (MoveDown (self))
+        elif (MovingUp (self, cur_dir)):
+            return (MoveRight (self))
+        else:
+            return (MoveLeft (self))
+    elif (widget == 16):  # rotators simple clockwise: right: //
+        if (MovingLeft (self, cur_dir)):
+            return (MoveDown (self))
+        elif (MovingRight (self, cur_dir)):
+            return (MoveUp (self))
+        elif (MovingUp (self, cur_dir)):
+            return (MoveLeft (self))
+        else:
+            return (MoveRight (self))
     elif (widget == 19):   # 1-way mirrors: left: lower reflects: \<-
         if (MovingRight (self, cur_dir)):
             return (MoveDown (self))
