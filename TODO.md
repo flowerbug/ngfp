@@ -1,25 +1,30 @@
-Mon Oct  1 02:32:42 EDT 2018
+Wed Oct  3 17:20:03 EDT 2018
 
 
-v0.0.6 - ?  This is TODO
+v0.0.7 - ?  This is TODO
 
-
-  - game logic
-    - putting a marble in motion
-    - detecting where it comes out
-    - basic history
-    - markers
-    - comparing boards
-      - exact match is easy
-      - functional match is harder
-
+  - fix label code a bit
+    - can use label.text to change label
+  - more game logic
+  - comparing boards
+    - exact match is easy
+    - functional match is harder
 
   - configuration file
   - save and load games
   - restructure code (encapsulate, objectify, clean it up, tests and comments)
 
 
-v0.0.3-v0.0.5 this TODO
+v0.0.6
+
+  - some game logic (works)
+    - all the easy mirrors (1,2,9,10,11,12,15,16,19,20,21,22) (works)
+    - putting a marble in motion (works)
+    - detecting where it comes out (works)
+    - history with colored markers (works)
+
+
+v0.0.3-v0.0.5
 
   - grab widgets and put on guess board (works)
   - update counts text (works)
