@@ -59,7 +59,7 @@ def MirrorMagic (self, cur_pos, cur_dir):
     board_index = self.board_to_window_index.index(cur_pos)
     widget = self.board[board_index][0]
     print ("board index ", board_index, " widget ", widget)
-    if (widget == 1):
+    if (widget == 1):   # simple mirrors: left: \
         if (MovingLeft(self, cur_dir)):
             return (MoveUp(self))
         elif (MovingRight(self, cur_dir)):
@@ -68,9 +68,18 @@ def MirrorMagic (self, cur_pos, cur_dir):
             return (MoveLeft(self))
         else:
             return (MoveRight(self))
-    elif (widget == 9):  # box
+    elif (widget == 2):   # simple mirrors: right: /
+        if (MovingLeft(self, cur_dir)):
+            return (MoveDown(self))
+        elif (MovingRight(self, cur_dir)):
+            return (MoveUp(self))
+        elif (MovingUp(self, cur_dir)):
+            return (MoveRight(self))
+        else:
+            return (MoveLeft(self))
+    elif (widget == 9):  # box and sink: box: bounce: o  (reflect all)
         return (ReverseDir(self, cur_dir))
-    elif (widget == 10):  # sink
+    elif (widget == 10):  # box and sink: sink: grab: x  (absorb all)
         return (None)
     else:
         return (cur_dir)
