@@ -33,9 +33,15 @@ def MyInitStuff (self):
     self.pointer_bottom_batch = pyglet.graphics.Batch()
     self.pointer_top_batch = pyglet.graphics.Batch()
     self.text_batch = pyglet.graphics.Batch()
-    self.color_batch = pyglet.graphics.Batch()
     self.arrow_batch = pyglet.graphics.Batch()
     self.widgets = pyglet.graphics.Batch()
+
+    # colors need precedence order
+    #   we only use as many colors to mark arrows we keep in history
+    self.history_limit = 6
+    self.color_batch_list = []
+    for i in range(self.history_limit):
+        self.color_batch_list.append(pyglet.graphics.Batch())
 
     # lists of sprites
     self.fixed_sprites = []
@@ -91,8 +97,8 @@ def MyInitStuff (self):
 
     self.pic_color_list = [
         "png/colors/red_half.png",
-        "png/colors/blue_half.png",
         "png/colors/green_half.png",
+        "png/colors/blue_half.png",
         "png/colors/yellow_half.png",
         "png/colors/purple_half.png",
         "png/colors/black_half.png"
@@ -118,7 +124,6 @@ def MyInitStuff (self):
         self.arrow_images.append(pyglet.image.load(self.pic_arrow_list[i]))
 
     # arrow history list and current index, set up colors too...
-    self.history_limit = 6
     self.arrow_index = 0
     for i in range(self.history_limit):
 
@@ -128,9 +133,9 @@ def MyInitStuff (self):
         spr_b.visible = False
         self.arrow_history_sprites.append([spr_a, spr_b])
 
-        spr_c = pyglet.sprite.Sprite(self.color_images[i], batch=self.color_batch)
+        spr_c = pyglet.sprite.Sprite(self.color_images[i], batch=self.color_batch_list[i])
         spr_c.visible = False
-        spr_d = pyglet.sprite.Sprite(self.color_images[i], batch=self.color_batch)
+        spr_d = pyglet.sprite.Sprite(self.color_images[i], batch=self.color_batch_list[i])
         spr_d.visible = False
         self.history_color_sprites.append([spr_c, spr_d])
 
