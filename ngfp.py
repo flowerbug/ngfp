@@ -198,7 +198,8 @@ class main(pyglet.window.Window):
         self.variable_guess_batch.draw()
         self.pointer_bottom_batch.draw()
         self.pointer_top_batch.draw()
-        self.color_batch.draw()
+        for i in range(self.history_limit):
+            self.color_batch_list[i].draw()
         self.arrow_batch.draw()
         self.text_batch.draw()
 

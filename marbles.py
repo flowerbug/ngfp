@@ -1,7 +1,7 @@
 import pyglet
 import sys
 import copy
-from history import UpdateAndShowArrow, HideBothArrows, HideOutArrow, HistoryNext
+from history import UpdateAndShowArrow, HideBothArrows, HideOutArrow, HistoryNext, HistoryShift
 
 
 # this is a pointer to the module object instance itself.
@@ -60,27 +60,55 @@ def MirrorMagic (self, cur_pos, cur_dir):
     widget = self.board[board_index][0]
     print ("board index ", board_index, " widget ", widget)
     if (widget == 1):   # simple mirrors: left: \
-        if (MovingLeft(self, cur_dir)):
-            return (MoveUp(self))
-        elif (MovingRight(self, cur_dir)):
-            return (MoveDown(self))
-        elif (MovingUp(self, cur_dir)):
-            return (MoveLeft(self))
+        if (MovingLeft (self, cur_dir)):
+            return (MoveUp (self))
+        elif (MovingRight (self, cur_dir)):
+            return (MoveDown (self))
+        elif (MovingUp (self, cur_dir)):
+            return (MoveLeft (self))
         else:
-            return (MoveRight(self))
+            return (MoveRight (self))
     elif (widget == 2):   # simple mirrors: right: /
-        if (MovingLeft(self, cur_dir)):
-            return (MoveDown(self))
-        elif (MovingRight(self, cur_dir)):
-            return (MoveUp(self))
-        elif (MovingUp(self, cur_dir)):
-            return (MoveRight(self))
+        if (MovingLeft (self, cur_dir)):
+            return (MoveDown (self))
+        elif (MovingRight (self, cur_dir)):
+            return (MoveUp (self))
+        elif (MovingUp (self, cur_dir)):
+            return (MoveRight (self))
         else:
-            return (MoveLeft(self))
+            return (MoveLeft (self))
     elif (widget == 9):  # box and sink: box: bounce: o  (reflect all)
-        return (ReverseDir(self, cur_dir))
+        return (ReverseDir (self, cur_dir))
     elif (widget == 10):  # box and sink: sink: grab: x  (absorb all)
         return (None)
+    elif (widget == 11):  # axial mirrors: simple vertical: |
+        if (MovingLeft (self, cur_dir)):
+            return (MoveRight (self))
+        elif (MovingRight (self, cur_dir)):
+            return (MoveLeft (self))
+        else:
+            return (cur_dir)
+    elif (widget == 12):  # axial mirrors: simple horizontal: -
+        if (MovingUp (self, cur_dir)):
+            return (MoveDown (self))
+        elif (MovingDown (self, cur_dir)):
+            return (MoveUp (self))
+        else:
+            return (cur_dir)
+    elif (widget == 19):   # 1-way mirrors: left: lower reflects: \<-
+        if (MovingRight (self, cur_dir)):
+            return (MoveDown (self))
+        elif (MovingUp (self, cur_dir)):
+            return (MoveLeft (self))
+        else:
+            return (cur_dir)
+    elif (widget == 20):   # 1-way mirrors: left: upper reflects: ->\
+        if (MovingLeft (self, cur_dir)):
+            return (MoveUp (self))
+        elif (MovingDown (self, cur_dir)):
+            return (MoveRight (self))
+        else:
+            return (cur_dir)
     else:
         return (cur_dir)
 
@@ -140,10 +168,10 @@ def ShowWhiteOutArrow (self, win_pos):
 
 def MarbleInMotion (self, x_rec, y_rec, win_pos):
 
+    HideBothArrows (self)
     start_pos = win_pos
     self.start_direction = None
     self.stop_direction = None
-    HideBothArrows (self)
     ShowWhiteInArrow (self, win_pos)
     print ("Starting to move marble from ", start_pos, "in direction ", self.start_direction)
 
@@ -175,6 +203,7 @@ def MarbleInMotion (self, x_rec, y_rec, win_pos):
     else:
         ShowWhiteOutArrow (self, current_pos)
     HistoryNext (self)
+    HistoryShift (self)
 
 
 def DoLeftClickWhiteAction (self, x, x_rec, y, y_rec, win_pos):

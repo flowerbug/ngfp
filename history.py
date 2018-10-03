@@ -46,3 +46,8 @@ def HistoryNext (self):
     self.arrow_index = (self.arrow_index + 1) % self.history_limit
 
 
+def HistoryShift (self):
+
+    self.color_batch_list.append(self.color_batch_list.pop(0))
+
+
