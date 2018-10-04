@@ -1,11 +1,13 @@
-Wed Oct  3 17:20:03 EDT 2018
+Wed Oct  3 21:39:12 EDT 2018
 
 
-v0.0.7 - ?  This is TODO
+v0.0.7 - ?  This TODO
 
+  - last two mirrors (they move)
+  - some animation or way of showing what happens on guess board
   - fix label code a bit
     - can use label.text to change label
-  - more game logic
+  
   - comparing boards
     - exact match is easy
     - functional match is harder
@@ -13,6 +15,11 @@ v0.0.7 - ?  This is TODO
   - configuration file
   - save and load games
   - restructure code (encapsulate, objectify, clean it up, tests and comments)
+
+
+
+  - more game logic (works)
+    - flipping mirrors (3-4,5-8,13-14,17-18,23-30) (works)
 
 
 v0.0.6
