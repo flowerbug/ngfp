@@ -69,11 +69,11 @@ def MyInitStuff (self):
     if (self.use_test_board):
         self.test_board = [[0 for i in range(2)] for j in range(self.board_squares)]
 #        local_counts = [1, 1, 2, 4, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 4, 4, 1, 1]
-        local_counts = [0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        local_counts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
         if (self.board_squares >= 32):
 #            for i in range(32):
-            for i in range(2):
-                self.test_board[i] = [i+13, 0]
+            for i in range(1):
+                self.test_board[i] = [i+27, 0]
 #                self.test_board[i] = [i+1, 0]
             self.test_widget_pile_list_counts = copy.deepcopy(local_counts)
         else:
@@ -218,7 +218,7 @@ def MyInitStuff (self):
     self.widget_next_widget = [
     #   0 1 2 3 4 5 6 7 8 9 0 1 2
         0,0,0,4,3,6,7,8,5,0,0,0,0,
-        14,13,0,0,19,18,
+        14,13,0,0,18,17,
         0,0,0,0,
     #   23-26 
         24, 25, 26, 23,

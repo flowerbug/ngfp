@@ -56,6 +56,7 @@ def ReverseDir (self, dir):
 
 def ChangeBoard (self, board_index, widget):
 
+   print ("ChangeBoard ", board_index, " widget ", widget)
    self.board[board_index][0] = self.widget_next_widget[widget]
    self.board_sprites[board_index].image = self.spr_mv_list[self.widget_next_widget[widget]][1]
 
@@ -64,8 +65,11 @@ def MirrorMagic (self, cur_pos, cur_dir):
 
     board_index = self.board_to_window_index.index(cur_pos)
     widget = self.board[board_index][0]
-    print ("board index ", board_index, " widget ", widget)
-    if (widget == 1):   # simple mirrors: left: \
+    print ("MirrorMagic  board index ", board_index, " widget ", widget)
+    if (widget == 0):   # nothing to do here move along...
+        print ("  MirrorMagic nothing to do here...")
+        return (cur_dir)
+    elif (widget == 1):   # simple mirrors: left: \
         if (MovingLeft (self, cur_dir)):
             return (MoveUp (self))
         elif (MovingRight (self, cur_dir)):
@@ -178,6 +182,26 @@ def MirrorMagic (self, cur_pos, cur_dir):
             return (MoveLeft (self))
         else:
             return (MoveRight (self))
+    elif (widget == 17):  # rotators flipper clockwise: left: []
+        ChangeBoard (self, board_index, widget)
+        if (MovingLeft (self, cur_dir)):
+            return (MoveUp (self))
+        elif (MovingRight (self, cur_dir)):
+            return (MoveDown (self))
+        elif (MovingUp (self, cur_dir)):
+            return (MoveRight (self))
+        else:
+            return (MoveLeft (self))
+    elif (widget == 18):  # rotators flipper counterclockwise: right: ][
+        ChangeBoard (self, board_index, widget)
+        if (MovingLeft (self, cur_dir)):
+            return (MoveDown (self))
+        elif (MovingRight (self, cur_dir)):
+            return (MoveUp (self))
+        elif (MovingUp (self, cur_dir)):
+            return (MoveLeft (self))
+        else:
+            return (MoveRight (self))
     elif (widget == 19):   # 1-way mirrors: left: lower reflects: \<-
         if (MovingRight (self, cur_dir)):
             return (MoveDown (self))
@@ -206,8 +230,72 @@ def MirrorMagic (self, cur_pos, cur_dir):
             return (MoveLeft (self))
         else:
             return (cur_dir)
+    elif (widget == 23):  # flipping 1-way mirrors: left: lower reflects: rotates clockwise: \\\<-
+        ChangeBoard (self, board_index, widget)
+        if (MovingRight (self, cur_dir)):
+            return (MoveDown (self))
+        elif (MovingUp (self, cur_dir)):
+            return (MoveLeft (self))
+        else:
+            return (cur_dir)
+    elif (widget == 24):  # flipping 1-way mirrors: right: upper reflects: rotates clockwise: ///<-
+        ChangeBoard (self, board_index, widget)
+        if (MovingRight (self, cur_dir)):
+            return (MoveUp (self))
+        elif (MovingDown (self, cur_dir)):
+            return (MoveLeft (self))
+        else:
+            return (cur_dir)
+    elif (widget == 25):  # flipping 1-way mirrors: left: upper reflects: rotates clockwise: ->\\\
+        ChangeBoard (self, board_index, widget)
+        if (MovingLeft (self, cur_dir)):
+            return (MoveUp (self))
+        elif (MovingDown (self, cur_dir)):
+            return (MoveRight (self))
+        else:
+            return (cur_dir)
+    elif (widget == 26):  # flipping 1-way mirrors: right: lower reflects: rotates clockwise: ->///
+        ChangeBoard (self, board_index, widget)
+        if (MovingLeft (self, cur_dir)):
+            return (MoveDown (self))
+        elif (MovingUp (self, cur_dir)):
+            return (MoveRight (self))
+        else:
+            return (cur_dir)
+    elif (widget == 27): # flipping 1-way mirrors: left: upper reflects: rotates counterclockwise: ->\\\
+        ChangeBoard (self, board_index, widget)
+        if (MovingLeft (self, cur_dir)):
+            return (MoveUp (self))
+        elif (MovingDown (self, cur_dir)):
+            return (MoveRight (self))
+        else:
+            return (cur_dir)
+    elif (widget == 28): # flipping 1-way mirrors: right: upper reflects: rotates counterclockwise: ///<-
+        ChangeBoard (self, board_index, widget)
+        if (MovingRight (self, cur_dir)):
+            return (MoveUp (self))
+        elif (MovingDown (self, cur_dir)):
+            return (MoveLeft (self))
+        else:
+            return (cur_dir)
+    elif (widget == 29): # flipping 1-way mirrors: left: lower reflects: rotates counterclockwise: \\\<-
+        ChangeBoard (self, board_index, widget)
+        if (MovingRight (self, cur_dir)):
+            return (MoveDown (self))
+        elif (MovingUp (self, cur_dir)):
+            return (MoveLeft (self))
+        else:
+            return (cur_dir)
+    elif (widget == 30): # flipping 1-way mirrors: right: lower reflects: rotates counterclockwise: ->///
+        ChangeBoard (self, board_index, widget)
+        if (MovingLeft (self, cur_dir)):
+            return (MoveDown (self))
+        elif (MovingUp (self, cur_dir)):
+            return (MoveRight (self))
+        else:
+            return (cur_dir)
     else:
-        print ("widget ", widget, " widget_next_widget ", self.widget_next_widget[widget])
+        print ("  MirrorMagic fell through with widget ", widget, " widget_next_widget ", self.widget_next_widget[widget])
         return (cur_dir)
 
 
