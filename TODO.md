@@ -1,9 +1,8 @@
-Wed Oct  3 21:39:12 EDT 2018
+Thu Oct  4 10:34:28 EDT 2018
 
 
-v0.0.7 - ?  This TODO
+v0.0.8 - ?  This TODO
 
-  - last two mirrors (they move)
   - some animation or way of showing what happens on guess board
   - fix label code a bit
     - can use label.text to change label
@@ -17,9 +16,11 @@ v0.0.7 - ?  This TODO
   - restructure code (encapsulate, objectify, clean it up, tests and comments)
 
 
+v0.0.7
 
-  - more game logic (works)
-    - flipping mirrors (3-4,5-8,13-14,17-18,23-30) (works)
+
+  - flipping mirrors (3-4,5-8,13-14,17-18,23-30) (works)
+  - last two mirrors - they move (works)
 
 
 v0.0.6
