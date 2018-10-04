@@ -98,7 +98,7 @@ class main(pyglet.window.Window):
         y_win = y // img_pix
         y_rec = y_win * img_pix
         win_pos = (y_win * self.window_cols) + x_win
-        
+
         if button == mouse.LEFT:
             print('The LEFT mouse button was pressed.', x, x_rec, x_win, y, y_rec, y_win, win_pos)
             ActiveAreaLeftMouseClickAction(self, x, x_rec, y, y_rec, win_pos)
@@ -121,7 +121,7 @@ class main(pyglet.window.Window):
         y_win = y // img_pix
         y_rec = y_win * img_pix
         win_pos = (y_win * self.window_cols) + x_win
-        
+
         if (self.picked_up):
             ActiveAreaMouseMoveAction(self, x, x_rec, y, y_rec, win_pos)
         else:

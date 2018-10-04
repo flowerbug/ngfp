@@ -243,4 +243,4 @@ def MyInitStuff (self):
     self.dir_right = []
     self.dir_up = []
     self.dir_down = []
-   
+
