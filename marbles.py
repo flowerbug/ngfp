@@ -61,6 +61,28 @@ def ChangeBoard (self, board_index, widget):
     self.board_sprites[board_index].image = self.spr_mv_list[self.widget_next_widget[widget]][1]
 
 
+def MovingWidget (self, cur_pos, board_index, widget, dir):
+
+    print ("MovingWidget cur_pos ", cur_pos, " board_index ", board_index, 
+        " widget ", widget, " direction", dir)
+    try:
+        new_board_index = self.board_to_window_index.index(cur_pos + dir)
+        print ("    new_board_index ", new_board_index)
+        if (((cur_pos + dir) in self.guess_active_squares) and 
+           (self.board[new_board_index][0] == 0)):
+            print ("    Found a space in square ", new_board_index)
+            self.board_sprites[board_index].image = self.game_bg_image
+            self.board_sprites[board_index].visible = False
+            self.board[board_index][0] = 0
+            self.board_sprites[new_board_index].image = self.spr_mv_list[widget][1]
+            self.board_sprites[new_board_index].visible = True
+            self.board[new_board_index][0] = widget
+        else:
+            print ("    No space found, didn't move widget")
+    except:
+        pass
+
+
 def MirrorMagic (self, cur_pos, cur_dir):
 
     board_index = self.board_to_window_index.index(cur_pos)
@@ -294,8 +316,28 @@ def MirrorMagic (self, cur_pos, cur_dir):
             return (MoveRight (self))
         else:
             return (cur_dir)
+    elif (widget == 31): # moving mirror: left: -->\X\--> ---->\X\
+        MovingWidget (self, cur_pos, board_index, widget, cur_dir)
+        if (MovingLeft (self, cur_dir)):
+            return (MoveUp (self))
+        elif (MovingRight (self, cur_dir)):
+            return (MoveDown (self))
+        elif (MovingUp (self, cur_dir)):
+            return (MoveLeft (self))
+        else:
+            return (MoveRight (self))
+    elif (widget == 32): # moving mirror: right: <--/X/<-- /X/<----
+        MovingWidget (self, cur_pos, board_index, widget, cur_dir)
+        if (MovingLeft (self, cur_dir)):
+            return (MoveDown (self))
+        elif (MovingRight (self, cur_dir)):
+            return (MoveUp (self))
+        elif (MovingUp (self, cur_dir)):
+            return (MoveRight (self))
+        else:
+            return (MoveLeft (self))
     else:
-        print ("  MirrorMagic fell through with widget ", widget, " widget_next_widget ", self.widget_next_widget[widget])
+        print ("  MirrorMagic fell through with widget (there shouldn't be any left)???", widget, " widget_next_widget ", self.widget_next_widget[widget])
         return (cur_dir)
 
 
