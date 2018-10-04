@@ -19,7 +19,7 @@ def WidgetPutClear (self):
     self.picked_up_sprite.x = 0
     self.picked_up_sprite.y = 0
     self.picked_up_sprite.visible = False
-   
+
     self.picked_up_sprite_snap_back_x = 0
     self.picked_up_sprite_snap_back_y = 0
 
@@ -40,10 +40,10 @@ def WidgetPick (self, x, x_rec, y, y_rec, win_pos, pick_from, widget_index, widg
     self.picked_up_sprite.x = x - self.half_img_pix - 4
     self.picked_up_sprite.y = y - self.half_img_pix - 4
     self.picked_up_sprite.visible = True
-   
+
     self.picked_up_sprite_snap_back_x = x_rec
     self.picked_up_sprite_snap_back_y = y_rec
-  
+
     # something in progress hide cube
     self.cube.visible = False
 
@@ -100,7 +100,7 @@ def GuessPick (self, x, x_rec, y, y_rec, win_pos, board_index):
     self.picked_up_sprite.x = x - self.half_img_pix - 4
     self.picked_up_sprite.y = y - self.half_img_pix - 4
     self.picked_up_sprite.visible = True
-   
+
     self.picked_up_sprite_snap_back_x = x_rec
     self.picked_up_sprite_snap_back_y = y_rec
 

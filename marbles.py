@@ -56,9 +56,9 @@ def ReverseDir (self, dir):
 
 def ChangeBoard (self, board_index, widget):
 
-   print ("ChangeBoard ", board_index, " widget ", widget)
-   self.board[board_index][0] = self.widget_next_widget[widget]
-   self.board_sprites[board_index].image = self.spr_mv_list[self.widget_next_widget[widget]][1]
+    print ("ChangeBoard ", board_index, " widget ", widget)
+    self.board[board_index][0] = self.widget_next_widget[widget]
+    self.board_sprites[board_index].image = self.spr_mv_list[self.widget_next_widget[widget]][1]
 
 
 def MirrorMagic (self, cur_pos, cur_dir):
