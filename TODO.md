@@ -1,11 +1,12 @@
-Thu Oct  4 10:34:28 EDT 2018
+Fri Oct  5 13:47:28 EDT 2018
 
 
-v0.0.8 - ?  This TODO
+v0.0.9 - ?  This TODO
 
-  - some animation or way of showing what happens on guess board
   - fix label code a bit
     - can use label.text to change label
+
+  - some animation or way of showing what happens on guess board
   
   - comparing boards
     - exact match is easy
@@ -14,6 +15,14 @@ v0.0.8 - ?  This TODO
   - configuration file
   - save and load games
   - restructure code (encapsulate, objectify, clean it up, tests and comments)
+
+
+v0.0.8
+
+  - a bit of fun showing where the marble is bouncing
+    around in the game - this doesn't stay in the final
+    version, but i may leave it in as an option/toggle
+    anyways because it might help in debugging...
 
 
 v0.0.7
