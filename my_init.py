@@ -244,3 +244,5 @@ def MyInitStuff (self):
     self.dir_up = []
     self.dir_down = []
 
+    # some kind of limit to break out of loops
+    self.tick_limit = 100 + (self.board_squares * 2)

@@ -22,6 +22,7 @@ def HideBothArrows (self):
     HideInArrow (self)
     HideOutArrow (self)
 
+
 def UpdateAndShowArrow (self, image, spot, xy_coord, rotate):
 
     print ("Update Arrow  arrow_index ", self.arrow_index,

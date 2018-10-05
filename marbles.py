@@ -1,6 +1,7 @@
 import pyglet
 import sys
 import copy
+from time import sleep
 from history import UpdateAndShowArrow, HideBothArrows, HideOutArrow, HistoryNext, HistoryShift
 
 
@@ -400,7 +401,18 @@ def MarbleInMotion (self, x_rec, y_rec, win_pos):
     start_pos = win_pos
     self.start_direction = None
     self.stop_direction = None
+    self.cube.x = 0
+    self.cube.y = 0
+    self.cube.visible = False
+    self.pointer_top_batch.draw()
+    self.variable_guess_batch.draw()
+    self.flip()
     ShowWhiteInArrow (self, win_pos)
+    for i in range(self.history_limit):
+        self.color_batch_list[i].draw()
+    self.arrow_batch.draw()
+    self.flip()
+    self.cube.visible = True
     print ("Starting to move marble from ", start_pos, "in direction ", self.start_direction)
 
     tick_count = 0  #  we better have some limit just in case of long loops
@@ -409,12 +421,21 @@ def MarbleInMotion (self, x_rec, y_rec, win_pos):
     print ("First move marble from ", current_pos, "in direction ", current_direction)
     while (
         (current_pos in self.guess_active_squares) and 
-        (tick_count < 100) and 
+        (tick_count < self.tick_limit) and 
         (current_pos != None)):
         tick_count += 1
         new_dir = MirrorMagic (self, current_pos, current_direction)
         if (new_dir != None):
+            if (current_pos in self.guess_active_squares):
+                cube_xy = self.guess_active_squares_position[self.guess_active_squares.index(current_pos)]
+                print ("   Cube xy ", cube_xy)
+                self.cube.visible = True
+                self.cube.x = cube_xy[0]
+                self.cube.y = cube_xy[1]
+                self.pointer_top_batch.draw()
+                self.flip()
             print ("Moved: Tick, CP, CD ", tick_count, current_pos, current_direction)
+            sleep (0.08)
             current_pos += new_dir
             current_direction = new_dir
             self.stop_direction = current_direction
@@ -423,8 +444,8 @@ def MarbleInMotion (self, x_rec, y_rec, win_pos):
             self.stop_direction = None
 
     print ("Last moved marble at ", current_pos, "in direction ", current_direction)
-    if (tick_count >= 100):
-        print ("Exceeded tick_count of 100")
+    if (tick_count >= self.tick_limit):
+        print ("Exceeded tick_count of ", self.tick_limit)
     elif (current_direction == None):
         print ("No Arrow Out...")
         HideOutArrow (self)
