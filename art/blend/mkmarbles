@@ -1,0 +1,4 @@
+#!/bin/bash
+
+blender -b marbles.blend -P initdir -a
+
