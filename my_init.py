@@ -1,6 +1,8 @@
 import pyglet
 import copy
 
+from labels import AddLabels
+
 
 def MyInitStuff (self):
 
@@ -246,3 +248,6 @@ def MyInitStuff (self):
 
     # some kind of limit to break out of loops
     self.tick_limit = 100 + (self.board_squares * 2)
+
+    # we only need to do the Labels once
+    AddLabels (self)

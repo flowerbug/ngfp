@@ -5,7 +5,7 @@ from my_init import MyInitStuff
 from background import DrawBordersAndBackgrounds
 from randboard import InitRandomBoardItems
 from board import DrawBoard
-from labels import AddLabels
+from labels import UpdateLabels
 from active import ActiveAreaLeftMouseClickAction, ActiveAreaRightMouseClickAction, ActiveAreaMouseMoveAction
 
 
@@ -190,7 +190,7 @@ class main(pyglet.window.Window):
 
         DrawBoard (self)
 
-        AddLabels(self)
+        UpdateLabels(self)
 
         self.fixed_batch.draw()
         self.fixed_board_batch.draw()
