@@ -36,9 +36,9 @@ def MyInitStuff (self):
     self.pointer_top_batch = pyglet.graphics.Batch()
     self.text_batch = pyglet.graphics.Batch()
     self.arrow_batch = pyglet.graphics.Batch()
-    self.widgets = pyglet.graphics.Batch()
+    self.marble_batch = pyglet.graphics.Batch()
 
-    # colors need precedence order
+    # colors need precedence order for arrows
     #   we only use as many colors to mark arrows we keep in history
     self.history_limit = 6
     self.color_batch_list = []
@@ -53,6 +53,7 @@ def MyInitStuff (self):
     self.top_sprites = []
     self.arrow_history_sprites = []
     self.history_color_sprites = []
+    self.marble_sprites = []
     self.text_sprites = []
 
     # to make sure we only do the background and fixed sprites once
@@ -82,7 +83,6 @@ def MyInitStuff (self):
             self.test_widget_pile_list_counts = copy.deepcopy(local_counts[:self.board_squares])
             for i in range(self.board_squares):
                 self.test_board[i] = [i+1, 0]
-            print (self.test_widget_pile_list_counts, self.test_board)
     else:
         self.test_board = []
         self.test_widget_pile_list_counts = []
@@ -97,6 +97,19 @@ def MyInitStuff (self):
     self.gcube = pyglet.sprite.Sprite(self.gcube_image, x=self.img_pix, y=0)
     self.cube_image  = pyglet.image.load('png/cube.png')
     self.cube = pyglet.sprite.Sprite(self.cube_image, x=self.img_pix, y=0)
+
+    self.pic_marbles_list = [
+        "png/marbles/red_marbles.png",
+        "png/marbles/green_marbles.png",
+        "png/marbles/blue_marbles.png",
+        "png/marbles/yellow_marbles.png",
+        "png/marbles/purple_marbles.png",
+        "png/marbles/black_marbles.png"
+        ]
+
+    self.marble_images = []
+    for i in range(len(self.pic_marbles_list)):
+        self.marble_images.append(pyglet.image.load(self.pic_marbles_list[i]))
 
     self.pic_color_list = [
         "png/colors/red_half.png",
@@ -126,8 +139,9 @@ def MyInitStuff (self):
     for i in range(len(self.pic_arrow_list)):
         self.arrow_images.append(pyglet.image.load(self.pic_arrow_list[i]))
 
-    # arrow history list and current index, set up colors too...
+    # arrow history list and current index, set up colors and marbles too...
     self.arrow_index = 0
+    self.anim = []
     for i in range(self.history_limit):
 
         spr_a = pyglet.sprite.Sprite(self.arrow_images[0], batch=self.arrow_batch)
@@ -141,6 +155,16 @@ def MyInitStuff (self):
         spr_d = pyglet.sprite.Sprite(self.color_images[i], batch=self.color_batch_list[i])
         spr_d.visible = False
         self.history_color_sprites.append([spr_c, spr_d])
+
+        self.marble_seq = pyglet.image.ImageGrid(self.marble_images[i], 1, 16)
+        self.anim.append(pyglet.image.Animation.from_image_sequence(self.marble_seq, 0.025, True))
+        spr_e = pyglet.sprite.Sprite(self.anim[i], batch=self.marble_batch)
+        spr_e.visible = False
+        spr_e.x = 0
+        spr_e.y = 0
+        spr_e.dx = 0
+        spr_e.dy = 0
+        self.marble_sprites.append(spr_e)
 
     self.pic_list = [
         "png/00_bg.png",           # background

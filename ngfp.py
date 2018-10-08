@@ -1,5 +1,6 @@
 import pyglet
 from pyglet.window import mouse
+from pyglet import clock
 
 from my_init import MyInitStuff
 from background import DrawBordersAndBackgrounds
@@ -9,7 +10,7 @@ from labels import UpdateLabels
 from active import ActiveAreaLeftMouseClickAction, ActiveAreaRightMouseClickAction, ActiveAreaMouseMoveAction
 
 
-class main(pyglet.window.Window):
+class Window(pyglet.window.Window):
 
     def __init__ (
             self,
@@ -24,7 +25,7 @@ class main(pyglet.window.Window):
         #    width=(game_cols+control_cols+3)*img_pix
         #    height=(game_rows+2)*img_pix
 
-        super(main, self).__init__(width, height, *args, **kwargs)
+        super(Window, self).__init__(width, height, *args, **kwargs)
 
         # some of these will come from the configuration file 
         # when i get that working.  until then this will have
@@ -79,15 +80,13 @@ class main(pyglet.window.Window):
         self.picked_up_sprite.visible = False
         self.picked_up_sprite.opacity = 150
 
-        self.alive = 1
-
 
     def on_draw(self):
         self.render()
 
 
     def on_close(self):
-        self.alive = 0
+        exit()
 
 
     def on_mouse_press(self, x, y, button, modifiers):
@@ -145,7 +144,7 @@ class main(pyglet.window.Window):
         self.keys_held.append(symbol)
         if ((symbol == pyglet.window.key.ESCAPE) or (symbol == pyglet.window.key.Q)): # [ESC] or [Q]
             print ("The 'ESC' or 'Q' key was pressed")
-            self.alive = 0
+            exit()
         elif symbol == pyglet.window.key.LEFT:
             if self.cube.x > 0:
                 self.cube.x -= self.img_pix
@@ -184,8 +183,26 @@ class main(pyglet.window.Window):
             pass
 
 
+    def update(self, dt):
+
+        for i in range(len(self.marble_sprites)):
+            if ((self.marble_sprites[i].x > self.game_board_x_limit) or
+                (self.marble_sprites[i].x < 0)):
+                self.marble_sprites[i].x = 0
+                self.marble_sprites[i].visible = False
+            else:
+                self.marble_sprites[i].x += (self.marble_sprites[i].dx * self.img_pix * 12) * dt
+
+            if ((self.marble_sprites[i].y > self.game_board_y_limit) or
+                (self.marble_sprites[i].y < 0)):
+                self.marble_sprites[i].y = 0
+                self.marble_sprites[i].visible = False
+            else:
+                self.marble_sprites[i].y += (self.marble_sprites[i].dy * self.img_pix * 12) * dt
+
+
     def render(self):
-        ## == Clear the frame
+
         self.clear()
 
         DrawBoard (self)
@@ -198,6 +215,7 @@ class main(pyglet.window.Window):
         self.variable_guess_batch.draw()
         self.pointer_bottom_batch.draw()
         self.pointer_top_batch.draw()
+        self.marble_batch.draw()
         for i in range(self.history_limit):
             self.color_batch_list[i].draw()
         self.arrow_batch.draw()
@@ -205,36 +223,16 @@ class main(pyglet.window.Window):
 
         self.fps.draw()
 
-        ## == And flip the current buffer to become the active viewed buffer.
         self.flip()
 
 
-    def run(self):
-        while self.alive == 1:
-            self.render()
-
-            # -----------> This is key <----------
-            # This is what replaces pyglet.app.run()
-            # but is required for the GUI to not freeze
-            #
-            event = self.dispatch_events()
+def main():
+    window = Window(width=1024, height=640, caption='Ngfp')
+    pyglet.clock.schedule_interval(window.update, 1/60.0) # update at 60Hz
+    pyglet.app.run()
 
 
-window = main()
+if __name__ == '__main__':
+    main()
 
-"""
-window.push_handlers(pyglet.window.event.WindowEventLogger())
-"""
-
-window.run()
-
-game_x, game_y = window.get_location()
-
-print (
-    window.screen_width, window.screen_height,
-    window.game_x_offset, window.game_y_offset,
-    game_x, game_y,
-    window.game_board_x_limit, window.game_board_y_limit,
-    window.board
-    )
 

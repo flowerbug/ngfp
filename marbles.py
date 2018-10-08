@@ -2,7 +2,7 @@ import pyglet
 import sys
 import copy
 from time import sleep
-from history import UpdateAndShowArrow, HideBothArrows, HideOutArrow, HistoryNext, HistoryShift
+from history import UpdateAndShowArrow, HideBothArrows, HideOutArrow, HistoryNext, HistoryAndMarbleShift
 
 
 # this is a pointer to the module object instance itself.
@@ -348,19 +348,30 @@ def ShowWhiteInArrow (self, win_pos):
     SWI_xy_coordinates = copy.deepcopy(self.white_active_squares_position[win_pos_index])
     print ("SW In Arrow XY coordinates", SWI_xy_coordinates)
     rotate = 0.0
+    self.kept_start_pos = win_pos
+    self.kept_start_pos_x = SWI_xy_coordinates[0]
+    self.kept_start_pos_y = SWI_xy_coordinates[1]
     if (win_pos in self.dir_left):             # if we've clicked on the left side it
         self.start_direction = MoveRight(self) # means we're going right
+        self.kept_start_dx = 1.0
+        self.kept_start_dy = 0.0
         SWI_xy_coordinates[0] += self.half_img_pix
         image = self.arrow_images[1]
     elif (win_pos in self.dir_right):          # if we've clicked on the right side it
         self.start_direction = MoveLeft(self)  # means we're going left
+        self.kept_start_dx = -1.0
+        self.kept_start_dy = 0.0
         image = self.arrow_images[0]
     elif (win_pos in self.dir_up):             #  etc.
         self.start_direction = MoveDown(self)
+        self.kept_start_dx = 0.0
+        self.kept_start_dy = -1.0
         image = self.arrow_images[3]
         rotate = 90.0
     else:
         self.start_direction = MoveUp(self)
+        self.kept_start_dx = 0.0
+        self.kept_start_dy = 1.0
         SWI_xy_coordinates[1] += self.half_img_pix
         image = self.arrow_images[2]
         rotate = 90.0
@@ -395,6 +406,20 @@ def ShowWhiteOutArrow (self, win_pos):
         UpdateAndShowArrow(self, image, 1, SWO_xy_coordinates, rotate)
 
 
+def StartMarble (self, win_pos):
+
+    self.marble_sprites[0].x = self.kept_start_pos_x
+    self.marble_sprites[0].y = self.kept_start_pos_y
+    self.marble_sprites[0].dx = self.kept_start_dx
+    self.marble_sprites[0].dy = self.kept_start_dy
+    self.marble_sprites[0].visible = True
+
+
+def ShowStopMarble (self, win_pos):
+
+    pass
+
+
 def MarbleInMotion (self, x_rec, y_rec, win_pos):
 
     HideBothArrows (self)
@@ -410,6 +435,8 @@ def MarbleInMotion (self, x_rec, y_rec, win_pos):
     ShowWhiteInArrow (self, win_pos)
     for i in range(self.history_limit):
         self.color_batch_list[i].draw()
+    StartMarble(self, win_pos)
+    self.marble_batch.draw()
     self.arrow_batch.draw()
     self.flip()
     self.cube.visible = True
@@ -426,21 +453,21 @@ def MarbleInMotion (self, x_rec, y_rec, win_pos):
         tick_count += 1
         new_dir = MirrorMagic (self, current_pos, current_direction)
         if (new_dir != None):
-            if (current_pos in self.guess_active_squares):
-                cube_xy = self.guess_active_squares_position[self.guess_active_squares.index(current_pos)]
-                print ("   Cube xy ", cube_xy)
-                self.cube.visible = True
-                self.cube.x = cube_xy[0]
-                self.cube.y = cube_xy[1]
-                self.pointer_top_batch.draw()
-                self.flip()
-            print ("Moved: Tick, CP, CD ", tick_count, current_pos, current_direction)
-            sleep (0.08)
+#            if (current_pos in self.guess_active_squares):
+#                cube_xy = self.guess_active_squares_position[self.guess_active_squares.index(current_pos)]
+#                print ("   Cube xy ", cube_xy)
+#                self.cube.visible = True
+#                self.cube.x = cube_xy[0]
+#                self.cube.y = cube_xy[1]
+#                self.pointer_top_batch.draw()
+#                self.flip()
+#            print ("Moved: Tick, CP, CD ", tick_count, current_pos, current_direction)
+#            sleep (0.08)
             current_pos += new_dir
             current_direction = new_dir
             self.stop_direction = current_direction
         else:
-            print ("Didn't Move: Tick, CP, CD ", tick_count, current_pos, current_direction)
+#            print ("Didn't Move: Tick, CP, CD ", tick_count, current_pos, current_direction)
             self.stop_direction = None
 
     print ("Last moved marble at ", current_pos, "in direction ", current_direction)
@@ -452,7 +479,7 @@ def MarbleInMotion (self, x_rec, y_rec, win_pos):
     else:
         ShowWhiteOutArrow (self, current_pos)
     HistoryNext (self)
-    HistoryShift (self)
+    HistoryAndMarbleShift (self)
 
 
 def DoLeftClickWhiteAction (self, x, x_rec, y, y_rec, win_pos):

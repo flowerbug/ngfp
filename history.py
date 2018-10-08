@@ -47,8 +47,9 @@ def HistoryNext (self):
     self.arrow_index = (self.arrow_index + 1) % self.history_limit
 
 
-def HistoryShift (self):
+def HistoryAndMarbleShift (self):
 
+    # we need to rotate both the arrows and marbles together
     self.color_batch_list.append(self.color_batch_list.pop(0))
-
+    self.marble_sprites.append(self.marble_sprites.pop(0))
 
