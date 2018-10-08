@@ -16,7 +16,6 @@ def DrawBoard (self):
 #       win_pos = ((self.window_rows - 2) * self.window_cols) + 1
         win_pos = self.window_cols + 1
 
-        self.game_board_y_limit = y_pos + self.img_pix
         for x in range(self.game_rows):
             x_pos = self.img_pix
             for y in range(self.game_cols):
@@ -36,6 +35,7 @@ def DrawBoard (self):
             y_pos += self.img_pix
             win_pos += (self.control_cols + 3)
         self.game_board_x_limit = x_pos
+        self.game_board_y_limit = y_pos + self.img_pix
         self.board_initialized = True
         self.show_board = 1
         print ("Active guess squares", self.guess_active_squares)
