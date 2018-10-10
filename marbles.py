@@ -90,7 +90,7 @@ def MovingWidget (self, which_board, cur_pos, board_index, widget, dir):
                 self.board[board_index][1] = 0
                 self.guess_sprites[new_board_index].image = self.spr_mv_list[widget][1]
                 self.guess_sprites[new_board_index].visible = True
-                self.board[new_board_index][0] = widget
+                self.board[new_board_index][1] = widget
             else:
                 pass
         else:
