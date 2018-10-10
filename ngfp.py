@@ -8,6 +8,7 @@ from randboard import InitRandomBoardItems
 from board import DrawBoard
 from labels import UpdateLabels
 from active import ActiveAreaLeftMouseClickAction, ActiveAreaRightMouseClickAction, ActiveAreaMouseMoveAction
+from marbles import CheckMarbleChangeDirection, StopMarble
 
 
 class Window(pyglet.window.Window):
@@ -186,19 +187,46 @@ class Window(pyglet.window.Window):
     def update(self, dt):
 
         for i in range(len(self.marble_sprites)):
-            if ((self.marble_sprites[i].x > self.game_board_x_limit) or
-                (self.marble_sprites[i].x < 0)):
-                self.marble_sprites[i].x = 0
+            if ((self.marble_sprites[i].x == 0) and
+                (self.marble_sprites[i].y == 0)):
+                self.marble_sprites[i].dx = 0
+                self.marble_sprites[i].dy = 0
                 self.marble_sprites[i].visible = False
-            else:
-                self.marble_sprites[i].x += (self.marble_sprites[i].dx * self.img_pix * 12) * dt
+            elif (self.marble_sprites[i].visible == True):
 
-            if ((self.marble_sprites[i].y > self.game_board_y_limit) or
-                (self.marble_sprites[i].y < 0)):
-                self.marble_sprites[i].y = 0
-                self.marble_sprites[i].visible = False
-            else:
-                self.marble_sprites[i].y += (self.marble_sprites[i].dy * self.img_pix * 12) * dt
+                if ((self.marble_sprites[i].dx != 0) and
+                    (self.marble_sprites[i].x >= self.game_board_x_upper_limit)):
+                    self.marble_sprites[i].x = self.game_board_x_upper_limit
+                    self.marble_sprites[i].dx = 0
+                    StopMarble (self, i)
+                elif ((self.marble_sprites[i].dx != 0) and
+                    (self.marble_sprites[i].x <= (self.game_board_x_lower_limit - self.img_pix))):
+                    self.marble_sprites[i].x = self.game_board_x_lower_limit - self.img_pix
+                    self.marble_sprites[i].dx = 0
+                    StopMarble (self, i)
+                elif (self.marble_sprites[i].dx != 0):
+                    if (((self.marble_sprites[i].x % self.img_pix) == 0) and
+                        ((self.marble_sprites[i].y % self.img_pix) == 0)):
+                        CheckMarbleChangeDirection (self, i, self.marble_sprites[i].x, self.marble_sprites[i].y)
+                    tmp_pix = self.tic_pix
+                    self.marble_sprites[i].x += tmp_pix * self.marble_sprites[i].dx
+
+                if ((self.marble_sprites[i].dy != 0) and
+                    (self.marble_sprites[i].y >= self.game_board_y_upper_limit)):
+                    self.marble_sprites[i].y = self.game_board_y_upper_limit
+                    self.marble_sprites[i].dy = 0
+                    StopMarble (self, i)
+                elif ((self.marble_sprites[i].dy != 0) and
+                    (self.marble_sprites[i].y <= (self.game_board_y_lower_limit - self.img_pix))):
+                    self.marble_sprites[i].y = self.game_board_y_lower_limit - self.img_pix
+                    self.marble_sprites[i].dy = 0
+                    StopMarble (self, i)
+                elif (self.marble_sprites[i].dy != 0):
+                    if (((self.marble_sprites[i].x % self.img_pix) == 0) and
+                        ((self.marble_sprites[i].y % self.img_pix) == 0)):
+                        CheckMarbleChangeDirection (self, i, self.marble_sprites[i].x, self.marble_sprites[i].y)
+                    tmp_pix = self.tic_pix
+                    self.marble_sprites[i].y += tmp_pix * self.marble_sprites[i].dy
 
 
     def render(self):
@@ -228,7 +256,7 @@ class Window(pyglet.window.Window):
 
 def main():
     window = Window(width=1024, height=640, caption='Ngfp')
-    pyglet.clock.schedule_interval(window.update, 1/60.0) # update at 60Hz
+    pyglet.clock.schedule_interval(window.update, 1/120.0) # update at 60Hz
     pyglet.app.run()
 
 

@@ -18,6 +18,7 @@ def MyInitStuff (self):
     self.set_location(self.x + self.game_x_offset, self.y + self.game_y_offset)
 
     self.half_img_pix = self.img_pix // 2
+    self.tic_pix = self.img_pix // 2
 
     self.game_board_x_limit = 0
     self.game_board_y_limit = 0
@@ -142,6 +143,7 @@ def MyInitStuff (self):
     # arrow history list and current index, set up colors and marbles too...
     self.arrow_index = 0
     self.anim = []
+    self.marble_seq = []
     for i in range(self.history_limit):
 
         spr_a = pyglet.sprite.Sprite(self.arrow_images[0], batch=self.arrow_batch)
@@ -156,10 +158,10 @@ def MyInitStuff (self):
         spr_d.visible = False
         self.history_color_sprites.append([spr_c, spr_d])
 
-        self.marble_seq = pyglet.image.ImageGrid(self.marble_images[i], 1, 16)
-        self.anim.append(pyglet.image.Animation.from_image_sequence(self.marble_seq, 0.025, True))
+        self.marble_seq.append(pyglet.image.ImageGrid(self.marble_images[i], 1, 16))
+        self.anim.append(pyglet.image.Animation.from_image_sequence(self.marble_seq[i], 0.02, True))
         spr_e = pyglet.sprite.Sprite(self.anim[i], batch=self.marble_batch)
-        spr_e.visible = False
+        spr_e.visible = True
         spr_e.x = 0
         spr_e.y = 0
         spr_e.dx = 0
