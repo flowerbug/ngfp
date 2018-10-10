@@ -1,13 +1,8 @@
-Fri Oct  5 13:47:28 EDT 2018
+Wed Oct 10 09:55:28 EDT 2018
 
 
-v0.0.9 - ?  This TODO
+v0.1.0 - ?  This TODO
 
-  - fix label code a bit
-    - can use label.text to change label
-
-  - some animation or way of showing what happens on guess board
-  
   - comparing boards
     - exact match is easy
     - functional match is harder
@@ -15,6 +10,14 @@ v0.0.9 - ?  This TODO
   - configuration file
   - save and load games
   - restructure code (encapsulate, objectify, clean it up, tests and comments)
+
+
+v0.0.9
+
+  - fix label code a bit (works)
+    - can use label.text to change label
+
+  - some animation or way of showing what happens on guess board (works)
 
 
 v0.0.8
