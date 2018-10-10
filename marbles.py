@@ -55,42 +55,58 @@ def ReverseDir (self, dir):
     return (-dir)
 
 
-def ChangeBoard (self, board_index, widget):
+def ChangeBoard (self, which_board, board_index, widget):
 
-    print ("ChangeBoard ", board_index, " widget ", widget)
-    self.board[board_index][0] = self.widget_next_widget[widget]
-    self.board_sprites[board_index].image = self.spr_mv_list[self.widget_next_widget[widget]][1]
+    print ("ChangeBoard which_board ", which_board, "board_index ", board_index, " widget ", widget)
+    self.board[board_index][which_board] = self.widget_next_widget[widget]
+    if (which_board == 0):
+        self.board_sprites[board_index].image = self.spr_mv_list[self.widget_next_widget[widget]][1]
+    elif (which_board == 1):
+        self.guess_sprites[board_index].image = self.spr_mv_list[self.widget_next_widget[widget]][1]
+    else:
+        pass
 
 
-def MovingWidget (self, cur_pos, board_index, widget, dir):
+def MovingWidget (self, which_board, cur_pos, board_index, widget, dir):
 
-    print ("MovingWidget cur_pos ", cur_pos, " board_index ", board_index, 
+    print ("MovingWidget which_board ", which_board, "cur_pos ", cur_pos, " board_index ", board_index, 
         " widget ", widget, " direction", dir)
     try:
         new_board_index = self.board_to_window_index.index(cur_pos + dir)
         print ("    new_board_index ", new_board_index)
         if (((cur_pos + dir) in self.guess_active_squares) and 
-           (self.board[new_board_index][0] == 0)):
+           (self.board[new_board_index][which_board] == 0)):
             print ("    Found a space in square ", new_board_index)
-            self.board_sprites[board_index].image = self.game_bg_image
-            self.board_sprites[board_index].visible = False
-            self.board[board_index][0] = 0
-            self.board_sprites[new_board_index].image = self.spr_mv_list[widget][1]
-            self.board_sprites[new_board_index].visible = True
-            self.board[new_board_index][0] = widget
+            if (which_board == 0):
+                self.board_sprites[board_index].image = self.game_bg_image
+                self.board_sprites[board_index].visible = False
+                self.board[board_index][0] = 0
+                self.board_sprites[new_board_index].image = self.spr_mv_list[widget][1]
+                self.board_sprites[new_board_index].visible = True
+                self.board[new_board_index][0] = widget
+            elif (which_board == 1):
+                self.guess_sprites[board_index].image = self.game_bg_image
+                self.guess_sprites[board_index].visible = False
+                self.board[board_index][1] = 0
+                self.guess_sprites[new_board_index].image = self.spr_mv_list[widget][1]
+                self.guess_sprites[new_board_index].visible = True
+                self.board[new_board_index][0] = widget
+            else:
+                pass
         else:
             print ("    No space found, didn't move widget")
     except:
         pass
 
 
-def MirrorMagic (self, cur_pos, cur_dir):
+def MirrorMagic (self, which_board, cur_pos, cur_dir):
 
     board_index = self.board_to_window_index.index(cur_pos)
-    widget = self.board[board_index][0]
-    print ("MirrorMagic  board index ", board_index, " widget ", widget)
+    widget = self.board[board_index][which_board]
+    if (which_board == 1):
+        print ("MirrorMagic board ", which_board," board index ", board_index, " widget ", widget)
     if (widget == 0):   # nothing to do here move along...
-        print ("  MirrorMagic nothing to do here...")
+#        print ("  MirrorMagic nothing to do here...")
         return (cur_dir)
     elif (widget == 1):   # simple mirrors: left: \
         if (MovingLeft (self, cur_dir)):
@@ -111,7 +127,7 @@ def MirrorMagic (self, cur_pos, cur_dir):
         else:
             return (MoveLeft (self))
     elif (widget == 3):   # simple flipping mirrors: left: \
-        ChangeBoard (self, board_index, widget)
+        ChangeBoard (self, which_board, board_index, widget)
         if (MovingLeft (self, cur_dir)):
             return (MoveUp (self))
         elif (MovingRight (self, cur_dir)):
@@ -121,7 +137,7 @@ def MirrorMagic (self, cur_pos, cur_dir):
         else:
             return (MoveRight (self))
     elif (widget == 4):   # simple flipping mirrors: right: / 
-        ChangeBoard (self, board_index, widget)
+        ChangeBoard (self, which_board, board_index, widget)
         if (MovingLeft (self, cur_dir)):
             return (MoveDown (self))
         elif (MovingRight (self, cur_dir)):
@@ -131,7 +147,7 @@ def MirrorMagic (self, cur_pos, cur_dir):
         else:
             return (MoveLeft (self))
     elif (widget == 5):   # quad flipping mirrors: left: \
-        ChangeBoard (self, board_index, widget)
+        ChangeBoard (self, which_board, board_index, widget)
         if (MovingLeft (self, cur_dir)):
             return (MoveUp (self))
         elif (MovingRight (self, cur_dir)):
@@ -141,10 +157,10 @@ def MirrorMagic (self, cur_pos, cur_dir):
         else:
             return (MoveRight (self))
     elif ((widget == 6) or (widget == 8)):   # flipping mirrors: bounce: o
-        ChangeBoard (self, board_index, widget)
+        ChangeBoard (self, which_board, board_index, widget)
         return (ReverseDir (self, cur_dir))
     elif (widget == 7):   # flipping mirrors: right: /
-        ChangeBoard (self, board_index, widget)
+        ChangeBoard (self, which_board, board_index, widget)
         if (MovingLeft (self, cur_dir)):
             return (MoveDown (self))
         elif (MovingRight (self, cur_dir)):
@@ -172,7 +188,7 @@ def MirrorMagic (self, cur_pos, cur_dir):
         else:
             return (cur_dir)
     elif (widget == 13):   # axial mirrors: flipping vertical: ||
-        ChangeBoard (self, board_index, widget)
+        ChangeBoard (self, which_board, board_index, widget)
         if (MovingLeft (self, cur_dir)):
             return (ReverseDir (self, cur_dir))
         elif (MovingRight (self, cur_dir)):
@@ -180,7 +196,7 @@ def MirrorMagic (self, cur_pos, cur_dir):
         else:
             return (cur_dir)
     elif (widget == 14):   # axial mirrors: flipping horizontal: =
-        ChangeBoard (self, board_index, widget)
+        ChangeBoard (self, which_board, board_index, widget)
         if (MovingUp (self, cur_dir)):
             return (ReverseDir (self, cur_dir))
         elif (MovingDown (self, cur_dir)):
@@ -206,7 +222,7 @@ def MirrorMagic (self, cur_pos, cur_dir):
         else:
             return (MoveRight (self))
     elif (widget == 17):  # rotators flipper clockwise: left: []
-        ChangeBoard (self, board_index, widget)
+        ChangeBoard (self, which_board, board_index, widget)
         if (MovingLeft (self, cur_dir)):
             return (MoveUp (self))
         elif (MovingRight (self, cur_dir)):
@@ -216,7 +232,7 @@ def MirrorMagic (self, cur_pos, cur_dir):
         else:
             return (MoveLeft (self))
     elif (widget == 18):  # rotators flipper counterclockwise: right: ][
-        ChangeBoard (self, board_index, widget)
+        ChangeBoard (self, which_board, board_index, widget)
         if (MovingLeft (self, cur_dir)):
             return (MoveDown (self))
         elif (MovingRight (self, cur_dir)):
@@ -254,7 +270,7 @@ def MirrorMagic (self, cur_pos, cur_dir):
         else:
             return (cur_dir)
     elif (widget == 23):  # flipping 1-way mirrors: left: lower reflects: rotates clockwise: \\\<-
-        ChangeBoard (self, board_index, widget)
+        ChangeBoard (self, which_board, board_index, widget)
         if (MovingRight (self, cur_dir)):
             return (MoveDown (self))
         elif (MovingUp (self, cur_dir)):
@@ -262,7 +278,7 @@ def MirrorMagic (self, cur_pos, cur_dir):
         else:
             return (cur_dir)
     elif (widget == 24):  # flipping 1-way mirrors: right: upper reflects: rotates clockwise: ///<-
-        ChangeBoard (self, board_index, widget)
+        ChangeBoard (self, which_board, board_index, widget)
         if (MovingRight (self, cur_dir)):
             return (MoveUp (self))
         elif (MovingDown (self, cur_dir)):
@@ -270,7 +286,7 @@ def MirrorMagic (self, cur_pos, cur_dir):
         else:
             return (cur_dir)
     elif (widget == 25):  # flipping 1-way mirrors: left: upper reflects: rotates clockwise: ->\\\
-        ChangeBoard (self, board_index, widget)
+        ChangeBoard (self, which_board, board_index, widget)
         if (MovingLeft (self, cur_dir)):
             return (MoveUp (self))
         elif (MovingDown (self, cur_dir)):
@@ -278,7 +294,7 @@ def MirrorMagic (self, cur_pos, cur_dir):
         else:
             return (cur_dir)
     elif (widget == 26):  # flipping 1-way mirrors: right: lower reflects: rotates clockwise: ->///
-        ChangeBoard (self, board_index, widget)
+        ChangeBoard (self, which_board, board_index, widget)
         if (MovingLeft (self, cur_dir)):
             return (MoveDown (self))
         elif (MovingUp (self, cur_dir)):
@@ -286,7 +302,7 @@ def MirrorMagic (self, cur_pos, cur_dir):
         else:
             return (cur_dir)
     elif (widget == 27): # flipping 1-way mirrors: left: upper reflects: rotates counterclockwise: ->\\\
-        ChangeBoard (self, board_index, widget)
+        ChangeBoard (self, which_board, board_index, widget)
         if (MovingLeft (self, cur_dir)):
             return (MoveUp (self))
         elif (MovingDown (self, cur_dir)):
@@ -294,7 +310,7 @@ def MirrorMagic (self, cur_pos, cur_dir):
         else:
             return (cur_dir)
     elif (widget == 28): # flipping 1-way mirrors: right: upper reflects: rotates counterclockwise: ///<-
-        ChangeBoard (self, board_index, widget)
+        ChangeBoard (self, which_board, board_index, widget)
         if (MovingRight (self, cur_dir)):
             return (MoveUp (self))
         elif (MovingDown (self, cur_dir)):
@@ -302,7 +318,7 @@ def MirrorMagic (self, cur_pos, cur_dir):
         else:
             return (cur_dir)
     elif (widget == 29): # flipping 1-way mirrors: left: lower reflects: rotates counterclockwise: \\\<-
-        ChangeBoard (self, board_index, widget)
+        ChangeBoard (self, which_board, board_index, widget)
         if (MovingRight (self, cur_dir)):
             return (MoveDown (self))
         elif (MovingUp (self, cur_dir)):
@@ -310,7 +326,7 @@ def MirrorMagic (self, cur_pos, cur_dir):
         else:
             return (cur_dir)
     elif (widget == 30): # flipping 1-way mirrors: right: lower reflects: rotates counterclockwise: ->///
-        ChangeBoard (self, board_index, widget)
+        ChangeBoard (self, which_board, board_index, widget)
         if (MovingLeft (self, cur_dir)):
             return (MoveDown (self))
         elif (MovingUp (self, cur_dir)):
@@ -318,7 +334,7 @@ def MirrorMagic (self, cur_pos, cur_dir):
         else:
             return (cur_dir)
     elif (widget == 31): # moving mirror: left: -->\X\--> ---->\X\
-        MovingWidget (self, cur_pos, board_index, widget, cur_dir)
+        MovingWidget (self, which_board, cur_pos, board_index, widget, cur_dir)
         if (MovingLeft (self, cur_dir)):
             return (MoveUp (self))
         elif (MovingRight (self, cur_dir)):
@@ -328,7 +344,7 @@ def MirrorMagic (self, cur_pos, cur_dir):
         else:
             return (MoveRight (self))
     elif (widget == 32): # moving mirror: right: <--/X/<-- /X/<----
-        MovingWidget (self, cur_pos, board_index, widget, cur_dir)
+        MovingWidget (self, which_board, cur_pos, board_index, widget, cur_dir)
         if (MovingLeft (self, cur_dir)):
             return (MoveDown (self))
         elif (MovingRight (self, cur_dir)):
@@ -353,28 +369,33 @@ def ShowWhiteInArrow (self, win_pos):
     self.kept_start_pos_y = SWI_xy_coordinates[1]
     if (win_pos in self.dir_left):             # if we've clicked on the left side it
         self.start_direction = MoveRight(self) # means we're going right
-        self.kept_start_dx = 1.0
-        self.kept_start_dy = 0.0
+        self.kept_start_dx = 1
+        self.kept_start_dy = 0
+        self.kept_start_pos_x += self.img_pix - self.tic_pix
         SWI_xy_coordinates[0] += self.half_img_pix
         image = self.arrow_images[1]
     elif (win_pos in self.dir_right):          # if we've clicked on the right side it
         self.start_direction = MoveLeft(self)  # means we're going left
-        self.kept_start_dx = -1.0
-        self.kept_start_dy = 0.0
+        self.kept_start_dx = -1
+        self.kept_start_dy = 0
+        self.kept_start_pos_x -= self.tic_pix
         image = self.arrow_images[0]
     elif (win_pos in self.dir_up):             #  etc.
         self.start_direction = MoveDown(self)
-        self.kept_start_dx = 0.0
-        self.kept_start_dy = -1.0
+        self.kept_start_dx = 0
+        self.kept_start_dy = -1
+        self.kept_start_pos_y -= self.img_pix - self.tic_pix
         image = self.arrow_images[3]
         rotate = 90.0
     else:
         self.start_direction = MoveUp(self)
-        self.kept_start_dx = 0.0
-        self.kept_start_dy = 1.0
+        self.kept_start_dx = 0
+        self.kept_start_dy = 1
+        self.kept_start_pos_y += self.img_pix - self.tic_pix
         SWI_xy_coordinates[1] += self.half_img_pix
         image = self.arrow_images[2]
         rotate = 90.0
+    self.kept_start_direction = self.start_direction
     UpdateAndShowArrow(self, image, 0, SWI_xy_coordinates, rotate)
 
 
@@ -408,14 +429,33 @@ def ShowWhiteOutArrow (self, win_pos):
 
 def StartMarble (self, win_pos):
 
+    self.marble_current_pos = self.kept_start_pos + self.kept_start_direction
+    self.marble_current_direction = self.kept_start_direction
+
+    print ("Start Marble CP, CD ", self.marble_current_pos, self.marble_current_direction)
+
     self.marble_sprites[0].x = self.kept_start_pos_x
     self.marble_sprites[0].y = self.kept_start_pos_y
     self.marble_sprites[0].dx = self.kept_start_dx
     self.marble_sprites[0].dy = self.kept_start_dy
     self.marble_sprites[0].visible = True
+    for i in range (len (self.marble_sprites) - 1):
+        self.marble_sprites[i+1].x = 0
+        self.marble_sprites[i+1].y = 0
+        self.marble_sprites[i+1].dx = 0
+        self.marble_sprites[i+1].dy = 0
+        self.marble_sprites[i+1].visible = False
+
+    print ("Start Marble CP, CD,  x,y with dx,dy ", 
+        self.marble_current_pos,
+        self.marble_current_direction,
+        self.marble_sprites[0].x,
+        self.marble_sprites[0].y,
+        self.marble_sprites[0].dx,
+        self.marble_sprites[0].dy)
 
 
-def ShowStopMarble (self, win_pos):
+def StopMarble (self, win_pos):
 
     pass
 
@@ -435,23 +475,24 @@ def MarbleInMotion (self, x_rec, y_rec, win_pos):
     ShowWhiteInArrow (self, win_pos)
     for i in range(self.history_limit):
         self.color_batch_list[i].draw()
+    self.marble_tick_count = 0
     StartMarble(self, win_pos)
     self.marble_batch.draw()
     self.arrow_batch.draw()
     self.flip()
     self.cube.visible = True
-    print ("Starting to move marble from ", start_pos, "in direction ", self.start_direction)
+    print ("Starting to move game marble from ", start_pos, "in direction ", self.start_direction)
 
     tick_count = 0  #  we better have some limit just in case of long loops
     current_pos = start_pos + self.start_direction
     current_direction = self.start_direction
-    print ("First move marble from ", current_pos, "in direction ", current_direction)
+    print ("First move game marble from ", current_pos, "in direction ", current_direction)
     while (
         (current_pos in self.guess_active_squares) and 
         (tick_count < self.tick_limit) and 
         (current_pos != None)):
         tick_count += 1
-        new_dir = MirrorMagic (self, current_pos, current_direction)
+        new_dir = MirrorMagic (self, 0, current_pos, current_direction)
         if (new_dir != None):
 #            if (current_pos in self.guess_active_squares):
 #                cube_xy = self.guess_active_squares_position[self.guess_active_squares.index(current_pos)]
@@ -461,20 +502,21 @@ def MarbleInMotion (self, x_rec, y_rec, win_pos):
 #                self.cube.y = cube_xy[1]
 #                self.pointer_top_batch.draw()
 #                self.flip()
-#            print ("Moved: Tick, CP, CD ", tick_count, current_pos, current_direction)
+            print ("Moved: game marble Tick, CP, CD ", tick_count, current_pos, current_direction)
 #            sleep (0.08)
             current_pos += new_dir
             current_direction = new_dir
             self.stop_direction = current_direction
         else:
-#            print ("Didn't Move: Tick, CP, CD ", tick_count, current_pos, current_direction)
+            print ("Didn't Move: game marble Tick, CP, CD ", tick_count, current_pos, current_direction)
             self.stop_direction = None
+            tick_count = self.tick_limit
 
-    print ("Last moved marble at ", current_pos, "in direction ", current_direction)
+    print ("Last moved game marble at ", current_pos, "in direction ", current_direction)
     if (tick_count >= self.tick_limit):
-        print ("Exceeded tick_count of ", self.tick_limit)
+        print ("Exceeded game marble tick_count of ", self.tick_limit)
     elif (current_direction == None):
-        print ("No Arrow Out...")
+        print ("No game marble Arrow Out...")
         HideOutArrow (self)
     else:
         ShowWhiteOutArrow (self, current_pos)
@@ -485,5 +527,53 @@ def MarbleInMotion (self, x_rec, y_rec, win_pos):
 def DoLeftClickWhiteAction (self, x, x_rec, y, y_rec, win_pos):
 
     MarbleInMotion (self, x_rec, y_rec, win_pos)
+
+
+def CheckMarbleChangeDirection (self, sprite_index, x, y):
+
+    print ("Check Marble Change Direction at x,y ", x, y)
+    self.marble_tick_count += 1
+    if (self.marble_current_pos not in self.guess_active_squares): 
+        print ("Check Marble Tick, CP, CD Not in guess active squares ", self.marble_tick_count, self.marble_current_pos, self.marble_current_direction)
+    else:
+        print ("Check Marble Tick, CP, CD ", self.marble_tick_count, self.marble_current_pos, self.marble_current_direction)
+        old_dir = self.marble_current_direction
+        new_dir = MirrorMagic (self, 1, self.marble_current_pos, self.marble_current_direction)
+        if (new_dir != None):
+            self.marble_current_pos += new_dir
+            self.marble_current_direction = new_dir
+            self.marble_stop_direction = self.marble_current_direction
+            if (old_dir == new_dir):
+#               print ("Check Marble didn't change direction... ")
+                pass
+            elif (old_dir == -new_dir):
+                print ("Check Marble reversed direction... ")
+                self.marble_sprites[sprite_index].dx *= -1
+                self.marble_sprites[sprite_index].x +=  self.tic_pix * self.marble_sprites[sprite_index].dx
+                self.marble_sprites[sprite_index].dy *= -1
+                self.marble_sprites[sprite_index].y +=  self.tic_pix * self.marble_sprites[sprite_index].dy
+            elif ((MovingLeft (self, old_dir) or MovingRight (self, old_dir)) and
+                  (MovingUp (self, new_dir) or MovingDown (self, new_dir))):
+                print ("Check Marble reflected Up or Down... ")
+                self.marble_sprites[sprite_index].dx = 0
+                self.marble_sprites[sprite_index].dy = new_dir//abs(new_dir)
+                self.marble_sprites[sprite_index].y +=  self.tic_pix * self.marble_sprites[sprite_index].dy
+            elif ((MovingUp (self, old_dir) or MovingDown (self, old_dir)) and
+                  (MovingLeft (self, new_dir) or MovingRight (self, new_dir))):
+                print ("Check Marble reflected Left or Right... ")
+                self.marble_sprites[sprite_index].dy = 0
+                self.marble_sprites[sprite_index].dx = new_dir//abs(new_dir)
+                self.marble_sprites[sprite_index].x +=  self.tic_pix * self.marble_sprites[sprite_index].dx
+            else:
+                pass
+        else:
+            print ("Didn't Move: Check Marble Tick, CP, CD ", self.marble_tick_count, self.marble_current_pos, self.marble_current_direction)
+            self.marble_sprites[sprite_index].dx = 0
+            self.marble_sprites[sprite_index].dy = 0
+            self.marble_stop_direction = None
+            self.marble_tick_count = self.tick_limit
+
+    if (self.marble_tick_count > self.tick_limit):
+        print ("Check Marble Exceeded tick_count of ", self.tick_limit)
 
 

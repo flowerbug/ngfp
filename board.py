@@ -13,11 +13,14 @@ def DrawBoard (self):
         # draw game grid
         # print ("draw show board 2", self.show_board, self.board_initialized)
         y_pos = self.img_pix
+        x_pos = self.img_pix
+        self.game_board_x_lower_limit = x_pos
+        self.game_board_y_lower_limit = y_pos
 #       win_pos = ((self.window_rows - 2) * self.window_cols) + 1
         win_pos = self.window_cols + 1
 
         for x in range(self.game_rows):
-            x_pos = self.img_pix
+            x_pos = self.game_board_x_lower_limit
             for y in range(self.game_cols):
                 board_position = (self.game_rows * x) + y
                 if (self.show_board == 2):
@@ -34,13 +37,16 @@ def DrawBoard (self):
                 win_pos += 1
             y_pos += self.img_pix
             win_pos += (self.control_cols + 3)
-        self.game_board_x_limit = x_pos
-        self.game_board_y_limit = y_pos + self.img_pix
+        self.game_board_x_upper_limit = x_pos
+        self.game_board_y_upper_limit = y_pos
         self.board_initialized = True
         self.show_board = 1
-        print ("Active guess squares", self.guess_active_squares)
-        print ("Active guess square positions", self.guess_active_squares_position)
+        print ("Guess active squares", self.guess_active_squares)
+        print ("Guess active square positions", self.guess_active_squares_position)
         print ("board_to_window_index", self.board_to_window_index)
+        print ("game board limits ", self.game_board_x_lower_limit, self.game_board_x_upper_limit,
+            self.game_board_y_lower_limit, self.game_board_y_upper_limit)
+
 
     elif (self.show_board == 0):
         for j in range(len(self.board_sprites)):
