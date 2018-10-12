@@ -4,29 +4,29 @@ import sys
 
 def HideInArrow (self):
 
-    print ("HideInArrow ", self.arrow_index)
+#    print ("HideInArrow ", self.arrow_index)
     self.arrow_history_sprites[self.arrow_index][0].visible = False
     self.history_color_sprites[self.arrow_index][0].visible = False
 
 
 def HideOutArrow (self):
 
-    print ("HideOutArrow ", self.arrow_index)
+#    print ("HideOutArrow ", self.arrow_index)
     self.arrow_history_sprites[self.arrow_index][1].visible = False
     self.history_color_sprites[self.arrow_index][1].visible = False
 
 
 def HideBothArrows (self):
 
-    print ("HideBothArrows ", self.arrow_index)
+#    print ("HideBothArrows ", self.arrow_index)
     HideInArrow (self)
     HideOutArrow (self)
 
 
 def UpdateAndShowArrow (self, image, spot, xy_coord, rotate):
 
-    print ("Update Arrow  arrow_index ", self.arrow_index,
-        " spot, ", spot ," coord", xy_coord)
+#    print ("Update Arrow  arrow_index ", self.arrow_index,
+#        " spot, ", spot ," coord", xy_coord)
 
     self.arrow_history_sprites[self.arrow_index][spot].x = xy_coord[0]
     self.arrow_history_sprites[self.arrow_index][spot].y = xy_coord[1]
@@ -52,4 +52,5 @@ def HistoryAndMarbleShift (self):
     # we need to rotate both the arrows and marbles together
     self.color_batch_list.append(self.color_batch_list.pop(0))
     self.marble_sprites.append(self.marble_sprites.pop(0))
+
 
