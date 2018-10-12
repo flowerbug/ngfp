@@ -42,20 +42,31 @@ def DrawBordersAndBackgrounds (self):
         self.white_active_squares_position.append([x_pos,y_pos_up])
         self.dir_up.append(((self.window_rows-1) * self.window_cols)+x+1)
         x_pos += self.img_pix
-    print ("Active white squares", self.white_active_squares)
-    print ("Active white square positions", self.white_active_squares_position)
-    print ("Left Active white squares", self.dir_left)
-    print ("Right Active white squares", self.dir_right)
-    print ("Up Active white squares", self.dir_up)
-    print ("Down Active white squares", self.dir_down)
+#    print ("White active squares", self.white_active_squares)
+#    print ("White active square positions", self.white_active_squares_position)
+#    print ("Left white active squares", self.dir_left)
+#    print ("Right white active squares", self.dir_right)
+#    print ("Up white active squares", self.dir_up)
+#    print ("Down white active squares", self.dir_down)
 
     # draw vertical green controls
-    y_pos = 0
-    x_pos = 0
-    x_pos_right = self.img_pix * (self.game_cols+2)
+    self.control_active_squares = []
+    self.control_active_squares_position = []
+    x_pos = self.img_pix * (self.game_cols+2)
+    y_pos = self.img_pix * (self.game_rows+1)
+    win_pos = self.window_squares - (self.control_cols + 1)
+    control_counter = 0
     for y in range(self.game_rows+2):
-        self.fixed_sprites.append( pyglet.sprite.Sprite( self.green_bg_image, batch=self.fixed_batch, x = x_pos_right, y = y_pos))
-        y_pos += self.img_pix
+        self.green_sprites.append( pyglet.sprite.Sprite( self.green_bg_image, batch=self.green_batch, x = x_pos, y = y_pos))
+        if (control_counter in range(len (self.control_images))):
+            self.control_sprites.append( pyglet.sprite.Sprite( self.control_images[control_counter], batch=self.control_batch, x = x_pos, y = y_pos))
+            self.control_active_squares.append(win_pos)
+            self.control_active_squares_position.append([x_pos,y_pos])
+            win_pos -= self.window_cols
+            control_counter += 1
+        y_pos -= self.img_pix
+#    print ("Control active squares", self.control_active_squares)
+#    print ("Control active square positions", self.control_active_squares_position)
 
     # put down the widget piles.  for any empty spots use 
     #    the light gray background.  alternate rows of
@@ -87,8 +98,8 @@ def DrawBordersAndBackgrounds (self):
                 spr_index += 1
         y_pos -= self.img_pix*2
         win_pos -= self.window_cols*2
-    print ("Active widget squares", self.widget_active_squares)
-    print ("Active widget square positions", self.widget_active_squares_position)
+#    print ("Widget active squares", self.widget_active_squares)
+#    print ("Widget active square positions", self.widget_active_squares_position)
 
     # then fill in the rest of the rows with the 
     # gray background.
@@ -99,4 +110,5 @@ def DrawBordersAndBackgrounds (self):
             self.fixed_sprites.append( pyglet.sprite.Sprite( self.gray_bg_image, batch=self.fixed_batch, x = x_pos, y = y_pos))
             x_pos += self.img_pix
         y_pos -= self.img_pix*2
+
 

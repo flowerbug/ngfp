@@ -51,12 +51,12 @@ class Window(pyglet.window.Window):
 
         MyInitStuff (self)
 
-        if (self.use_test_board):
-            print (self.test_board)
-        else:
-            print (self.board)
-        print (self.pic_list)
-        print (self.spr_mv_list)
+#        if (self.use_test_board):
+#            print (self.test_board)
+#        else:
+#            print (self.board)
+#        print (self.pic_list)
+#        print (self.spr_mv_list)
 
         InitRandomBoardItems (self)
 
@@ -100,17 +100,19 @@ class Window(pyglet.window.Window):
         win_pos = (y_win * self.window_cols) + x_win
 
         if button == mouse.LEFT:
-            print('The LEFT mouse button was pressed.', x, x_rec, x_win, y, y_rec, y_win, win_pos)
+#            print("The LEFT mouse button was pressed.", x, x_rec, x_win, y, y_rec, y_win, win_pos)
             ActiveAreaLeftMouseClickAction(self, x, x_rec, y, y_rec, win_pos)
         elif button == mouse.MIDDLE:
-            print('The MIDDLE mouse button was pressed.', x, x_rec, x_win, y, y_rec, y_win, win_pos)
+#            print("The MIDDLE mouse button was pressed.", x, x_rec, x_win, y, y_rec, y_win, win_pos)
+             pass
         elif button == mouse.RIGHT:
-            print('The RIGHT mouse button was pressed.', x, x_rec, x_win, y, y_rec, y_win, win_pos)
+#            print("The RIGHT mouse button was pressed.", x, x_rec, x_win, y, y_rec, y_win, win_pos)
             ActiveAreaRightMouseClickAction(self, x, x_rec, y, y_rec, win_pos)
 
 
     def on_mouse_release(self, x, y, button, modifiers):
-        print ("The mouse was released")
+#        print ("The mouse was released")
+        pass
 
 
     def on_mouse_motion(self, x, y, dx, dy):
@@ -144,26 +146,26 @@ class Window(pyglet.window.Window):
 
         self.keys_held.append(symbol)
         if ((symbol == pyglet.window.key.ESCAPE) or (symbol == pyglet.window.key.Q)): # [ESC] or [Q]
-            print ("The 'ESC' or 'Q' key was pressed")
+#            print ("The 'ESC' or 'Q' key was pressed")
             exit()
         elif symbol == pyglet.window.key.LEFT:
             if self.cube.x > 0:
                 self.cube.x -= self.img_pix
-            print ("The 'LEFT' key was pressed")
+#            print ("The 'LEFT' key was pressed")
         elif symbol == pyglet.window.key.RIGHT:
             if self.cube.x < self.game_board_x_limit:
                 self.cube.x += self.img_pix
-            print ("The 'RIGHT' key was pressed")
+#            print ("The 'RIGHT' key was pressed")
         elif symbol == pyglet.window.key.UP:
             if self.cube.y < self.game_board_y_limit:
                 self.cube.y += self.img_pix
-            print ("The 'UP' key was pressed")
+#            print ("The 'UP' key was pressed")
         elif symbol == pyglet.window.key.DOWN:
             if self.cube.y > 0:
                 self.cube.y -= self.img_pix
-            print ("The 'DOWN' key was pressed")
+#            print ("The 'DOWN' key was pressed")
         elif symbol == pyglet.window.key.F1:
-            print ("The 'F1' key was pressed, show board ", self.show_board)
+#            print ("The 'F1' key was pressed, show board ", self.show_board)
             # after the initial showing of the background we
             # don't ever need to see the background again so 
             # only toggle between the game board and the guess 
@@ -173,13 +175,13 @@ class Window(pyglet.window.Window):
                 self.picked_up_sprite.visible = False
             elif ((self.show_board == 1) and (self.picked_up == True)):
                 self.picked_up_sprite.visible = True
-            print ("The 'F1' key was pressed, show board changed to ", self.show_board)
+#            print ("The 'F1' key was pressed, show board changed to ", self.show_board)
 
 
     def on_key_release(self, symbol, modifiers):
         try:
             self.keys_held.pop(self.keys_held.index(symbol))
-            print ("The key was released")
+#            print ("The key was released")
         except:
             pass
 
@@ -238,6 +240,8 @@ class Window(pyglet.window.Window):
         UpdateLabels(self)
 
         self.fixed_batch.draw()
+        self.green_batch.draw()
+        self.control_batch.draw()
         self.fixed_board_batch.draw()
         self.variable_board_batch.draw()
         self.variable_guess_batch.draw()
@@ -255,12 +259,12 @@ class Window(pyglet.window.Window):
 
 
 def main():
-    window = Window(width=1024, height=640, caption='Ngfp')
+    window = Window(width=1024, height=640, caption="Ngfp")
     pyglet.clock.schedule_interval(window.update, 1/120.0) # update at 60Hz
     pyglet.app.run()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 
 

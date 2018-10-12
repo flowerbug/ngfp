@@ -18,6 +18,10 @@ def MyInitStuff (self):
     self.set_location(self.x + self.game_x_offset, self.y + self.game_y_offset)
 
     self.half_img_pix = self.img_pix // 2
+
+    # animation pixels moved (it must be a factor of img_pix otherwise
+    #   the marble won't match with the grid of coordinates - i.e. there's
+    #   no wiggle room in the collision detection)...
     self.tic_pix = self.img_pix // 2
 
     self.game_board_x_limit = 0
@@ -30,6 +34,8 @@ def MyInitStuff (self):
 
     # batches for rendering
     self.fixed_batch = pyglet.graphics.Batch()
+    self.green_batch = pyglet.graphics.Batch()
+    self.control_batch = pyglet.graphics.Batch()
     self.fixed_board_batch = pyglet.graphics.Batch()
     self.variable_board_batch = pyglet.graphics.Batch()
     self.variable_guess_batch = pyglet.graphics.Batch()
@@ -48,9 +54,8 @@ def MyInitStuff (self):
 
     # lists of sprites
     self.fixed_sprites = []
-    self.fixed_board_sprites = []
-    self.board_sprites = []
-    self.guess_sprites = []
+    self.green_sprites = []
+    self.control_sprites = []
     self.top_sprites = []
     self.arrow_history_sprites = []
     self.history_color_sprites = []
@@ -88,16 +93,29 @@ def MyInitStuff (self):
         self.test_board = []
         self.test_widget_pile_list_counts = []
 
-    self.game_bg_image  = pyglet.image.load('png/00_bg.png')
-    self.white_bg_image = pyglet.image.load('png/wbg.png')
-    self.blue_bg_image  = pyglet.image.load('png/bbg.png')
-    self.green_bg_image = pyglet.image.load('png/lgbg.png')
-    self.gray_bg_image  = pyglet.image.load('png/gbg.png')
+    self.game_bg_image  = pyglet.image.load("png/mirrors/00_bg.png")
+    self.white_bg_image = pyglet.image.load("png/backgrounds/wbg.png")
+    self.blue_bg_image  = pyglet.image.load("png/backgrounds/bbg.png")
+    self.green_bg_image = pyglet.image.load("png/backgrounds/lgbg.png")
+    self.gray_bg_image  = pyglet.image.load("png/backgrounds/gbg.png")
 
-    self.gcube_image = pyglet.image.load('png/gcube.png')
+    self.gcube_image = pyglet.image.load("png/misc/gcube.png")
     self.gcube = pyglet.sprite.Sprite(self.gcube_image, x=self.img_pix, y=0)
-    self.cube_image  = pyglet.image.load('png/cube.png')
+    self.cube_image  = pyglet.image.load("png/misc/cube.png")
     self.cube = pyglet.sprite.Sprite(self.cube_image, x=self.img_pix, y=0)
+
+    self.pic_control_list = [
+        "png/controls/picINew.png",
+        "png/controls/picICheck.png",
+        "png/controls/picIFlipBoards.png",
+        "png/controls/picIOpen.png",
+        "png/controls/picISave.png",
+        "png/controls/picIAbout.png"
+        ]
+
+    self.control_images = []
+    for i in range(len(self.pic_control_list)):
+        self.control_images.append(pyglet.image.load(self.pic_control_list[i]))
 
     self.pic_marbles_list = [
         "png/marbles/red_marbles.png",
@@ -126,14 +144,10 @@ def MyInitStuff (self):
         self.color_images.append(pyglet.image.load(self.pic_color_list[i]))
 
     self.pic_arrow_list = [
-        "png/picDrescaled/picDLeftW.png",
-        "png/picDrescaled/picDRightW.png",
-        "png/picDrescaled/picDUpW.png",
-        "png/picDrescaled/picDDownW.png",
-        "png/picDrescaled/picDLeft.png",
-        "png/picDrescaled/picDRight.png",
-        "png/picDrescaled/picDUp.png",
-        "png/picDrescaled/picDDown.png"
+        "png/arrows/picDLeftW.png",
+        "png/arrows/picDRightW.png",
+        "png/arrows/picDUpW.png",
+        "png/arrows/picDDownW.png"
         ]
 
     self.arrow_images = []
@@ -169,40 +183,40 @@ def MyInitStuff (self):
         self.marble_sprites.append(spr_e)
 
     self.pic_list = [
-        "png/00_bg.png",           # background
-        "png/01_normal.png",       # simple mirrors: left: \
-        "png/02_normal.png",       # simple mirrors: right: /
-        "png/03_flip2.png",        # simple flipping mirrors: left: \
-        "png/04_flip2.png",        # simple flipping mirrors: right: /
-        "png/05_flip4.png",        # quad flipping mirrors: left: \
-        "png/06_flip4.png",        # quad flipping mirrors: bounce: o
-        "png/07_flip4.png",        # quad flipping mirrors: right: /
-        "png/08_flip4.png",        # quad flipping mirrors: bounce: o
-        "png/09_block.png",        # box and sink: box: bounce: o  (reflect all)
-        "png/10_sink.png",         # box and sink: sink: grab: x  (absorb all)
-        "png/11_axial.png",        # axial mirrors: simple vertical: |
-        "png/12_axial.png",        # axial mirrors: simple horizontal: -
-        "png/13_axial2.png",       # axial mirrors: flipping vertical: ||
-        "png/14_axial2.png",       # axial mirrors: flipping horizontal: =
-        "png/15_rotator.png",      # rotators simple counterclockwise: left: \\
-        "png/16_rotator.png",      # rotators simple clockwise: right: //
-        "png/17_rotator2.png",     # rotators flipper clockwise: left: []
-        "png/18_rotator2.png",     # rotators flipper counterclockwise: right: ][
-        "png/19_half.png",         # 1-way mirrors: left: lower reflects: \<-
-        "png/20_half.png",         # 1-way mirrors: left: upper reflects: ->\
-        "png/21_half.png",         # 1-way mirrors: right: lower reflects: ->/
-        "png/22_half.png",         # 1-way mirrors: right: upper reflects: /<-
-        "png/23_half4.png",        # flipping 1-way mirrors: left: lower reflects: rotates clockwise: \\\<-
-        "png/24_half4.png",        # flipping 1-way mirrors: right: upper reflects: rotates clockwise: ///<-
-        "png/25_half4.png",        # flipping 1-way mirrors: left: upper reflects: rotates clockwise: ->\\\
-        "png/26_half4.png",        # flipping 1-way mirrors: right: lower reflects: rotates clockwise: ->///
-        "png/27_half4.png",        # flipping 1-way mirrors: left: upper reflects: rotates counterclockwise: ->\\\
-        "png/28_half4.png",        # flipping 1-way mirrors: right: upper reflects: rotates counterclockwise: ///<-
-        "png/29_half4.png",        # flipping 1-way mirrors: left: lower reflects: rotates counterclockwise: \\\<-
-        "png/30_half4.png",        # flipping 1-way mirrors: right: lower reflects: rotates counterclockwise: ->///
-        "png/31_move.png",         # moving mirror: left: -->\X\--> ---->\X\
-        "png/32_move.png",         # moving mirror: right: <--/X/<-- /X/<----
-        "png/33_bg.png"            # background
+        "png/mirrors/00_bg.png",           # background
+        "png/mirrors/01_normal.png",       # simple mirrors: left: \
+        "png/mirrors/02_normal.png",       # simple mirrors: right: /
+        "png/mirrors/03_flip2.png",        # simple flipping mirrors: left: \
+        "png/mirrors/04_flip2.png",        # simple flipping mirrors: right: /
+        "png/mirrors/05_flip4.png",        # quad flipping mirrors: left: \
+        "png/mirrors/06_flip4.png",        # quad flipping mirrors: bounce: o
+        "png/mirrors/07_flip4.png",        # quad flipping mirrors: right: /
+        "png/mirrors/08_flip4.png",        # quad flipping mirrors: bounce: o
+        "png/mirrors/09_block.png",        # box and sink: box: bounce: o  (reflect all)
+        "png/mirrors/10_sink.png",         # box and sink: sink: grab: x  (absorb all)
+        "png/mirrors/11_axial.png",        # axial mirrors: simple vertical: |
+        "png/mirrors/12_axial.png",        # axial mirrors: simple horizontal: -
+        "png/mirrors/13_axial2.png",       # axial mirrors: flipping vertical: ||
+        "png/mirrors/14_axial2.png",       # axial mirrors: flipping horizontal: =
+        "png/mirrors/15_rotator.png",      # rotators simple counterclockwise: left: \\
+        "png/mirrors/16_rotator.png",      # rotators simple clockwise: right: //
+        "png/mirrors/17_rotator2.png",     # rotators flipper clockwise: left: []
+        "png/mirrors/18_rotator2.png",     # rotators flipper counterclockwise: right: ][
+        "png/mirrors/19_half.png",         # 1-way mirrors: left: lower reflects: \<-
+        "png/mirrors/20_half.png",         # 1-way mirrors: left: upper reflects: ->\
+        "png/mirrors/21_half.png",         # 1-way mirrors: right: lower reflects: ->/
+        "png/mirrors/22_half.png",         # 1-way mirrors: right: upper reflects: /<-
+        "png/mirrors/23_half4.png",        # flipping 1-way mirrors: left: lower reflects: rotates clockwise: \\\<-
+        "png/mirrors/24_half4.png",        # flipping 1-way mirrors: right: upper reflects: rotates clockwise: ///<-
+        "png/mirrors/25_half4.png",        # flipping 1-way mirrors: left: upper reflects: rotates clockwise: ->\\\
+        "png/mirrors/26_half4.png",        # flipping 1-way mirrors: right: lower reflects: rotates clockwise: ->///
+        "png/mirrors/27_half4.png",        # flipping 1-way mirrors: left: upper reflects: rotates counterclockwise: ->\\\
+        "png/mirrors/28_half4.png",        # flipping 1-way mirrors: right: upper reflects: rotates counterclockwise: ///<-
+        "png/mirrors/29_half4.png",        # flipping 1-way mirrors: left: lower reflects: rotates counterclockwise: \\\<-
+        "png/mirrors/30_half4.png",        # flipping 1-way mirrors: right: lower reflects: rotates counterclockwise: ->///
+        "png/mirrors/31_move.png",         # moving mirror: left: -->\X\--> ---->\X\
+        "png/mirrors/32_move.png",         # moving mirror: right: <--/X/<-- /X/<----
+        "png/mirrors/33_bg.png"            # background
         ]
 
     self.spr_mv_list = []
