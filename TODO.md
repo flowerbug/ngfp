@@ -1,15 +1,36 @@
-Wed Oct 10 09:55:28 EDT 2018
+Sat Oct 13 10:55:04 EDT 2018
 
 
-v0.1.0 - ?  This TODO
+v0.1.1 - ?  This TODO
 
   - comparing boards
     - exact match is easy
     - functional match is harder
 
   - configuration file
-  - save and load games
+
+  - load and save any file name at all
+    - do a little more basic checks on format/data
+
   - restructure code (encapsulate, objectify, clean it up, tests and comments)
+
+
+v0.1.0
+  - save and load games the initial simple version (works)
+    - load from a gfpoken save file (works)
+      - when you save it use file name "save.ngfp"
+    - load as json file (works)
+      - use file name "save.json"
+    - save to json file (works)
+      - always overwrites or writes file name "save.json"
+
+
+    Notes:
+
+      if both files ("save.ngfp" and "save.json") exist for now
+    the first one "save.ngfp" is loaded and "save.json" is 
+    ignored.  if you only want "save.json" used then, rename 
+    "save.ngfp" or remove it.
 
 
 v0.0.9
