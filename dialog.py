@@ -1,20 +1,15 @@
 import os
 import copy
+import json
 from board import DrawBoard
 
+def Load_GFPSave_Version_1 (self, lines_in):
 
-def LoadSavedGameFromFile (self):
+    print (lines_in)
 
-    print ("LoadSavedGameFromFile...")
-
-    with open("save.ngfp") as filein:
-        lines = filein.readlines()
-
-    print (lines)
-
-    print (lines[0], lines[1])
-    line = lines.pop(0)
-    line = lines.pop(0)
+    print (lines_in[0], lines_in[1])
+    line = lines_in.pop(0)
+    line = lines_in.pop(0)
     board_dimensions_strings = line.split()
     print (board_dimensions_strings)
     new_board_rows = int(board_dimensions_strings[0])
@@ -24,9 +19,9 @@ def LoadSavedGameFromFile (self):
     # remember the lists are numbered from bottom left in pyglet
     # so board[0][0] is the 1st item of the last line, which is why 
     # we reverse them
-    guess_lines = lines[:new_board_cols]
-    marker_lines = lines[new_board_cols:new_board_cols*2]
-    board_lines = lines[new_board_cols*2:new_board_cols*3]
+    guess_lines = lines_in[:new_board_cols]
+    marker_lines = lines_in[new_board_cols:new_board_cols*2]
+    board_lines = lines_in[new_board_cols*2:new_board_cols*3]
 
     print ("Board ", board_lines)
     new_board = []
@@ -47,10 +42,12 @@ def LoadSavedGameFromFile (self):
 
     del self.board
     self.board = copy.deepcopy(new_board)
+    self.game_rows = new_board_rows
+    self.game_cols = new_board_cols
 
     print ("Markers ", marker_lines)
 
-    counters_str = lines[len(lines)-1]
+    counters_str = lines_in[len(lines_in)-1]
     new_counters = []
     for i in counters_str.split():
        new_counters.append(int(i))
@@ -59,13 +56,52 @@ def LoadSavedGameFromFile (self):
     del self.widget_pile_list_counts 
     self.widget_pile_list_counts = copy.deepcopy(new_counters)
 
-    self.show_board = 2  # reinitialize sprites and lists
-    DrawBoard (self)
+
+def Load_NGFPSave_Version_1 (self, lines_in):
+
+    print ("Load_NGFPSave_Version_1...")
+    print (lines_in)
+
+    self.game_rows = lines_in[1][0]
+    self.game_cols = lines_in[1][1]
+
+    del self.board
+    self.board = copy.deepcopy(lines_in[2])
+
+    del self.widget_pile_list_counts 
+    self.widget_pile_list_counts = copy.deepcopy(lines_in[3])
+
+
+def LoadSavedGameFromFile (self):
+
+    print ("LoadSavedGameFromFile...")
+
+    # for now, if the first file exists assume 
+    # it's the first one we want to use
+    try:
+        with open("save.ngfp") as filein:
+            lines_in = filein.readlines()
+        Load_GFPSave_Version_1 (self, lines_in)
+        self.show_board = 2  # reinitialize sprites and lists
+        DrawBoard (self)
+    except:
+        try:
+            with open("save.json") as filein:
+                lines_in = json.load(filein)
+            Load_NGFPSave_Version_1 (self, lines_in)
+            self.show_board = 2  # reinitialize sprites and lists
+            DrawBoard (self)
+        except:
+            print ("Files save.ngfp and save.json are missing...")
 
 
 def SaveGameToFile (self):
 
-   print ("SaveGameToFile, doesn't work yet...")
+    print ("SaveGameToFile...")
+
+    with open("save.json", mode="w") as fileout:
+
+        json.dump([["NGFP_Save\n", 1], [self.game_rows, self.game_cols], self.board, self.widget_pile_list_counts], fileout, indent = 4, separators=(',', ': '))
 
 
 def DoDialogControlAction (self, x, x_rec, y, y_rec, win_pos):
