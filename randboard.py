@@ -1,7 +1,7 @@
 import pyglet
 from pyglet.window import mouse
 import random
-from random import randrange, getrandbits, seed
+from random import randrange, getrandbits
 from time import sleep
 import copy
 
@@ -23,14 +23,11 @@ def InitRandomBoardItems (self):
     #  currently i'm using:
     #    1
     #    12 12 59 15 100 25 11 5 5 5 5
-    #
-    # and random seed 8 for testing
-    random.seed(a=12)
 
     # these will come from configuration file eventually...
     gridx = self.game_rows
     gridy = self.game_cols
-    self.density = 59
+    self.density = 30
     self.densityfuzz = 15
     self.classweight = [100, 75, 20, 20, 20, 20, 20]
     self.class_sum = sum(self.classweight)

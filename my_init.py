@@ -1,10 +1,13 @@
 import pyglet
 import copy
+import random
 
 from labels import AddLabels
 
 
 def MyInitStuff (self):
+
+    random.seed()
 
     display = pyglet.canvas.get_display()
     screen = display.get_default_screen()
