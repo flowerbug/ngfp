@@ -238,6 +238,7 @@ def MyInitStuff (self):
     for i in self.widget_pile_list:
         self.spr_mv_list[i][0] = 1
     self.widget_pile_list_counts = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    self.widget_labels = []
 
     # eventually we're going to have to index any widget no matter how it
     # is rotated...
@@ -273,11 +274,27 @@ def MyInitStuff (self):
         0, 0]
 
     # these flags are for the configuration of each group percentages images list
+    # even numbers are left image indexes, odd are right, seven groups of two
     self.config_percent_list = [1,2,3,5,9,10,11,14,15,18,19,22,23,31]
     for i in self.config_percent_list:
         self.spr_mv_list[i][3] = 1
 
-    self.widget_labels = []
+    self.property_labels = [
+                            "Width",
+                            "Height",
+                            "Density",
+                            "Fuzz"
+                           ]
+
+    self.widget_cl_labels = [
+                          "Simple mirrors",
+                          "Flipping mirrors",
+                          "Box and sink",
+                          "Axial mirrors",
+                          "Rotators",
+                          "One-way mirrors",
+                          "PURE EVIL"
+                         ]
 
     # 0 = nowhere, 1 = widget, 2 = board
     self.picked_up_from = 0

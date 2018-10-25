@@ -10,6 +10,7 @@ from gi.repository import Gtk
 from gi.repository import Gdk
 
 from board import DrawBoard
+import config as cfg
 
 
 setting = Gio.Settings.new("org.gtk.Settings.FileChooser")
@@ -25,6 +26,270 @@ this.home = Path.home()
 this.data_path = this.home / Path(".local/share/ngfp")
 this.config_path = this.home / Path(".config/ngfp")
 this.saved_dir = None
+
+
+class MyConfigWindow(Gtk.ApplicationWindow):
+
+
+    def __init__(self, app):
+        Gtk.Window.__init__(self, title="Ngfp Configuration", application=app)
+        self.set_border_width (30)
+        self.set_default_size(600, 600)
+        self.set_position (Gtk.WindowPosition.CENTER)
+
+        # adjustments (initial value, min value, max value,
+        # step increment - press cursor keys to see!,
+        # page increment - click around the handle to see!,
+        # page size - not used here)
+        adj_width = Gtk.Adjustment(cfg.game_cols, 8, 20, 1, 1, 0)
+        adj_height = Gtk.Adjustment(cfg.game_rows, 8, 20, 1, 1, 0)
+        adj_density = Gtk.Adjustment(cfg.density, 0, 100, 1, 1, 0)
+        adj_density_fuzz = Gtk.Adjustment(cfg.density_fuzz, 0, (100 - cfg.density), 1, 1, 0)
+
+        # a horizontal scale
+        self.h1_scale = Gtk.Scale(
+            orientation=Gtk.Orientation.HORIZONTAL, adjustment=adj_width)
+        # of integers (no digits)
+        self.h1_scale.set_digits(0)
+        # that can expand horizontally if there is space in the grid (see
+        # below)
+        self.h1_scale.set_hexpand(False)
+        # that is aligned at the top of the space allowed in the grid (see
+        # below)
+        self.h1_scale.set_valign(Gtk.Align.START)
+
+        # we connect the signal "value-changed" emitted by the scale with the callback
+        # function left_scale_moved
+        self.h1_scale.connect("value-changed", self.left_scale_moved)
+
+        # 2nd horizontal scale
+        self.h2_scale = Gtk.Scale(
+            orientation=Gtk.Orientation.HORIZONTAL, adjustment=adj_height)
+        # of integers (no digits)
+        self.h2_scale.set_digits(0)
+        # that can expand horizontally if there is space in the grid (see below)
+        self.h2_scale.set_hexpand(False)
+
+        # we connect the signal "value-changed" emitted by the scale with the callback
+        # function left_scale_moved
+        self.h2_scale.connect("value-changed", self.left_scale_moved)
+
+        # 3rd horizontal scale
+        self.h3_scale = Gtk.Scale(
+            orientation=Gtk.Orientation.HORIZONTAL, adjustment=adj_density)
+        # of integers (no digits)
+        self.h3_scale.set_digits(0)
+        # that can expand horizontally if there is space in the grid (see below)
+        self.h3_scale.set_hexpand(False)
+
+        # we connect the signal "value-changed" emitted by the scale with the callback
+        # function left_scale_moved
+        self.h3_scale.connect("value-changed", self.left_scale_moved)
+
+        # 4th horizontal scale
+        self.h4_scale = Gtk.Scale(
+            orientation=Gtk.Orientation.HORIZONTAL, adjustment=adj_density_fuzz)
+        # of integers (no digits)
+        self.h4_scale.set_digits(0)
+        # that can expand horizontally if there is space in the grid (see below)
+        self.h4_scale.set_hexpand(False)
+
+        # we connect the signal "value-changed" emitted by the scale with the callback
+        # function left_scale_moved
+        self.h4_scale.connect("value-changed", self.left_scale_moved)
+
+        # the four labels needed on the left side
+        self.l1_label = Gtk.Label()
+        self.l1_label.set_text(cfg.property_labels[0])
+        self.l2_label = Gtk.Label()
+        self.l2_label.set_text(cfg.property_labels[1])
+        self.l3_label = Gtk.Label()
+        self.l3_label.set_text(cfg.property_labels[2])
+        self.l4_label = Gtk.Label()
+        self.l4_label.set_text(cfg.property_labels[3])
+
+        # and then the bottom label for the left side
+        self.bottom_label_left = Gtk.Label()
+        self.bottom_label_left.set_text("Move the scale handles...")
+        self.bottom_label_left.set_width_chars (21)
+
+        # a grid to attach the widgets
+        self.grid = Gtk.Grid ()
+        self.grid.set_row_homogeneous (True)
+        self.grid.set_column_spacing (2)
+        self.grid.set_row_spacing (20)
+
+        # do the left side first
+        self.grid.add (self.h1_scale)
+        self.grid.attach_next_to (self.l1_label, self.h1_scale, Gtk.PositionType.BOTTOM, 1, 1)
+        self.grid.attach_next_to (self.h2_scale, self.l1_label, Gtk.PositionType.BOTTOM, 1, 1)
+        self.grid.attach_next_to (self.l2_label, self.h2_scale, Gtk.PositionType.BOTTOM, 1, 1)
+        self.grid.attach_next_to (self.h3_scale, self.l2_label, Gtk.PositionType.BOTTOM, 1, 1)
+        self.grid.attach_next_to (self.l3_label, self.h3_scale, Gtk.PositionType.BOTTOM, 1, 1)
+        self.grid.attach_next_to (self.h4_scale, self.l3_label, Gtk.PositionType.BOTTOM, 1, 1)
+        self.grid.attach_next_to (self.l4_label, self.h4_scale, Gtk.PositionType.BOTTOM, 1, 1)
+        self.grid.attach_next_to (self.bottom_label_left, self.l4_label, Gtk.PositionType.BOTTOM, 1, 1)
+
+        class_pack = []
+        class_label = []
+        class_pic_pack = []
+        class_pic_left = []
+        class_pic_right = []
+        class_adj = []
+        self.class_scale = []
+
+        # ok, now the right side
+        pic_ind = 0
+        j = 0
+        col = 1
+        for i in range(len(cfg.widget_class_labels)):
+            class_pack.append (Gtk.Box (orientation=Gtk.Orientation.VERTICAL))
+            class_label.append (Gtk.Label (cfg.widget_class_labels[i]))
+            class_pack[i].pack_start (class_label[i], True, False, 0)
+            class_label[i].set_width_chars (15)
+            class_pic_pack.append (Gtk.Box (spacing=50))
+            class_pic_pack[i].set_halign (Gtk.Align.CENTER)
+            class_pic_left.append (Gtk.Image.new_from_file(cfg.pic_list[cfg.config_percent_list[pic_ind]]))
+            pic_ind += 1
+            class_pic_right.append (Gtk.Image.new_from_file(cfg.pic_list[cfg.config_percent_list[pic_ind]]))
+            pic_ind += 1
+            class_pic_pack[i].pack_start (class_pic_left[i], False, False, 0)
+            class_pic_pack[i].pack_start (class_pic_right[i], False, False, 0)
+            class_pack[i].pack_start (class_pic_pack[i], True, True, 0)
+            class_adj.append (Gtk.Adjustment (cfg.class_weights[i], 0, 100, 1, 1, 0))
+            self.class_scale.append (Gtk.Scale (orientation=Gtk.Orientation.HORIZONTAL, adjustment=class_adj[i]))
+            self.class_scale[i].set_digits(0)
+            class_pack[i].pack_start (self.class_scale[i], True, False, 0)
+            self.grid.attach (class_pack[i], col, j, 1, 3)
+
+            # we connect the signal "value-changed" emitted by the scale with the callback
+            # function right_scale_moved
+            self.class_scale[i].connect("value-changed", self.right_scale_moved)
+
+            if ((i + 1) > 3):
+                j = 4
+                col = (i + 1) % 4 + 1
+            else:
+                col += 1
+
+        new_game_button = Gtk.Button.new_with_label("New Game")
+        new_game_button.connect("clicked", self.on_new_game_clicked) 
+        self.grid.attach (new_game_button, 4, 4, 1, 1)
+
+        save_button = Gtk.Button.new_with_label("Save Config")
+        save_button.connect("clicked", self.on_save_clicked)
+        self.grid.attach (save_button, 4, 5, 1, 1)
+
+        load_button = Gtk.Button.new_with_label("Load Config")
+        load_button.connect("clicked", self.on_load_clicked)
+        self.grid.attach (load_button, 4, 6, 1, 1)
+
+        cancel_button = Gtk.Button.new_with_label("Cancel")
+        cancel_button.connect("clicked", self.on_cancel_clicked)
+        self.grid.attach (cancel_button, 4, 7, 1, 1)
+
+        restore_button = Gtk.Button.new_with_label("Defaults")
+        restore_button.connect("clicked", self.on_restore_clicked)
+        self.grid.attach (restore_button, 4, 8, 1, 1)
+
+        self.add(self.grid)
+
+
+    # any signal from the left property scales is signaled to the
+    # bottom_label_left text of which is changed and also the
+    # respective config parameters
+    def left_scale_moved(self, event):
+        width = int(self.h1_scale.get_value())
+        height = int(self.h2_scale.get_value())
+        density = int(self.h3_scale.get_value())
+        density_fuzz = int(self.h4_scale.get_value())
+        if (width != cfg.game_cols):
+            cfg.new_game_cols = width
+        if (height != cfg.game_rows):
+            cfg.new_game_rows = height
+        if (density != cfg.density):
+            cfg.new_density = density
+        if (density_fuzz != cfg.density_fuzz):
+            cfg.new_density_fuzz = density_fuzz
+        self.bottom_label_left.set_text("W " + str(width) + " H " + str(height) + " D " + str(density) + " F " + str(density_fuzz))
+
+
+    # any signals from the right class scales is signaled to
+    # update the config class_weights
+    def right_scale_moved(self, event):
+        for i in range(len(self.class_scale)):
+            new_value = int(self.class_scale[i].get_value())
+            print ("NV ", new_value)
+            if (new_value != cfg.new_class_weights[i]):
+                cfg.new_class_weights[i] = new_value
+        print ("C ", cfg.class_weights)
+        print ("N ", cfg.new_class_weights)
+        for i in range(len(self.class_scale)):
+            new_value = int(self.class_scale[i].get_value())
+            print ("NV ", new_value)
+            if (new_value != cfg.new_class_weights[i]):
+                cfg.new_class_weights[i] = new_value
+        print ("C ", cfg.class_weights)
+        print ("N ", cfg.new_class_weights)
+        print ("D ", cfg.default_class_weights)
+
+
+    def on_new_game_clicked(self, widget):
+        print ("New Game")
+
+
+    def on_save_clicked(self, widget):
+        print ("Save Config")
+
+
+    def on_load_clicked(self, widget):
+        print ("Load Config")
+
+
+    def on_cancel_clicked(self, widget):
+        print ("Cancel")
+        self.destroy ()
+        print ("C ", cfg.class_weights)
+        print ("N ", cfg.new_class_weights)
+        print ("D ", cfg.default_class_weights)
+
+
+    def on_restore_clicked(self, widget):
+        print ("Restore Defaults")
+        cfg.RestoreDefaults (self)
+        self.h1_scale.set_value(cfg.game_cols)
+        self.h2_scale.set_value(cfg.game_rows)
+        self.h3_scale.set_value(cfg.density)
+        self.h4_scale.set_value(cfg.density_fuzz)
+        for i in range(len(cfg.default_class_weights)):
+            self.class_scale[i].set_value (cfg.default_class_weights[i])
+        print ("C ", cfg.class_weights)
+        print ("N ", cfg.new_class_weights)
+        print ("D ", cfg.default_class_weights)
+
+
+class MyConfigApplication(Gtk.Application):
+
+
+    def __init__(self):
+        Gtk.Application.__init__(self)
+
+
+    def do_activate(self):
+        win = MyConfigWindow(self)
+        win.show_all()
+
+
+    def do_startup(self):
+        Gtk.Application.do_startup(self)
+
+
+def ConfigGame (self):
+
+    print ("ConfigGame dialog ...")
+
+    app = MyConfigApplication()
+    app.run()
 
 
 def add_filters(dialog):
@@ -265,7 +530,7 @@ def DoDialogControlAction (self, x, x_rec, y, y_rec, win_pos):
     # simple menu selection
     if (menu_index == 0):
         # New Game Dialog
-        pass
+        ConfigGame (self)
     elif (menu_index == 1):
         # Check Board
         pass

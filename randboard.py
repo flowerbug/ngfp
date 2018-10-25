@@ -4,35 +4,19 @@ import random
 from random import randrange, getrandbits
 from time import sleep
 import copy
+import config as cfg
 
 
 def InitRandomBoardItems (self):
 
-    # use "./gfpoken" configuration file if it exists
-    #   1st line:
-    #     1 integer:
-    #       version # 1
-    #   2nd line:
-    #     11 integers:
-    #       width
-    #       height
-    #       density
-    #       densityfuzz
-    #       classweight 0 - 6
-    #
-    #  currently i'm using:
-    #    1
-    #    12 12 59 15 100 25 11 5 5 5 5
-
     # these will come from configuration file eventually...
-    gridx = self.game_rows
-    gridy = self.game_cols
-    self.density = 30
-    self.densityfuzz = 15
-    self.classweight = [100, 75, 20, 20, 20, 20, 20]
-    self.class_sum = sum(self.classweight)
+    gridx = cfg.game_cols
+    gridy = cfg.game_rows
+    density = cfg.density
+    densityfuzz = cfg.density_fuzz
+    class_sum = sum(cfg.class_weights)
 
-#    print ("classweight, class_sum", self.classweight, self.class_sum)
+#    print ("cfg.class_weights, class_sum", cfg.class_weights, class_sum)
 
     self.class_list = [
                   ["ClSimple", []],
@@ -51,8 +35,8 @@ def InitRandomBoardItems (self):
         self.widget_pile_list_counts = list(self.test_widget_pile_list_counts)
         self.board = copy.deepcopy(self.test_board)
     else:
-        randpop = ((self.density * self.board_squares / 100) + 1) // 1
-        randpop += ((random.getrandbits(32) % (randpop*self.densityfuzz*2/100 + 1)) - (randpop*self.densityfuzz/100)) // 1
+        randpop = ((density * self.board_squares / 100) + 1) // 1
+        randpop += ((random.getrandbits(32) % (randpop*densityfuzz*2/100 + 1)) - (randpop*densityfuzz/100)) // 1
 
         if (randpop > self.board_squares):
             randpop = self.board_squares
@@ -65,14 +49,14 @@ def InitRandomBoardItems (self):
 #            print ("randpop, position", randpop, position)
 
             if (self.board[position][0] == 0):
-                randchance = random.getrandbits(32) % self.class_sum
+                randchance = random.getrandbits(32) % class_sum
 
 #                print ("  randchance", randchance)
                 upperbound = 0
                 tempobj = 0
 
-                for counter in range(len(self.classweight)):
-                    upperbound += self.classweight[counter]
+                for counter in range(len(cfg.class_weights)):
+                    upperbound += cfg.class_weights[counter]
 #                    print ("    upperbound", upperbound)
                     if (upperbound == 0):
                         continue                                           #  Base case

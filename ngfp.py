@@ -47,7 +47,7 @@ class Window(pyglet.window.Window):
         self.window_squares = self.window_rows*self.window_cols
 
         # temporary to help with testing things out
-        self.use_test_board = True
+        self.use_test_board = False
 
         MyInitStuff (self)
 
