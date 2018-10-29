@@ -1,31 +1,36 @@
 import pyglet
 import copy
 import random
-
-from labels import AddLabels
+import config as cfg
+from dialog import LoadConfigOrUseCurrent
 
 
 def MyInitStuff (self):
 
     random.seed()
 
-    display = pyglet.canvas.get_display()
-    screen = display.get_default_screen()
-    self.screen_width = screen.width
-    self.screen_height = screen.height
+    # screens, sizes and locations
+    #   some of these change as the board changes size
+    self.top_display = pyglet.canvas.get_display()
+    self.top_screen = self.top_display.get_default_screen()
+    self.full_screen_width = self.top_screen.width
+    self.full_screen_height = self.top_screen.height
+    print ("Initial Window Size : ", self.full_screen_width, self.full_screen_height)
+    self.windows_lst = self.top_display.get_windows()
+    self.screen_width = self.windows_lst[0].width
+    self.screen_height = self.windows_lst[0].height
+    self.x, self.y = self.windows_lst[0].get_location()
+    print ("Smaller Window Location and Size : ", self.x, self.y, self.screen_width, self.screen_height)
 
-    self.game_x_offset = (self.screen_width//2) - (((self.game_cols+self.control_cols+4)//2) * self.img_pix)
-    self.game_y_offset = (self.screen_height//2) - (((self.game_rows+6)//2) * self.img_pix)
+    # if there's a config file use it
+    #  if there isn't set defaults specified in config.py
+    LoadConfigOrUseCurrent ()
 
-    self.x, self.y = self.get_location()
-    self.set_location(self.x + self.game_x_offset, self.y + self.game_y_offset)
-
-    self.half_img_pix = self.img_pix // 2
-
-    # animation pixels moved (it must be a factor of img_pix otherwise
-    #   the marble won't match with the grid of coordinates - i.e. there's
-    #   no wiggle room in the collision detection)...
-    self.tic_pix = self.img_pix // 2
+    # other useful constants
+    self.board_squares = cfg.game_rows*cfg.game_cols
+    self.window_cols = (cfg.game_cols+cfg.control_cols+3)
+    self.window_rows = (cfg.game_rows+2)
+    self.window_squares = self.window_rows*self.window_cols
 
     self.game_board_x_limit = 0
     self.game_board_y_limit = 0
@@ -39,6 +44,7 @@ def MyInitStuff (self):
     self.fixed_batch = pyglet.graphics.Batch()
     self.green_batch = pyglet.graphics.Batch()
     self.control_batch = pyglet.graphics.Batch()
+    self.widget_batch = pyglet.graphics.Batch()
     self.fixed_board_batch = pyglet.graphics.Batch()
     self.variable_board_batch = pyglet.graphics.Batch()
     self.variable_guess_batch = pyglet.graphics.Batch()
@@ -57,44 +63,26 @@ def MyInitStuff (self):
 
     # lists of sprites
     self.fixed_sprites = []
+    self.fixed_board_sprites = []
     self.green_sprites = []
+    self.board_sprites = []
+    self.guess_sprites = []
     self.control_sprites = []
+    self.widget_sprites = []
     self.top_sprites = []
     self.arrow_history_sprites = []
     self.history_color_sprites = []
     self.marble_sprites = []
-    self.text_sprites = []
 
-    # to make sure we only do the background and fixed sprites once
-    # and to set up certain tuples/lists once...
-    self.board_initialized = False
-
-    # which board to show, a toggle between 0, 1  when Key F1 is pressed
-    # 0 - puzzle to solve
-    # 1 - guesses placed
-    # 2 - blank background
-    #
-    self.show_board = 2
-
-    self.board = [[0 for i in range(2)] for j in range(self.board_squares)]
-
-    if (self.use_test_board):
-        self.test_board = [[0 for i in range(2)] for j in range(self.board_squares)]
-        local_counts = [1, 1, 2, 4, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 4, 4, 1, 1]
-#        local_counts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-        if (self.board_squares >= 32):
-#            for i in range(1):
-#                self.test_board[i] = [i+32, 0]
-            for i in range(32):
-                self.test_board[i] = [i+1, 0]
-            self.test_widget_pile_list_counts = copy.deepcopy(local_counts)
-        else:
-            self.test_widget_pile_list_counts = copy.deepcopy(local_counts[:self.board_squares])
-            for i in range(self.board_squares):
-                self.test_board[i] = [i+1, 0]
-    else:
-        self.test_board = []
-        self.test_widget_pile_list_counts = []
+    self.white_active_squares = []
+    self.white_active_squares_position = []
+    self.guess_active_squares = []
+    self.guess_active_squares_position = []
+    self.control_active_squares = []
+    self.control_active_squares_position = []
+    self.widget_active_squares = []
+    self.widget_active_squares_position = []
+    self.board_to_window_index = []
 
     self.game_bg_image  = pyglet.image.load("png/mirrors/00_bg.png")
     self.white_bg_image = pyglet.image.load("png/backgrounds/wbg.png")
@@ -103,9 +91,7 @@ def MyInitStuff (self):
     self.gray_bg_image  = pyglet.image.load("png/backgrounds/gbg.png")
 
     self.gcube_image = pyglet.image.load("png/misc/gcube.png")
-    self.gcube = pyglet.sprite.Sprite(self.gcube_image, x=self.img_pix, y=0)
     self.cube_image  = pyglet.image.load("png/misc/cube.png")
-    self.cube = pyglet.sprite.Sprite(self.cube_image, x=self.img_pix, y=0)
 
     self.pic_control_list = [
         "png/controls/picINew.png",
@@ -309,5 +295,4 @@ def MyInitStuff (self):
     # some kind of limit to break out of loops
     self.tick_limit = 100 + (self.board_squares * 2)
 
-    # we only need to do the Labels once
-    AddLabels (self)
+

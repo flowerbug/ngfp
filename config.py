@@ -1,19 +1,24 @@
+import copy
+import json
 from pathlib import Path, PurePath
 import os
-import configparser
 
 
-"""
-Example Code:
+# the basic game unit for images and moving is
+img_pix = 64
 
 
-with open('config.json', 'r') as f:
-    config = json.load(f)
+half_img_pix = img_pix//2
 
-secret_key = config['DEFAULT']['SECRET_KEY'] # 'secret-key-of-myapp'
-ci_hook_url = config['CI']['HOOK_URL'] # 'web-hooking-url-from-ci-service'
 
-"""
+# animation pixels moved (it must be a factor of img_pix otherwise
+#   the marble won't match with the grid of coordinates - i.e. there's
+#   no wiggle room in the collision detection)...
+tic_pix = img_pix // 2
+
+
+# some space for things at the right
+control_cols = 5
 
 
 #   save game location and initial file
@@ -22,6 +27,28 @@ ci_hook_url = config['CI']['HOOK_URL'] # 'web-hooking-url-from-ci-service'
 
 filename_to_open = "save.json"
 filename_to_save = None
+
+#
+this_fn_to_open = None
+this_fn_to_save = None
+home = Path.home()
+saved_dir = None
+new_game_cols = None
+new_game_rows = None
+
+new_board = None
+new_widget_counts = None
+
+# which board to show, a toggle between 0, 1  when Key F1 is pressed
+#    but we start at 2 for a new board and it's random to start...
+# 0 - puzzle to solve
+# 1 - guesses placed
+# 2 - blank background
+#
+show_board = 2
+do_random_board = True
+
+
 if (os.name == "posix"):
     home = Path.home()
     data_path = home / Path(".local/share/ngfp")
@@ -35,16 +62,18 @@ config_filename = "config_ngfp.json"
 if (os.name == "posix"):
     home = Path.home()
     config_path = home / Path(".config/ngfp")
+    full_config_filename = config_path / config_filename
 else:
     print ("  Ngfp doesn't know where to set config_path for OS : ", os.name)
     print ("This is where the game saves configuration parameters.")
 
 
-# save the current directory so we can get back
-saved_dir = None
-
-
 # current, default and changed parameters
+
+min_cols = 1      # for the moment
+min_rows = 6      # for the moment
+max_cols = 22     # on 1920 x 1080
+max_rows = 13     # on 1920 x 1080
 
 game_cols = 8     # width
 game_rows = 8     # height
@@ -58,11 +87,9 @@ default_density = 25      # percent of the board filled up modified by density_f
 default_density_fuzz = 10
 default_class_weights = [100, 75, 5, 5, 5, 15, 5]
 
-new_game_cols = 8   # width
-new_game_rows = 8   # height
-new_density = 25    # percent of the board filled up modified by density_fuzz
-new_density_fuzz = 10
-new_class_weights = [100, 75, 5, 5, 5, 15, 5]
+
+# need to keep track of the current square
+square = None
 
 
 # labels for configuration dialog
@@ -124,29 +151,5 @@ pic_list = [
 # this indexes the above picture list so we know which ones are
 # used for labels on the configure screen
 config_percent_list = [1,2,3,5,9,10,11,14,15,18,19,22,23,31]
-
-# need to keep track of the current square
-
-square = None
-
-
-def LoadConfig (self):
-
-    print ("LoadConfig...")
-
-
-def SaveConfig (self):
-
-    print ("SaveConfig...")
-
-
-def RestoreDefaults (self):
-
-    print ("RestoreDefaults...")
-    game_cols = default_game_cols
-    game_rows = default_game_rows
-    density = default_density
-    density_fuzz = default_density_fuzz
-    class_weights = default_class_weights
 
 

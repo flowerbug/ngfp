@@ -1,5 +1,6 @@
 import pyglet
 import sys
+import config as cfg
 
 
 def HideInArrow (self):
@@ -38,7 +39,7 @@ def UpdateAndShowArrow (self, image, spot, xy_coord, rotate):
     if (rotate == 0.0):
         self.history_color_sprites[self.arrow_index][spot].y = xy_coord[1]
     else:
-        self.history_color_sprites[self.arrow_index][spot].y = xy_coord[1] + self.half_img_pix
+        self.history_color_sprites[self.arrow_index][spot].y = xy_coord[1] + cfg.half_img_pix
     self.history_color_sprites[self.arrow_index][spot].visible = True
 
 

@@ -1,23 +1,36 @@
-// config_ngfp_example.json
-{
-    "DEFAULTS":
-        {
-        "WIDTH": "8",
-        "HEIGHT": "8",
-        "DENSITY": "25",
-        "DENSITY_FUZZ": "10",
-        "CLASS_WEIGHTS": [ 100, 75, 5, 5, 5, 15, 5 ]
-        },
-    "USERS":
-        {
-        "WIDTH": "8",
-        "HEIGHT": "8",
-        "DENSITY": "25",
-        "DENSITY_FUZZ": "10",
-        "CLASS_WEIGHTS": [ 100, 75, 5, 5, 5, 15, 5 ]
-        },
-    "TEST":
-        {
-        "TEST_TMP_DIR": "tests"
-        }
-}
+[
+    [
+        "NGFP_Config\n",
+        1
+    ],
+    [
+        8,
+        8,
+        25,
+        10,
+        [
+            100,
+            75,
+            5,
+            5,
+            5,
+            15,
+            5
+        ]
+    ],
+    [
+        8,
+        8,
+        25,
+        10,
+        [
+            100,
+            75,
+            5,
+            5,
+            5,
+            15,
+            5
+        ]
+    ]
+]

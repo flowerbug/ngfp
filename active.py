@@ -1,13 +1,8 @@
 import pyglet
 import sys
+import config as cfg
 from marbles import DoLeftClickWhiteAction
 from dialog import DoDialogControlAction
-
-
-# this is a pointer to the module object instance itself.
-this = sys.modules[__name__]
-
-this.square = None
 
 
 def WidgetPutClear (self):
@@ -36,8 +31,8 @@ def WidgetPick (self, x, x_rec, y, y_rec, win_pos, pick_from, widget_index, widg
     self.picked_up_widget = widget_spr_index
     self.picked_up_widget_index = widget_index
     self.picked_up_sprite.image = self.spr_mv_list[widget_spr_index][1]
-    self.picked_up_sprite.x = x - self.half_img_pix - 4
-    self.picked_up_sprite.y = y - self.half_img_pix - 4
+    self.picked_up_sprite.x = x - cfg.half_img_pix - 4
+    self.picked_up_sprite.y = y - cfg.half_img_pix - 4
     self.picked_up_sprite.visible = True
 
     # something in progress hide cube
@@ -94,8 +89,8 @@ def GuessPick (self, x, x_rec, y, y_rec, win_pos, board_index):
     self.board[board_index][1] = 0
     self.picked_up_widget_index = self.widget_lookup_table[self.picked_up_widget] - 1
     self.widget_pile_list_counts[self.picked_up_widget_index] += 1
-    self.picked_up_sprite.x = x - self.half_img_pix - 4
-    self.picked_up_sprite.y = y - self.half_img_pix - 4
+    self.picked_up_sprite.x = x - cfg.half_img_pix - 4
+    self.picked_up_sprite.y = y - cfg.half_img_pix - 4
     self.picked_up_sprite.visible = True
 
 
@@ -129,8 +124,8 @@ def DoLeftClickControlAction (self, x, x_rec, y, y_rec, win_pos):
 
 def ActiveAreaLeftMouseClickAction (self, x, x_rec, y, y_rec, win_pos):
 
-    this.square = win_pos
-    if (self.show_board == 1):
+    cfg.square = win_pos
+    if (cfg.show_board == 1):
         if (win_pos in self.white_active_squares):
 #            print ("selected ", win_pos, " which is an active White square.")
             DoLeftClickWhiteAction (self, x, x_rec, y, y_rec, win_pos)
@@ -191,8 +186,8 @@ def DoGuessRotateWidgetAction (self, x, x_rec, y, y_rec, win_pos):
 
 def ActiveAreaRightMouseClickAction (self, x, x_rec, y, y_rec, win_pos):
 
-    this.square = win_pos
-    if (self.show_board == 1):
+    cfg.square = win_pos
+    if (cfg.show_board == 1):
         if (win_pos in self.white_active_squares):
 #            print ("selected ", win_pos, " which is an active White square.")
             pass
@@ -208,20 +203,20 @@ def ActiveAreaRightMouseClickAction (self, x, x_rec, y, y_rec, win_pos):
 
 def ActiveAreaMouseMoveAction (self, x, x_rec, y, y_rec, win_pos):
 
-    if (self.show_board == 1):
+    if (cfg.show_board == 1):
         if (win_pos in self.widget_active_squares):
-            if (this.square != win_pos):
+            if (cfg.square != win_pos):
 #                print ("moved over ", win_pos, " which is an active Widget square.")
-                this.square = win_pos
-            self.picked_up_sprite.x = x - self.half_img_pix - 4
-            self.picked_up_sprite.y = y - self.half_img_pix - 4
+                cfg.square = win_pos
+            self.picked_up_sprite.x = x - cfg.half_img_pix - 4
+            self.picked_up_sprite.y = y - cfg.half_img_pix - 4
             self.picked_up_sprite.visible = True
         elif (win_pos in self.guess_active_squares):
-            if (this.square != win_pos):
+            if (cfg.square != win_pos):
 #                print ("moved over ", win_pos, " which is an active Guess square.")
-                this.square = win_pos
-            self.picked_up_sprite.x = x - self.half_img_pix - 4
-            self.picked_up_sprite.y = y - self.half_img_pix - 4
+                cfg.square = win_pos
+            self.picked_up_sprite.x = x - cfg.half_img_pix - 4
+            self.picked_up_sprite.y = y - cfg.half_img_pix - 4
             self.picked_up_sprite.visible = True
         else:
             self.picked_up_sprite.x = x_rec

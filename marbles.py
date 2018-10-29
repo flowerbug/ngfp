@@ -2,6 +2,7 @@ import pyglet
 import sys
 import copy
 from time import sleep
+import config as cfg
 from history import UpdateAndShowArrow, HideBothArrows, HideOutArrow, HistoryNext, HistoryAndMarbleShift
 
 
@@ -367,28 +368,28 @@ def ShowWhiteInArrow (self, win_pos):
         self.start_direction = MoveRight(self) # means we're going right
         self.kept_start_dx = 1
         self.kept_start_dy = 0
-        self.kept_start_pos_x += self.img_pix - self.tic_pix
-        SWI_xy_coordinates[0] += self.half_img_pix
+        self.kept_start_pos_x += cfg.img_pix - cfg.tic_pix
+        SWI_xy_coordinates[0] += cfg.half_img_pix
         image = self.arrow_images[1]
     elif (win_pos in self.dir_right):          # if we've clicked on the right side it
         self.start_direction = MoveLeft(self)  # means we're going left
         self.kept_start_dx = -1
         self.kept_start_dy = 0
-        self.kept_start_pos_x -= self.tic_pix
+        self.kept_start_pos_x -= cfg.tic_pix
         image = self.arrow_images[0]
     elif (win_pos in self.dir_up):             #  etc.
         self.start_direction = MoveDown(self)
         self.kept_start_dx = 0
         self.kept_start_dy = -1
-        self.kept_start_pos_y -= self.img_pix - self.tic_pix
+        self.kept_start_pos_y -= cfg.img_pix - cfg.tic_pix
         image = self.arrow_images[3]
         rotate = 90.0
     else:
         self.start_direction = MoveUp(self)
         self.kept_start_dx = 0
         self.kept_start_dy = 1
-        self.kept_start_pos_y += self.img_pix - self.tic_pix
-        SWI_xy_coordinates[1] += self.half_img_pix
+        self.kept_start_pos_y += cfg.img_pix - cfg.tic_pix
+        SWI_xy_coordinates[1] += cfg.half_img_pix
         image = self.arrow_images[2]
         rotate = 90.0
     self.kept_start_direction = self.start_direction
@@ -410,11 +411,11 @@ def ShowWhiteOutArrow (self, win_pos):
             image = self.arrow_images[0]
         elif (win_pos in self.dir_right):          # if on the right side it
             self.stop_direction = MoveRight(self)  # means we're going right
-            SWO_xy_coordinates[0] += self.half_img_pix
+            SWO_xy_coordinates[0] += cfg.half_img_pix
             image = self.arrow_images[1]
         elif (win_pos in self.dir_up):             #  etc.
             self.stop_direction = MoveUp(self)
-            SWO_xy_coordinates[1] += self.half_img_pix
+            SWO_xy_coordinates[1] += cfg.half_img_pix
             image = self.arrow_images[2]
             rotate = 90.0
         else:
@@ -548,21 +549,21 @@ def CheckMarbleChangeDirection (self, sprite_index, x, y):
             elif (old_dir == -new_dir):
 #                print ("Check Marble reversed direction... ")
                 self.marble_sprites[sprite_index].dx *= -1
-                self.marble_sprites[sprite_index].x +=  self.tic_pix * self.marble_sprites[sprite_index].dx
+                self.marble_sprites[sprite_index].x +=  cfg.tic_pix * self.marble_sprites[sprite_index].dx
                 self.marble_sprites[sprite_index].dy *= -1
-                self.marble_sprites[sprite_index].y +=  self.tic_pix * self.marble_sprites[sprite_index].dy
+                self.marble_sprites[sprite_index].y +=  cfg.tic_pix * self.marble_sprites[sprite_index].dy
             elif ((MovingLeft (self, old_dir) or MovingRight (self, old_dir)) and
                   (MovingUp (self, new_dir) or MovingDown (self, new_dir))):
 #                print ("Check Marble reflected Up or Down... ")
                 self.marble_sprites[sprite_index].dx = 0
                 self.marble_sprites[sprite_index].dy = new_dir//abs(new_dir)
-                self.marble_sprites[sprite_index].y +=  self.tic_pix * self.marble_sprites[sprite_index].dy
+                self.marble_sprites[sprite_index].y +=  cfg.tic_pix * self.marble_sprites[sprite_index].dy
             elif ((MovingUp (self, old_dir) or MovingDown (self, old_dir)) and
                   (MovingLeft (self, new_dir) or MovingRight (self, new_dir))):
 #                print ("Check Marble reflected Left or Right... ")
                 self.marble_sprites[sprite_index].dy = 0
                 self.marble_sprites[sprite_index].dx = new_dir//abs(new_dir)
-                self.marble_sprites[sprite_index].x +=  self.tic_pix * self.marble_sprites[sprite_index].dx
+                self.marble_sprites[sprite_index].x +=  cfg.tic_pix * self.marble_sprites[sprite_index].dx
             else:
                 pass
         else:
