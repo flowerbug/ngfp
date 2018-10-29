@@ -1,21 +1,70 @@
-Sat Oct 13 10:55:04 EDT 2018
+Mon Oct 29 07:04:11 EDT 2018
 
 
-v0.1.1 - ?  This TODO
+v0.1.2 - ?  This TODO
+
+  - sometimes changes are not reflected immediately in the
+      the left scales of the config dialog
 
   - comparing boards
     - exact match is easy
     - functional match is harder
 
-  - configuration file
-
-  - load and save any file name at all
-    - do a little more basic checks on format/data
-
   - restructure code (encapsulate, objectify, clean it up, tests and comments)
 
 
+v0.1.1
+
+  many changes and some reorganization of code.
+a lot of testing and debugging of what has 
+been done is still needed yet.  please don't 
+report bugs - i know of a lot already...  :)
+
+  - some global values were moved into config.py
+
+  - configuration files and directory under
+    $HOME/.config/ngfp (for a posix system, i don't	
+    know much about where on windows yet)
+
+    - configuration file name is config_ngfp.json
+
+    - initial run of program just uses defaults from
+      config.py, but eventually clicking on Save Config
+      will create the directory and file and from then
+      on when you start the game it will use the 
+      previously saved configuration
+
+  - restore defaults (sorta works)
+
+  - save and load games (mostly works)
+
+    - files in $HOME/.local/share/ngfp (for a posix 
+      system, i don't	know much about where on windows yet)
+
+    - much better dialogs and more flexibility in naming
+
+  - new random game (mostly works)
+
+  - resizing game (mostly works)
+
+    - the limits i have set in config.py are for a screen
+      size of 1920 x 1080 pixels, you can adjust them to
+      fit your screen size:
+
+      - min_cols = 1      # this actually works
+      - min_rows = 6      # for the moment
+      - max_cols = 22     # on 1920 x 1080
+      - max_rows = 13     # on 1920 x 1080
+
+        - eventually i want to get min_rows smaller
+          or even have the widget counts/piles in their
+          own window - this will make it easier to get
+          going for children who may not want to start
+          on games bigger then 4x4 or so...
+
+
 v0.1.0
+
   - save and load games the initial simple version (works)
     - load from a gfpoken save file (works)
       - when you save it use file name "save.ngfp"
