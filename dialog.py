@@ -328,7 +328,7 @@ def ConfigGame (self):
     app.run()
 
 
-def add_filters(dialog):
+def add_load_filters(dialog):
 
     filter_json = Gtk.FileFilter()
     filter_json.set_name("json files")
@@ -339,6 +339,14 @@ def add_filters(dialog):
     filter_gfp.set_name("gfp files")
     filter_gfp.add_pattern("*.gfp")
     dialog.add_filter(filter_gfp)
+
+
+def add_save_filters(dialog):
+
+    filter_json = Gtk.FileFilter()
+    filter_json.set_name("json files")
+    filter_json.add_pattern("*.json")
+    dialog.add_filter(filter_json)
 
 
 class MyOpenWindow(Gtk.Window):
@@ -355,7 +363,7 @@ class MyOpenWindow(Gtk.Window):
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
             "Select", Gtk.ResponseType.OK))
 
-        add_filters(self.dialog)
+        add_load_filters(self.dialog)
         self.dialog.set_border_width (20)
         self.dialog.set_default_size (300,100)
         self.dialog.set_position (Gtk.WindowPosition.MOUSE)
@@ -391,7 +399,7 @@ class MySaveAsWindow(Gtk.Window):
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
             "Select", Gtk.ResponseType.OK))
 
-        add_filters(self.dialog)
+        add_save_filters(self.dialog)
         self.dialog.set_border_width (20)
         self.dialog.set_default_size (300,100)
         self.dialog.set_position (Gtk.WindowPosition.MOUSE)
