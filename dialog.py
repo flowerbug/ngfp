@@ -91,8 +91,8 @@ class MyConfigWindow(Gtk.ApplicationWindow):
         self.h1_scale.set_valign(Gtk.Align.START)
 
         # we connect the signal "value-changed" emitted by the scale with the callback
-        # function left_scale_moved
-        self.h1_scale.connect("value-changed", self.left_scale_moved)
+        # function left_h1_scale_moved
+        self.h1_scale.connect("value-changed", self.left_h1_scale_moved)
 
         # 2nd horizontal scale
         self.h2_scale = Gtk.Scale(
@@ -103,8 +103,8 @@ class MyConfigWindow(Gtk.ApplicationWindow):
         self.h2_scale.set_hexpand(False)
 
         # we connect the signal "value-changed" emitted by the scale with the callback
-        # function left_scale_moved
-        self.h2_scale.connect("value-changed", self.left_scale_moved)
+        # function left_h2_scale_moved
+        self.h2_scale.connect("value-changed", self.left_h2_scale_moved)
 
         # 3rd horizontal scale
         self.h3_scale = Gtk.Scale(
@@ -115,8 +115,8 @@ class MyConfigWindow(Gtk.ApplicationWindow):
         self.h3_scale.set_hexpand(False)
 
         # we connect the signal "value-changed" emitted by the scale with the callback
-        # function left_scale_moved
-        self.h3_scale.connect("value-changed", self.left_scale_moved)
+        # function left_h3_scale_moved
+        self.h3_scale.connect("value-changed", self.left_h3_scale_moved)
 
         # 4th horizontal scale
         self.h4_scale = Gtk.Scale(
@@ -127,8 +127,8 @@ class MyConfigWindow(Gtk.ApplicationWindow):
         self.h4_scale.set_hexpand(False)
 
         # we connect the signal "value-changed" emitted by the scale with the callback
-        # function left_scale_moved
-        self.h4_scale.connect("value-changed", self.left_scale_moved)
+        # function left_h4_scale_moved
+        self.h4_scale.connect("value-changed", self.left_h4_scale_moved)
 
         # the four labels needed on the left side
         self.l1_label = Gtk.Label()
@@ -230,10 +230,19 @@ class MyConfigWindow(Gtk.ApplicationWindow):
     # any signal from the left property scales is signaled to the
     # bottom_label_left text of which is changed and also the
     # respective config parameters
-    def left_scale_moved(self, event):
+    def left_h1_scale_moved(self, event):
         cfg.game_cols = int(self.h1_scale.get_value())
+        self.bottom_label_left.set_text("W " + str(cfg.game_cols) + " H " + str(cfg.game_rows) + " D " + str(cfg.density) + " F " + str(cfg.density_fuzz))
+
+    def left_h2_scale_moved(self, event):
         cfg.game_rows = int(self.h2_scale.get_value())
+        self.bottom_label_left.set_text("W " + str(cfg.game_cols) + " H " + str(cfg.game_rows) + " D " + str(cfg.density) + " F " + str(cfg.density_fuzz))
+
+    def left_h3_scale_moved(self, event):
         cfg.density = int(self.h3_scale.get_value())
+        self.bottom_label_left.set_text("W " + str(cfg.game_cols) + " H " + str(cfg.game_rows) + " D " + str(cfg.density) + " F " + str(cfg.density_fuzz))
+
+    def left_h4_scale_moved(self, event):
         cfg.density_fuzz = int(self.h4_scale.get_value())
         self.bottom_label_left.set_text("W " + str(cfg.game_cols) + " H " + str(cfg.game_rows) + " D " + str(cfg.density) + " F " + str(cfg.density_fuzz))
 
