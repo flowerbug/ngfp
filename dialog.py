@@ -18,6 +18,49 @@ setting = Gio.Settings.new("org.gtk.Settings.FileChooser")
 setting.set_boolean("sort-directories-first", True)
 
 
+class DialogWindow(Gtk.Window):
+
+
+    def __init__(self):
+        Gtk.Window.__init__(self)
+
+        self.set_default_size(500, 200)
+        self.set_border_width (30)
+#        self.set_title ("DialogWindow")
+
+        self.set_position (Gtk.WindowPosition.CENTER)
+
+        self.box = Gtk.Box (spacing=40, orientation=Gtk.Orientation.VERTICAL)
+        self.add(self.box)
+
+        self.label = Gtk.Label("Additional Information")
+        self.box.add(self.label)
+
+        button = Gtk.Button("Ok")
+        button.connect("clicked", self.on_ok_button_clicked)
+
+        self.box.add(button)
+
+        self.show_all()
+
+
+    def on_ok_button_clicked(self, widget):
+
+#        print("The OK button was clicked")
+
+        self.destroy()
+
+
+def DialogWin (title, added):
+
+    info_win = DialogWindow()
+    info_win.connect("destroy", Gtk.main_quit)
+    info_win.set_title(title)
+    info_win.label.set_text(added)
+    info_win.show_all()
+    Gtk.main()
+
+
 # print configuration parameters
 def print_cfg ():
     print ("C ", cfg.game_cols, cfg.game_rows, cfg.density, cfg.density_fuzz, cfg.class_weights)
@@ -29,7 +72,7 @@ def LoadConfigOrUseCurrent ():
     if (cfg.full_config_filename.exists() == True):
         with open(cfg.full_config_filename, "r") as fn:
             loaded_config = json.load(fn)
-            print ("LoadConfigOrUseCurrent config loaded : ", loaded_config)
+#            print ("LoadConfigOrUseCurrent config loaded : ", loaded_config)
             cfg.default_game_cols = loaded_config[1][0]
             cfg.default_game_rows = loaded_config[1][1]
             cfg.default_density = loaded_config[1][2]
@@ -40,24 +83,43 @@ def LoadConfigOrUseCurrent ():
             cfg.density = loaded_config[2][2]
             cfg.density_fuzz = loaded_config[2][3]
             cfg.class_weights = copy.deepcopy(loaded_config[2][4])
+            if (cfg.show_board != 2):
+                DialogWin (
+                    "Ngfp Configuration Loaded",
+                    "          from this file for you... " + cfg.config_filename 
+                    )
+
     else:
         # current defaults are set in config.py
         # and we don't want to clobber or reset
         # them unless the user specifically requests it
-        print ("Use Current Parameters")
-        pass
+#        print ("Use Current Parameters")
+        if (cfg.show_board != 2):
+            DialogWin (
+                "Ngfp Configuration file doesn't exist",
+                "so the current defaults are being used instead..."
+            )
 
-    print_cfg ()
+#    print_cfg ()
 
 
 def SaveConfigToFile ():
-    print_cfg ()
+#    print_cfg ()
     if (cfg.config_path.exists() != True):
-        print ("Creating : ", str(cfg.config_path))
+#        print ("Creating : ", str(cfg.config_path))
         cfg.config_path.mkdir(mode=0o700, parents=True, exist_ok=False)
+        DialogWin (
+            "Ngfp No Configuration Directory Exists",
+            "We've created " + str(cfg.config_path) + " for you and put " + cfg.config_filename + " in there."
+            )
 
     with open(cfg.full_config_filename, mode="w") as fileout:
         json.dump([["NGFP_Config\n", 1], [cfg.default_game_cols, cfg.default_game_rows, cfg.default_density, cfg.default_density_fuzz, cfg.default_class_weights],[cfg.game_cols, cfg.game_rows, cfg.density, cfg.density_fuzz, cfg.class_weights]], fileout, indent = 4, separators=(',', ': '))
+
+    DialogWin (
+        "Ngfp Configuration Saved",
+        "    in this file for you... " + cfg.config_filename
+        )
 
 
 class MyConfigWindow(Gtk.ApplicationWindow):
@@ -253,27 +315,27 @@ class MyConfigWindow(Gtk.ApplicationWindow):
         for i in range(len(self.class_scale)):
             new_value = int(self.class_scale[i].get_value())
             if (new_value != cfg.class_weights[i]):
-                print ("Class Weights NV i ", i, new_value)
+#                print ("Class Weights NV i ", i, new_value)
                 cfg.class_weights[i] = new_value
 
 
     def on_new_game_clicked(self, widget):
-        print ("New Game")
+#        print ("New Game")
         cfg.show_board = 2  # reinitialize sprites and lists
         cfg.do_random_board = True
         cfg.new_game_cols = cfg.game_cols
         cfg.new_game_rows = cfg.game_rows
         self.destroy ()
-        print_cfg ()
+#        print_cfg ()
 
 
     def on_save_clicked(self, widget):
-        print ("Save Config")
+#        print ("Save Config")
         SaveConfigToFile ()
 
 
     def on_load_clicked(self, widget):
-        print ("Load Config")
+#        print ("Load Config")
         LoadConfigOrUseCurrent ()
         self.h1_scale.set_value(cfg.game_cols)
         self.h2_scale.set_value(cfg.game_rows)
@@ -284,13 +346,13 @@ class MyConfigWindow(Gtk.ApplicationWindow):
 
 
     def on_cancel_clicked(self, widget):
-        print ("Cancel")
+#        print ("Cancel")
         self.destroy ()
-        print_cfg ()
+#        print_cfg ()
 
 
     def on_restore_clicked(self, widget):
-        print ("Restore Defaults")
+#        print ("Restore Defaults")
         cfg.game_cols = cfg.default_game_cols
         cfg.game_rows = cfg.default_game_rows
         cfg.density = cfg.default_density
@@ -302,7 +364,13 @@ class MyConfigWindow(Gtk.ApplicationWindow):
         self.h2_scale.set_value(cfg.game_rows)
         self.h3_scale.set_value(cfg.density)
         self.h4_scale.set_value(cfg.density_fuzz)
-        print_cfg ()
+        if (cfg.show_board != 2):
+            DialogWin (
+                "      Ngfp Configuration Parameters Reset      ",
+                "                      using default values...               "
+            )
+
+#        print_cfg ()
 
 
 class MyConfigApplication(Gtk.Application):
@@ -323,7 +391,7 @@ class MyConfigApplication(Gtk.Application):
 
 def ConfigGame (self):
 
-    print ("ConfigGame dialog ...")
+#    print ("ConfigGame dialog ...")
     app = MyConfigApplication()
     app.run()
 
@@ -352,13 +420,13 @@ def add_save_filters(dialog):
 class MyOpenWindow(Gtk.Window):
 
     def __init__(self):
-        Gtk.Window.__init__(self, title="File Open", has_focus=False)
+        Gtk.Window.__init__(self, title="Game File Open", has_focus=False)
 
         self.set_border_width (20)
         self.set_default_size (300,100)
         self.set_position (Gtk.WindowPosition.MOUSE)
 
-        self.dialog = Gtk.FileChooserDialog("Please choose a file", self,
+        self.dialog = Gtk.FileChooserDialog("Please choose a game file to open", self,
         Gtk.FileChooserAction.OPEN,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
             "Select", Gtk.ResponseType.OK))
@@ -371,11 +439,12 @@ class MyOpenWindow(Gtk.Window):
         self.dialog.show_all()
         response = self.dialog.run()
         if response == Gtk.ResponseType.OK:
-            print("Select clicked")
-            cfg.this_fn_to_open = self.dialog.get_filename()
-            print("File selected: " + self.dialog.get_filename())
+#            print("Select clicked")
+            cfg.dialog_cancelled = False
+            cfg.this_fn_to_open = str(self.dialog.get_filename())
         elif response == Gtk.ResponseType.CANCEL:
-            print("Cancel clicked")
+#            print("Cancel clicked")
+            cfg.dialog_cancelled = True
 
         self.dialog.destroy()
         self.quit(self)
@@ -388,7 +457,7 @@ class MyOpenWindow(Gtk.Window):
 class MySaveAsWindow(Gtk.Window):
 
     def __init__(self):
-        Gtk.Window.__init__(self, title="File Save As", has_focus=False)
+        Gtk.Window.__init__(self, title="Game File Save As", has_focus=False)
 
         self.set_border_width (20)
         self.set_default_size (300,100)
@@ -407,7 +476,7 @@ class MySaveAsWindow(Gtk.Window):
         self.dialog.set_do_overwrite_confirmation(self.dialog)
 
         if (cfg.this_fn_to_save == None):
-            self.dialog.set_current_name(str(cfg.data_path / Path("save.json")))
+            self.dialog.set_current_name(str(cfg.data_path / Path(cfg.suggested_fn)))
         else:
             self.dialog.set_filename(cfg.this_fn_to_save)
 
@@ -415,10 +484,12 @@ class MySaveAsWindow(Gtk.Window):
         response = self.dialog.run()
         if response == Gtk.ResponseType.OK:
             print("Select clicked")
+            cfg.dialog_cancelled = False
             cfg.this_fn_to_save = self.dialog.get_filename()
-            print("File selected: " + self.dialog.get_filename())
+#            print("Save File selected: " + self.dialog.get_filename())
         elif response == Gtk.ResponseType.CANCEL:
-            print("Cancel clicked")
+#            print("Cancel clicked")
+            cfg.dialog_cancelled = True
 
         self.dialog.destroy()
         self.quit(self)
@@ -430,9 +501,11 @@ class MySaveAsWindow(Gtk.Window):
 
 def ShowAbout (self):
 
-    print ("ngfp is running in directory ", str(Path.cwd()))
-    print ("ngfp saves game files to : ", str(cfg.data_path))
-    print ("ngfp keeps configuration data in : ", str(cfg.config_path))
+    print ("Ngfp is running in directory ", str(Path.cwd()))
+    print ("Ngfp saves game files to directory : ", str(cfg.data_path))
+    print ("Ngfp current game to open file name : ", str(cfg.this_fn_to_open))
+    print ("Ngfp current game to save file name : ", str(cfg.this_fn_to_save))
+    print ("Ngfp keeps configuration data in directory : ", str(cfg.config_path))
     print_cfg ()
 
 
@@ -469,12 +542,15 @@ def Load_GFPSave_Version_1 (self, lines_in):
     for i in counters_str.split():
        cfg.new_widget_counts.append(int(i))
 
+    # add a zero for extra widget
+    cfg.new_widget_counts.append(0)
+
     # we're going to have to redraw the board
     # but we aren't a random board
     cfg.show_board = 2
     cfg.do_random_board = False
 
-    print ("Load_GFPSave_Version_1 -> new variables NC NR NB NWC", cfg.new_game_cols, cfg.new_game_rows, cfg.new_board, cfg.new_widget_counts)
+#    print ("Load_GFPSave_Version_1 -> new variables NC NR NB NWC", cfg.new_game_cols, cfg.new_game_rows, cfg.new_board, cfg.new_widget_counts)
 
 
 def Load_NGFPSave_Version_1 (self, lines_in):
@@ -493,34 +569,51 @@ def Load_NGFPSave_Version_1 (self, lines_in):
     cfg.show_board = 2
     cfg.do_random_board = False
 
-    print ("Load_NGFPSave_Version_1 -> new variables NC NR NB NWC", cfg.new_game_cols, cfg.new_game_rows, cfg.new_board, cfg.new_widget_counts)
+#    print ("Load_NGFPSave_Version_1 -> new variables NC NR NB NWC", cfg.new_game_cols, cfg.new_game_rows, cfg.new_board, cfg.new_widget_counts)
 
 
 def LoadSavedGameFromFile (self):
 
-    print ("LoadSavedGameFromFile...")
+#    print ("LoadSavedGameFromFile...")
 
-    cfg.this_fn_to_open = None
     cfg.saved_dir = str(Path.cwd())
-    print ("Keep track of current directory : ", cfg.saved_dir)
+#    print ("Keep track of current directory : ", cfg.saved_dir)
+
+    # check for saved games directory
     if (cfg.data_path.exists() != True):
-        print ("Creating : ", str(cfg.data_path))
-        cfg.data_path.mkdir(mode=0o700, parents=True, exist_ok=False)
-    print ("Changing directory to : ", str(cfg.data_path))
+        DialogWin (
+            "Ngfp Save Game Directory Missing",
+            "You haven't created : " + str(cfg.data_path) + " yet..."
+            )
+        return
+
+    # is there anything in there?
+    if (len(os.listdir(path=str(cfg.data_path))) == 0):
+        DialogWin (
+            "Ngfp Save Game Directory Empty",
+            "       There are no saved games yet...       "
+            )
+        return
+
+#    print ("Changing directory to : ", str(cfg.data_path))
     os.chdir(str(cfg.data_path))
     win = MyOpenWindow()
     win.connect("destroy", Gtk.main_quit)
     win.show_all()
     win.hide()
 
-    print ("Going back to directory : ", cfg.saved_dir)
+#    print ("Going back to directory : ", cfg.saved_dir)
     os.chdir(cfg.saved_dir)
+
+    if (cfg.dialog_cancelled == True):
+#        print ("Load Dialog Cancelled")
+        return
 
     if (cfg.this_fn_to_open == None):
         print ("LoadSavedGameFromFile...  No file selected...")
         return
 
-    print ("File selected : ", cfg.this_fn_to_open)
+    print ("Open File selected : ", cfg.this_fn_to_open)
     if (cfg.this_fn_to_open.endswith(".gfp") == True):
         try:
             with open(cfg.this_fn_to_open) as filein:
@@ -528,10 +621,14 @@ def LoadSavedGameFromFile (self):
             Load_GFPSave_Version_1 (self, lines_in)
             cfg.show_board = 2  # reinitialize sprites and lists
             cfg.do_random_board = False
+            cfg.this_fn_to_save = cfg.this_fn_to_open
             DrawBoard (self)
-            return
         except:
-            print ("LoadSavedGameFromFile : ", cfg.this_fn_to_open, "didn't load...")
+            DialogWin (
+                "Ngfp Loading a previously saved game failed",
+                "  not sure what isn't working with this file : " + str(cfg.this_fn_to_save)
+                )
+#            print ("LoadSavedGameFromFile : ", cfg.this_fn_to_open, "didn't load...")
     elif (cfg.this_fn_to_open.endswith(".json") == True):
         try:
             with open(cfg.this_fn_to_open) as filein:
@@ -539,25 +636,31 @@ def LoadSavedGameFromFile (self):
             Load_NGFPSave_Version_1 (self, lines_in)
             cfg.show_board = 2  # reinitialize sprites and lists
             cfg.do_random_board = False
+            cfg.this_fn_to_save = cfg.this_fn_to_open
             DrawBoard (self)
-            return
         except:
-            print ("LoadSavedGameFromFile : ", cfg.this_fn_to_open, "didn't load...")
-
-    # we shouldn't ever get here
-    print ("File extension needs to be .json or .gfp ...")
+                "Ngfp Loading a previously saved game failed",
+                "  not sure what isn't working with this file : " + str(cfg.this_fn_to_save
+                )
+#            print ("LoadSavedGameFromFile : ", cfg.this_fn_to_open, "didn't load...")
 
 
 def SaveGameToFile (self):
 
-    print ("SaveGameToFile ...")
+#    print ("SaveGameToFile ...")
 
     cfg.saved_dir = str(Path.cwd())
-    print ("Keep track of current directory : ", cfg.saved_dir)
+#    print ("Keep track of current directory : ", cfg.saved_dir)
+
     if (cfg.data_path.exists() != True):
-        print ("Creating : ", str(cfg.data_path))
+#        print ("No save directory exists.  Creating : ", str(cfg.data_path))
         cfg.data_path.mkdir(mode=0o700, parents=True, exist_ok=False)
-    print ("Changing directory to : ", str(cfg.data_path))
+        DialogWin (
+            "Ngfp No Save Game Directory Exists",
+            "  We've created " + str(cfg.data_path) + " for you..."
+            )
+
+#    print ("Changing directory to : ", str(cfg.data_path))
     os.chdir(str(cfg.data_path))
 
     win = MySaveAsWindow()
@@ -565,18 +668,31 @@ def SaveGameToFile (self):
     win.show_all()
     win.hide()
 
-    print ("Saving Game to File : ", cfg.this_fn_to_save)
+    if (cfg.dialog_cancelled == True):
+#        print ("Dialog Cancelled")
+#        print ("Going back to directory : ", cfg.saved_dir)
+        os.chdir(cfg.saved_dir)
+        return
+
+    if (cfg.this_fn_to_save == None):
+        print ("SaveGameToFile...  No file selected...")
+#        print ("Going back to directory : ", cfg.saved_dir)
+        os.chdir(cfg.saved_dir)
+        return
+
+#    print ("Saving Game to File : ", cfg.this_fn_to_save)
     with open(cfg.this_fn_to_save, mode="w") as fileout:
  
         json.dump([["NGFP_Save\n", 1], [cfg.game_cols, cfg.game_rows], self.board, self.widget_pile_list_counts], fileout, indent = 4, separators=(',', ': '))
 
-    print ("Going back to directory : ", cfg.saved_dir)
+    cfg.this_fn_to_open = cfg.this_fn_to_save
+#    print ("Going back to directory : ", cfg.saved_dir)
     os.chdir(cfg.saved_dir)
 
 
 def DoDialogControlAction (self, x, x_rec, y, y_rec, win_pos):
 
-    print ("DoDialogControlAction ", x, x_rec, y, y_rec, win_pos)
+#    print ("DoDialogControlAction ", x, x_rec, y, y_rec, win_pos)
 
     menu_index = self.control_active_squares.index(win_pos)
 
