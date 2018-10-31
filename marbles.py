@@ -513,7 +513,7 @@ def MarbleInMotion (self, x_rec, y_rec, win_pos):
 #    print ("Last moved game marble at ", current_pos, "in direction ", current_direction)
     if (tick_count >= self.tick_limit):
 #        print ("Exceeded game marble tick_count of ", self.tick_limit)
-         pass
+        pass
     elif (current_direction == None):
 #        print ("No game marble Arrow Out...")
         HideOutArrow (self)

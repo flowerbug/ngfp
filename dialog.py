@@ -540,7 +540,7 @@ def Load_GFPSave_Version_1 (self, lines_in):
     counters_str = lines_in[len(lines_in)-1]
     cfg.new_widget_counts = []
     for i in counters_str.split():
-       cfg.new_widget_counts.append(int(i))
+        cfg.new_widget_counts.append(int(i))
 
     # add a zero for extra widget
     cfg.new_widget_counts.append(0)
@@ -639,9 +639,9 @@ def LoadSavedGameFromFile (self):
             cfg.this_fn_to_save = cfg.this_fn_to_open
             DrawBoard (self)
         except:
-                "Ngfp Loading a previously saved game failed",
-                "  not sure what isn't working with this file : " + str(cfg.this_fn_to_save
-                )
+            "Ngfp Loading a previously saved game failed",
+            "  not sure what isn't working with this file : " + str(cfg.this_fn_to_save
+            )
 #            print ("LoadSavedGameFromFile : ", cfg.this_fn_to_open, "didn't load...")
 
 
@@ -682,7 +682,7 @@ def SaveGameToFile (self):
 
 #    print ("Saving Game to File : ", cfg.this_fn_to_save)
     with open(cfg.this_fn_to_save, mode="w") as fileout:
- 
+
         json.dump([["NGFP_Save\n", 1], [cfg.game_cols, cfg.game_rows], self.board, self.widget_pile_list_counts], fileout, indent = 4, separators=(',', ': '))
 
     cfg.this_fn_to_open = cfg.this_fn_to_save
