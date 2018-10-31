@@ -9,6 +9,10 @@ import config as cfg
 
 def ClearAndResizeBoard (self):
 
+
+    # ok, let's see...
+    self.set_visible(True)
+
     # use the current cfg values
     self.density = cfg.density
     self.density_fuzz = cfg.density_fuzz
@@ -30,6 +34,10 @@ def ClearAndResizeBoard (self):
 
     self.set_location(self.game_x, self.game_y)
     self.set_size(self.screen_width, self.screen_height)
+
+    # ok, let's see...
+#   self.set_visible(True)
+
 
     # delete old board and set up new one, but
     #   DrawBoard really gets rid of all the various 
@@ -226,6 +234,7 @@ def DrawBoard (self):
         self.game_board_x_upper_limit = x_pos
         self.game_board_y_upper_limit = y_pos
         cfg.show_board = 1
+
 #        print ("Guess active squares", self.guess_active_squares)
 #        print ("Guess active square positions", self.guess_active_squares_position)
 #        print ("board_to_window_index", self.board_to_window_index)

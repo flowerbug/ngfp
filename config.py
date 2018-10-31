@@ -17,38 +17,26 @@ half_img_pix = img_pix//2
 tic_pix = img_pix // 2
 
 
-# some space for things at the right
+# some space for widget piles at the right
 control_cols = 5
+
+
+# dialog cancelled operation
+dialog_cancelled = False
 
 
 #   save game location and initial file
 # you can always save/load other names, 
 # this is just a suggestion...
-
-filename_to_open = "save.json"
-filename_to_save = None
-
-#
+suggested_fn = "save.json"
 this_fn_to_open = None
 this_fn_to_save = None
+
 home = Path.home()
 saved_dir = None
-new_game_cols = None
-new_game_rows = None
-
-new_board = None
-new_widget_counts = None
-
-# which board to show, a toggle between 0, 1  when Key F1 is pressed
-#    but we start at 2 for a new board and it's random to start...
-# 0 - puzzle to solve
-# 1 - guesses placed
-# 2 - blank background
-#
-show_board = 2
-do_random_board = True
 
 
+# save file directory
 if (os.name == "posix"):
     home = Path.home()
     data_path = home / Path(".local/share/ngfp")
@@ -68,21 +56,41 @@ else:
     print ("This is where the game saves configuration parameters.")
 
 
+# when loading a game from a file we put stuff in
+# these spots so that DrawBoard can use them.
+# changing dimensions in the config dialog also uses
+# these.
+new_game_cols = None
+new_game_rows = None
+new_board = None
+new_widget_counts = None
+
+
+# which board to show, a toggle between 0, 1  when Key F1 is pressed
+#    but we start at 2 for a new board and it's random to start...
+# 0 - puzzle to solve
+# 1 - guesses placed
+# 2 - blank background
+#
+show_board = 2
+do_random_board = True
+
+
 # current, default and changed parameters
 
-min_cols = 1      # for the moment
+min_cols = 1      # this actually works
 min_rows = 6      # for the moment
 max_cols = 22     # on 1920 x 1080
 max_rows = 13     # on 1920 x 1080
 
-game_cols = 8     # width
-game_rows = 8     # height
+game_cols = 6     # width
+game_rows = 6     # height
 density = 25      # percent of the board filled up modified by density_fuzz
 density_fuzz = 10
 class_weights = [100, 75, 5, 5, 5, 15, 5]
 
-default_game_cols = 8     # width
-default_game_rows = 8     # height
+default_game_cols = 6     # width
+default_game_rows = 6     # height
 default_density = 25      # percent of the board filled up modified by density_fuzz
 default_density_fuzz = 10
 default_class_weights = [100, 75, 5, 5, 5, 15, 5]

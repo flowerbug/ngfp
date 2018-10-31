@@ -19,11 +19,14 @@ class Window(pyglet.window.Window):
             caption,
             resizable,
             fullscreen,
+            visible,
             *args,
             **kwargs):
 
 
-        super(Window, self).__init__(width, height, caption, resizable, fullscreen, *args, **kwargs)
+        super(Window, self).__init__(width, height, caption, resizable, fullscreen, visible, *args, **kwargs)
+
+        self.set_visible(False)
 
         MyInitStuff (self)
 
@@ -227,7 +230,7 @@ class Window(pyglet.window.Window):
 
 
 def main():
-    window = Window(width=cfg.img_pix*(cfg.game_cols+cfg.control_cols+3), height=cfg.img_pix*(cfg.game_rows+2), caption="Ngfp", resizable=True, fullscreen=False)
+    window = Window(width=cfg.img_pix*(cfg.game_cols+cfg.control_cols+3), height=cfg.img_pix*(cfg.game_rows+2), caption="Ngfp", resizable=True, fullscreen=False, visible=False)
     pyglet.clock.schedule_interval(window.update, 1/120.0) # update at 60Hz
     pyglet.app.run()
 

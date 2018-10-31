@@ -9,18 +9,24 @@ def MyInitStuff (self):
 
     random.seed()
 
+    self.set_visible(False)
+
     # screens, sizes and locations
     #   some of these change as the board changes size
     self.top_display = pyglet.canvas.get_display()
     self.top_screen = self.top_display.get_default_screen()
     self.full_screen_width = self.top_screen.width
     self.full_screen_height = self.top_screen.height
-    print ("Initial Window Size : ", self.full_screen_width, self.full_screen_height)
+#    print ("Initial Window Size : ", self.full_screen_width, self.full_screen_height)
     self.windows_lst = self.top_display.get_windows()
     self.screen_width = self.windows_lst[0].width
     self.screen_height = self.windows_lst[0].height
     self.x, self.y = self.windows_lst[0].get_location()
-    print ("Smaller Window Location and Size : ", self.x, self.y, self.screen_width, self.screen_height)
+#    print ("Smaller Window Location and Size : ", self.x, self.y, self.screen_width, self.screen_height)
+
+    # initial window is blank and flickers i don't want 
+    # to see it until it is resized later
+    self.windows_lst[0].set_visible(False)
 
     # if there's a config file use it
     #  if there isn't set defaults specified in config.py
