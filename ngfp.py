@@ -71,7 +71,7 @@ class Window(pyglet.window.Window):
             ActiveAreaLeftMouseClickAction(self, x, x_rec, y, y_rec, win_pos)
         elif button == mouse.MIDDLE:
 #            print("The MIDDLE mouse button was pressed.", x, x_rec, x_win, y, y_rec, y_win, win_pos)
-             pass
+            pass
         elif button == mouse.RIGHT:
 #            print("The RIGHT mouse button was pressed.", x, x_rec, x_win, y, y_rec, y_win, win_pos)
             ActiveAreaRightMouseClickAction(self, x, x_rec, y, y_rec, win_pos)

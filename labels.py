@@ -47,6 +47,6 @@ def UpdateLabels (self):
 #    print ("UPDTL WPLC len ", len(self.widget_pile_list_counts))
 
     for w in range(len(self.widget_labels)):
-         self.widget_labels[w].text = str(self.widget_pile_list_counts[w])
+        self.widget_labels[w].text = str(self.widget_pile_list_counts[w])
 
 

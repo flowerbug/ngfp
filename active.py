@@ -148,7 +148,7 @@ def DoGuessRotateWidgetAction (self, x, x_rec, y, y_rec, win_pos):
     picked_widget = self.board[board_index][1]
     if (picked_widget == 0):
 #        print ("Nothing there to rotate...")
-         pass
+        pass
     else:
         widget_lut = self.widget_lookup_table[picked_widget]
         widget_base = self.widget_pile_list[widget_lut-1]
