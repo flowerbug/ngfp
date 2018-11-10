@@ -355,7 +355,7 @@ def MirrorMagic (self, which_board, cur_pos, cur_dir):
         return (cur_dir)
 
 
-def ShowWhiteInArrow (self, win_pos):
+def ShowWhiteInArrow (self, win_pos, visible):
 
     win_pos_index = self.white_active_squares.index(win_pos)
     SWI_xy_coordinates = copy.deepcopy(self.white_active_squares_position[win_pos_index])
@@ -393,10 +393,10 @@ def ShowWhiteInArrow (self, win_pos):
         image = self.arrow_images[2]
         rotate = 90.0
     self.kept_start_direction = self.start_direction
-    UpdateAndShowArrow(self, image, 0, SWI_xy_coordinates, rotate)
+    UpdateAndShowArrow(self, image, 0, SWI_xy_coordinates, rotate, visible)
 
 
-def ShowWhiteOutArrow (self, win_pos):
+def ShowWhiteOutArrow (self, win_pos, visible):
 
     if (self.stop_direction == None):
 #        print ("SW Out Arrow __No__ Arrow Out")
@@ -422,10 +422,10 @@ def ShowWhiteOutArrow (self, win_pos):
             self.stop_direction = MoveDown(self)
             image = self.arrow_images[3]
             rotate = 90.0
-        UpdateAndShowArrow(self, image, 1, SWO_xy_coordinates, rotate)
+        UpdateAndShowArrow(self, image, 1, SWO_xy_coordinates, rotate, visible)
 
 
-def StartMarble (self, win_pos):
+def StartMarble (self, win_pos, visible):
 
     self.marble_current_pos = self.kept_start_pos + self.kept_start_direction
     self.marble_current_direction = self.kept_start_direction
@@ -436,7 +436,7 @@ def StartMarble (self, win_pos):
     self.marble_sprites[0].y = self.kept_start_pos_y
     self.marble_sprites[0].dx = self.kept_start_dx
     self.marble_sprites[0].dy = self.kept_start_dy
-    self.marble_sprites[0].visible = True
+    self.marble_sprites[0].visible = visible
     for i in range (len (self.marble_sprites) - 1):
         self.marble_sprites[i+1].x = 0
         self.marble_sprites[i+1].y = 0
@@ -458,7 +458,7 @@ def StopMarble (self, win_pos):
     pass
 
 
-def MarbleInMotion (self, x_rec, y_rec, win_pos):
+def MarbleInMotion (self, which_board, x_rec, y_rec, win_pos, visible):
 
     HideBothArrows (self)
     start_pos = win_pos
@@ -470,11 +470,11 @@ def MarbleInMotion (self, x_rec, y_rec, win_pos):
     self.pointer_top_batch.draw()
     self.variable_guess_batch.draw()
     self.flip()
-    ShowWhiteInArrow (self, win_pos)
+    ShowWhiteInArrow (self, win_pos, visible)
     for i in range(self.history_limit):
         self.color_batch_list[i].draw()
     self.marble_tick_count = 0
-    StartMarble(self, win_pos)
+    StartMarble(self, win_pos, visible)
     self.marble_batch.draw()
     self.arrow_batch.draw()
     self.flip()
@@ -490,7 +490,7 @@ def MarbleInMotion (self, x_rec, y_rec, win_pos):
         (tick_count < self.tick_limit) and 
         (current_pos != None)):
         tick_count += 1
-        new_dir = MirrorMagic (self, 0, current_pos, current_direction)
+        new_dir = MirrorMagic (self, which_board, current_pos, current_direction)
         if (new_dir != None):
 #            if (current_pos in self.guess_active_squares):
 #                cube_xy = self.guess_active_squares_position[self.guess_active_squares.index(current_pos)]
@@ -508,24 +508,28 @@ def MarbleInMotion (self, x_rec, y_rec, win_pos):
         else:
 #            print ("Didn't Move: game marble Tick, CP, CD ", tick_count, current_pos, current_direction)
             self.stop_direction = None
-            tick_count = self.tick_limit
+            break
 
 #    print ("Last moved game marble at ", current_pos, "in direction ", current_direction)
     if (tick_count >= self.tick_limit):
 #        print ("Exceeded game marble tick_count of ", self.tick_limit)
-        pass
-    elif (current_direction == None):
+        return_value = -1
+    elif (self.stop_direction == None):
 #        print ("No game marble Arrow Out...")
         HideOutArrow (self)
+        return_value = None
     else:
-        ShowWhiteOutArrow (self, current_pos)
+        ShowWhiteOutArrow (self, current_pos, visible)
+        return_value  = current_pos
     HistoryNext (self)
     HistoryAndMarbleShift (self)
+    return (return_value)
 
 
 def DoLeftClickWhiteAction (self, x, x_rec, y, y_rec, win_pos):
 
-    MarbleInMotion (self, x_rec, y_rec, win_pos)
+    value = MarbleInMotion (self, 0, x_rec, y_rec, win_pos, True)
+#    print ("MIM 0 T ret_val ", value)
 
 
 def CheckMarbleChangeDirection (self, sprite_index, x, y):

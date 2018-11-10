@@ -24,7 +24,7 @@ def HideBothArrows (self):
     HideOutArrow (self)
 
 
-def UpdateAndShowArrow (self, image, spot, xy_coord, rotate):
+def UpdateAndShowArrow (self, image, spot, xy_coord, rotate, visible):
 
 #    print ("Update Arrow  arrow_index ", self.arrow_index,
 #        " spot, ", spot ," coord", xy_coord)
@@ -32,7 +32,7 @@ def UpdateAndShowArrow (self, image, spot, xy_coord, rotate):
     self.arrow_history_sprites[self.arrow_index][spot].x = xy_coord[0]
     self.arrow_history_sprites[self.arrow_index][spot].y = xy_coord[1]
     self.arrow_history_sprites[self.arrow_index][spot].image = image
-    self.arrow_history_sprites[self.arrow_index][spot].visible = True
+    self.arrow_history_sprites[self.arrow_index][spot].visible = visible
 
     self.history_color_sprites[self.arrow_index][spot].rotation = rotate
     self.history_color_sprites[self.arrow_index][spot].x = xy_coord[0]
@@ -40,7 +40,7 @@ def UpdateAndShowArrow (self, image, spot, xy_coord, rotate):
         self.history_color_sprites[self.arrow_index][spot].y = xy_coord[1]
     else:
         self.history_color_sprites[self.arrow_index][spot].y = xy_coord[1] + cfg.half_img_pix
-    self.history_color_sprites[self.arrow_index][spot].visible = True
+    self.history_color_sprites[self.arrow_index][spot].visible = visible
 
 
 def HistoryNext (self):
