@@ -1,16 +1,23 @@
-Mon Oct 29 07:04:11 EDT 2018
+Sat Nov 10 12:21:12 EST 2018
 
 
-v0.1.2 - ?  This TODO
+v0.1.3 - ?  This TODO
+
+  - help screen
+  - man page
+    - can probably use most of what is in existing man page
+  - packaging for other people to use
+  - restructure code (encapsulate, objectify, clean it up, tests and comments)
+
+
+v0.1.2
 
   - sometimes changes are not reflected immediately in the
-      the left scales of the config dialog
+      the left scales of the config dialog (fixed)
 
-  - comparing boards
-    - exact match is easy
-    - functional match is harder
-
-  - restructure code (encapsulate, objectify, clean it up, tests and comments)
+  - comparing boards (win or lose dialogs)
+    - exact match is easy (works)
+    - functional match is harder (works)
 
 
 v0.1.1
