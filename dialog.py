@@ -12,6 +12,7 @@ from gi.repository import Gdk
 
 from board import ClearAndResizeBoard, DrawBoard
 import config as cfg
+from marbles import MarbleInMotion
 
 
 setting = Gio.Settings.new("org.gtk.Settings.FileChooser")
@@ -396,6 +397,57 @@ def ConfigGame (self):
     app.run()
 
 
+def SimpleCheck (self):
+
+#    print ("SimpleCheck")
+
+    for i in range(len(self.board)):
+        if (self.board[i][0] != self.board[i][1]):
+            return (False)
+    return (True)
+
+
+def ComplexCheck (self):
+
+#    print ("ComplexCheck")
+
+    tmp_board = copy.deepcopy (self.board)
+
+    board_match = True
+    for i in range(len(self.white_active_squares)):
+        board_out = MarbleInMotion (self, 0, 0, 0, self.white_active_squares[i], False)
+        guess_out = MarbleInMotion (self, 1, 0, 0, self.white_active_squares[i], False)
+
+        if (board_out != guess_out):
+            board_match = False
+            break
+
+    self.board = copy.deepcopy (tmp_board)
+
+    return (board_match)
+
+
+def CheckBoard (self):
+
+#    print ("CheckBoard dialog ...")
+
+    if (SimpleCheck (self) == True):
+        DialogWin (
+            "You Won!  Exact Match Found.",
+            "You've solved the puzzle.  Congratulations!!!"
+            )
+    elif (ComplexCheck (self) == True):
+        DialogWin (
+            "You Won!  Functionally Identical Match Found",
+            "You've solved the puzzle.  Congratulations!!!"
+            )
+    else:
+        DialogWin (
+            "You Lost.  No Match Found.",
+            "           Sorry.  Try again...              "
+            )
+
+
 def add_load_filters(dialog):
 
     filter_json = Gtk.FileFilter()
@@ -702,7 +754,7 @@ def DoDialogControlAction (self, x, x_rec, y, y_rec, win_pos):
         ConfigGame (self)
     elif (menu_index == 1):
         # Check Board
-        pass
+        CheckBoard (self)
     elif (menu_index == 2):
         # Flip to Other Board
         cfg.show_board = (cfg.show_board + 1) % 2
