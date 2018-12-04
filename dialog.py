@@ -592,9 +592,13 @@ class TextViewWindow(Gtk.Window):
             + "\n"
             + "\n"
             + "    For Game Help Press H, F1 or ?\n"
+            + "      On a Linux system there should also be a man page.\n"
             + "\n"
             + "    To Quit Playing Game Press Q or ESC\n"
             + "\n"
+            + "\n"
+            + "    Project Location :"
+            + "    https://salsa.debian.org/ant-guest/gfpoken-in-python"
             + "\n"
             + "    To leave this window close it..."
             )

@@ -131,8 +131,14 @@ class Window(pyglet.window.Window):
             if self.cube.y > 0:
                 self.cube.y -= cfg.img_pix
 #            print ("The 'DOWN' key was pressed")
-        elif symbol == pyglet.window.key.F1:
-#            print ("The 'F1' key was pressed, show board ", cfg.show_board)
+        elif ((symbol == pyglet.window.key.F1) or
+            (symbol == pyglet.window.key.QUESTION) or
+            (symbol == pyglet.window.key.H)):
+            
+            print ("The 'F1', 'H', or '?' key was pressed ")
+            pass
+        elif symbol == pyglet.window.key.F2:
+#            print ("The 'F2' key was pressed, show board ", cfg.show_board)
             # after the initial showing of the background we
             # don't ever need to see the background again so 
             # only toggle between the game board and the guess 
@@ -142,10 +148,7 @@ class Window(pyglet.window.Window):
                 self.picked_up_sprite.visible = False
             elif ((cfg.show_board == 1) and (self.picked_up == True)):
                 self.picked_up_sprite.visible = True
-#            print ("The 'F1' key was pressed, show board changed to ", cfg.show_board)
-        elif symbol == pyglet.window.key.F2:
-#            print ("The 'F2' key was pressed ", dir(self))
-            pass
+#            print ("The 'F2' key was pressed, show board changed to ", cfg.show_board)
 
 
     def on_key_release(self, symbol, modifiers):
