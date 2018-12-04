@@ -551,14 +551,69 @@ class MySaveAsWindow(Gtk.Window):
         return False # close
 
 
+class TextViewWindow(Gtk.Window):
+
+    def __init__(self):
+
+        Gtk.Window.__init__(self, title="About Ngfp")
+
+        self.top_display = pyglet.canvas.get_display()
+        self.top_screen = self.top_display.get_default_screen()
+        self.full_screen_width = self.top_screen.width
+        self.full_screen_height = self.top_screen.height
+        self.set_default_size(self.full_screen_width, (self.full_screen_height -250))
+
+        self.grid = Gtk.Grid()
+        self.add(self.grid)
+
+        self.create_textview()
+
+    def on_button_clicked(self, widget):
+        print("Hello World")
+
+    def create_textview(self):
+        scrolledwindow = Gtk.ScrolledWindow()
+        scrolledwindow.set_hexpand(True)
+        scrolledwindow.set_vexpand(True)
+        self.grid.attach(scrolledwindow, 0, 1, 3, 1)
+
+        self.textview = Gtk.TextView()
+        self.textbuffer = self.textview.get_buffer()
+        self.textbuffer.set_text(
+            "\n    Ngfp is running in directory : " + str(Path.cwd()) + "\n"
+            + "\n"
+            + "      It saves game files to directory : " + str(cfg.data_path) + "\n"
+            + "\n"
+            + "        Open file name : " + str(cfg.this_fn_to_open) + "\n"
+            + "        Save file name : " + str(cfg.this_fn_to_save) + "\n"
+            + "\n"
+            + "      It keeps configuration settings in directory : " + str(cfg.config_path) + "\n"
+            + "        Configuration file name : " + cfg.config_filename + "\n"
+            + "\n"
+            + "\n"
+            + "    For Game Help Press H, F1 or ?\n"
+            + "\n"
+            + "    To Quit Playing Game Press Q or ESC\n"
+            + "\n"
+            + "\n"
+            + "    To leave this window close it..."
+            )
+
+        scrolledwindow.add(self.textview)
+        self.textview.set_editable(False)
+        self.textview.set_cursor_visible(False)
+        self.button = Gtk.Button(label="Click Here")
+        self.button.connect("clicked", self.on_button_clicked)
+        self.grid.attach(self.button, 0, 1, 3, 2)
+
+
 def ShowAbout (self):
 
-    print ("Ngfp is running in directory ", str(Path.cwd()))
-    print ("Ngfp saves game files to directory : ", str(cfg.data_path))
-    print ("Ngfp current game to open file name : ", str(cfg.this_fn_to_open))
-    print ("Ngfp current game to save file name : ", str(cfg.this_fn_to_save))
-    print ("Ngfp keeps configuration data in directory : ", str(cfg.config_path))
-    print_cfg ()
+#    print_cfg ()
+    win = TextViewWindow()
+    win.connect("destroy", Gtk.main_quit)
+    win.show_all()
+    Gtk.main()
 
 
 def Load_GFPSave_Version_1 (self, lines_in):
