@@ -568,8 +568,6 @@ class TextViewWindow(Gtk.Window):
 
         self.create_textview()
 
-    def on_button_clicked(self, widget):
-        print("Hello World")
 
     def create_textview(self):
         scrolledwindow = Gtk.ScrolledWindow()
@@ -598,7 +596,7 @@ class TextViewWindow(Gtk.Window):
             + "\n"
             + "\n"
             + "    Project Location :"
-            + "    https://salsa.debian.org/ant-guest/gfpoken-in-python"
+            + "    https://salsa.debian.org/ant-guest/gfpoken-in-python\n"
             + "\n"
             + "    To leave this window close it..."
             )
@@ -606,15 +604,76 @@ class TextViewWindow(Gtk.Window):
         scrolledwindow.add(self.textview)
         self.textview.set_editable(False)
         self.textview.set_cursor_visible(False)
-        self.button = Gtk.Button(label="Click Here")
-        self.button.connect("clicked", self.on_button_clicked)
-        self.grid.attach(self.button, 0, 1, 3, 2)
 
 
 def ShowAbout (self):
 
 #    print_cfg ()
     win = TextViewWindow()
+    win.connect("destroy", Gtk.main_quit)
+    win.show_all()
+    Gtk.main()
+
+
+class HelpViewWindow(Gtk.Window):
+
+    def __init__(self):
+
+        Gtk.Window.__init__(self, title="Ngfp Help")
+
+        self.top_display = pyglet.canvas.get_display()
+        self.top_screen = self.top_display.get_default_screen()
+        self.full_screen_width = self.top_screen.width
+        self.full_screen_height = self.top_screen.height
+        self.set_default_size(self.full_screen_width, (self.full_screen_height -250))
+
+        self.grid = Gtk.Grid()
+        self.add(self.grid)
+
+        self.create_textview()
+
+
+    def create_textview(self):
+        scrolledwindow = Gtk.ScrolledWindow()
+        scrolledwindow.set_hexpand(True)
+        scrolledwindow.set_vexpand(True)
+        self.grid.attach(scrolledwindow, 0, 1, 3, 1)
+
+        self.textview = Gtk.TextView()
+        self.textbuffer = self.textview.get_buffer()
+        self.textbuffer.set_text(
+            "\n  Ngfp is a puzzle game.  When first started you will be shown a blank grid on the left and on the right a selection of mirrors.  Under each mirror is the number of how many that need to be placed to solve the puzzle.  You have to use all of the mirrors.\n"
+            + "\n"
+            + "  To place a mirror you can left mouse click to select it and then click again on the grid where you want to put it down.  To rotate the mirror after it has been placed you right mouse click on it.  To move a mirror left click on it to select it and then left click it and then left click again where you want to place it.\n"
+            + "\n"
+            + "  To discover where to put the mirrors you left mouse click on any white square that borders the grid and this starts a colored marble rolling through the grid.  If you have already placed mirrors then the marble will be reflected or absorbed in various ways depending upon the type of mirror.  Each colored marble will have a matching colored arrow marking where it started, but not all marbles will have a matching out arrow (some mirrors capture or absorb the marble or it is possible for the game to generate mirrors which can send the marble in a loop which does not exit).\n"
+            + "\n"
+            + "  There are two kinds of solutions to the puzzle.  One is an exact match and the other is a functional match (where all marbles put in from the edges come out where they are supposed to, but the mirrors may not be in the exact same place as the puzzle) - both are considered Wins.\n"
+             + "\n"
+            + "  Configuration information can be changed, game checked and games can be loaded and saved via the icons in the green column in the center.\n"
+            + "\n"
+            + "\n"
+            + "    On a Linux system there should be a man page.\n"
+            + "\n"
+            + "\n"
+            + "    To Quit Playing Game Press Q or ESC\n"
+            + "    H, ? or F1 should bring up this text and\n"
+            + "    F2 is a way to give up and see the puzzle.\n"
+            + "\n"
+            + "\n"
+            + "    To leave this window close it..."
+            )
+
+        scrolledwindow.add(self.textview)
+        self.textview.set_editable(False)
+        self.textview.set_cursor_visible(False)
+        self.textview.set_wrap_mode(Gtk.WrapMode.WORD)
+
+
+def ShowHelp (self):
+
+#    print_cfg ()
+    win = HelpViewWindow()
     win.connect("destroy", Gtk.main_quit)
     win.show_all()
     Gtk.main()
