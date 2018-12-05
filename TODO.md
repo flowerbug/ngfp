@@ -1,16 +1,29 @@
-Mon Oct 29 07:04:11 EDT 2018
+Wed Dec  5 12:53:16 EST 2018
 
 
-v0.1.2 - ?  This TODO
+v0.1.3 - ?  This TODO
 
-  - sometimes changes are not reflected immediately in the
-      the left scales of the config dialog
+  - markers
 
-  - comparing boards
-    - exact match is easy
-    - functional match is harder
+  - packaging
 
   - restructure code (encapsulate, objectify, clean it up, tests and comments)
+
+
+v0.1.2
+
+  - sometimes changes are not reflected immediately in the
+      the left scales of the config dialog (works)
+
+  - comparing boards
+    - exact match is easy (works)
+    - functional match is harder (works)
+
+  - help screen (works)
+
+  - about screen (works)
+
+  - man page (done)
 
 
 v0.1.1
