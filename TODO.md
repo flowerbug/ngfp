@@ -1,23 +1,29 @@
-Sat Nov 10 12:21:12 EST 2018
+Wed Dec  5 12:53:16 EST 2018
 
 
 v0.1.3 - ?  This TODO
 
-  - help screen
-  - man page
-    - can probably use most of what is in existing man page
-  - packaging for other people to use
+  - markers
+
+  - packaging
+
   - restructure code (encapsulate, objectify, clean it up, tests and comments)
 
 
 v0.1.2
 
   - sometimes changes are not reflected immediately in the
-      the left scales of the config dialog (fixed)
+      the left scales of the config dialog (works)
 
-  - comparing boards (win or lose dialogs)
+  - comparing boards
     - exact match is easy (works)
     - functional match is harder (works)
+
+  - help screen (works)
+
+  - about screen (works)
+
+  - man page (done)
 
 
 v0.1.1
