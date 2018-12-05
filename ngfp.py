@@ -8,6 +8,7 @@ from board import DrawBoard
 from labels import UpdateLabels
 from active import ActiveAreaLeftMouseClickAction, ActiveAreaRightMouseClickAction, ActiveAreaMouseMoveAction
 from marbles import CheckMarbleChangeDirection, StopMarble
+from dialog import ShowHelp
 
 
 class Window(pyglet.window.Window):
@@ -134,8 +135,8 @@ class Window(pyglet.window.Window):
         elif ((symbol == pyglet.window.key.F1) or
             (symbol == pyglet.window.key.QUESTION) or
             (symbol == pyglet.window.key.H)):
-            
-            print ("The 'F1', 'H', or '?' key was pressed ")
+            ShowHelp (self)
+#            print ("The 'F1', 'H', or '?' key was pressed ")
             pass
         elif symbol == pyglet.window.key.F2:
 #            print ("The 'F2' key was pressed, show board ", cfg.show_board)
