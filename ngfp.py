@@ -4,7 +4,7 @@ from pyglet import clock
 
 import config as cfg
 from my_init import MyInitStuff
-from board import DrawBoard
+from board import ClearSquareMarkers, ClearAllMarkers, ToggleMarker, DrawBoard
 from labels import UpdateLabels
 from active import ActiveAreaLeftMouseClickAction, ActiveAreaRightMouseClickAction, ActiveAreaMouseMoveAction
 from marbles import CheckMarbleChangeDirection, StopMarble
@@ -92,6 +92,9 @@ class Window(pyglet.window.Window):
         y_rec = y_win * img_pix
         win_pos = (y_win * self.window_cols) + x_win
 
+        if (win_pos in self.guess_active_squares):
+            self.mouse_win_pos = win_pos
+
         if (self.picked_up):
             ActiveAreaMouseMoveAction(self, x, x_rec, y, y_rec, win_pos)
         else:
@@ -116,22 +119,6 @@ class Window(pyglet.window.Window):
         if ((symbol == pyglet.window.key.ESCAPE) or (symbol == pyglet.window.key.Q)): # [ESC] or [Q]
 #            print ("The 'ESC' or 'Q' key was pressed")
             exit()
-        elif symbol == pyglet.window.key.LEFT:
-            if self.cube.x > 0:
-                self.cube.x -= cfg.img_pix
-#            print ("The 'LEFT' key was pressed")
-        elif symbol == pyglet.window.key.RIGHT:
-            if self.cube.x < self.game_board_x_limit:
-                self.cube.x += cfg.img_pix
-#            print ("The 'RIGHT' key was pressed")
-        elif symbol == pyglet.window.key.UP:
-            if self.cube.y < self.game_board_y_limit:
-                self.cube.y += cfg.img_pix
-#            print ("The 'UP' key was pressed")
-        elif symbol == pyglet.window.key.DOWN:
-            if self.cube.y > 0:
-                self.cube.y -= cfg.img_pix
-#            print ("The 'DOWN' key was pressed")
         elif ((symbol == pyglet.window.key.F1) or
             (symbol == pyglet.window.key.QUESTION) or
             (symbol == pyglet.window.key.H)):
@@ -150,6 +137,34 @@ class Window(pyglet.window.Window):
             elif ((cfg.show_board == 1) and (self.picked_up == True)):
                 self.picked_up_sprite.visible = True
 #            print ("The 'F2' key was pressed, show board changed to ", cfg.show_board)
+        elif (symbol == pyglet.window.key.F3):
+            ClearSquareMarkers(self)
+        elif (symbol == pyglet.window.key.F4):
+            ClearAllMarkers(self)
+        elif (symbol == pyglet.window.key.J):
+            ToggleMarker(self, 0)
+        elif (symbol == pyglet.window.key.K):
+            ToggleMarker(self, 1)
+        elif (symbol == pyglet.window.key.L):
+            ToggleMarker(self, 2)
+        elif (symbol == pyglet.window.key.SEMICOLON):
+            ToggleMarker(self, 3)
+        elif symbol == pyglet.window.key.LEFT:
+            if self.cube.x > 0:
+                self.cube.x -= cfg.img_pix
+#            print ("The 'LEFT' key was pressed")
+        elif symbol == pyglet.window.key.RIGHT:
+            if self.cube.x < self.game_board_x_limit:
+                self.cube.x += cfg.img_pix
+#            print ("The 'RIGHT' key was pressed")
+        elif symbol == pyglet.window.key.UP:
+            if self.cube.y < self.game_board_y_limit:
+                self.cube.y += cfg.img_pix
+#            print ("The 'UP' key was pressed")
+        elif symbol == pyglet.window.key.DOWN:
+            if self.cube.y > 0:
+                self.cube.y -= cfg.img_pix
+#            print ("The 'DOWN' key was pressed")
 
 
     def on_key_release(self, symbol, modifiers):
@@ -226,6 +241,7 @@ class Window(pyglet.window.Window):
         for i in range(self.history_limit):
             self.color_batch_list[i].draw()
         self.arrow_batch.draw()
+        self.marker_batch.draw()
         self.text_batch.draw()
 
 #        self.fps.draw()
