@@ -7,6 +7,36 @@ from randboard import InitRandomBoardItems
 import config as cfg
 
 
+def ClearSquareMarkers (self):
+
+#    print ("ClearSquareMarkers mouse_win_pos : ", self.mouse_win_pos)
+    value = self.board_to_window_index.index(self.mouse_win_pos)
+    how_many_markers = len(self.marker_images)
+    for i in range(how_many_markers):
+        self.board[value][i+2] = False
+        self.marker_sprites[(value*how_many_markers)+i].visible = False
+
+
+def ClearAllMarkers (self):
+
+#    print ("ClearAllMarkers")
+    value = len(self.board)
+    how_many_markers = len(self.marker_images)
+    for i in range(value):
+        for j in range(how_many_markers):
+            self.board[i][j+2] = False
+            self.marker_sprites[(i*how_many_markers)+j].visible = False
+
+
+def ToggleMarker (self, mark):
+
+#    print ("ToggleMarker mark, mouse_win_pos : ", mark, self.mouse_win_pos)
+    value = self.board_to_window_index.index(self.mouse_win_pos)
+    how_many_markers = len(self.marker_images)
+    self.board[value][mark+2] = not(self.board[value][mark+2])
+    self.marker_sprites[(value*how_many_markers)+mark].visible = not(self.marker_sprites[(value*how_many_markers)+mark].visible)
+
+
 def ClearAndResizeBoard (self):
 
 
@@ -48,7 +78,7 @@ def ClearAndResizeBoard (self):
         pass
     self.board = []
 
-    self.board = [[0 for i in range(2)] for j in range(self.board_squares)]
+    self.board = [[0 for i in range(6)] for j in range(self.board_squares)]
 
     try:
         del self.widget_pile_list_counts
@@ -154,6 +184,13 @@ def DrawBoard (self):
             del self.control_active_squares_position
             self.control_active_squares_position = []
 
+        if (len(self.marker_sprites) != 0):
+            for j in range(len(self.marker_sprites)):
+                #self.marker_sprites[j].visible = False
+                self.marker_sprites[j].delete()
+            del self.marker_sprites
+            self.marker_sprites = []
+
         if (len(self.widget_active_squares) != 0):
             del self.widget_active_squares
             self.widget_active_squares = []
@@ -227,6 +264,10 @@ def DrawBoard (self):
                 self.guess_active_squares.append(win_pos)
                 self.guess_active_squares_position.append([x_pos,y_pos])
                 self.board_to_window_index.append(win_pos)
+                for z in range(len(self.marker_images)):
+                    self.marker_sprite = pyglet.sprite.Sprite( self.marker_images[z], batch=self.marker_batch, x = x_pos, y = y_pos)
+                    self.marker_sprite.visible = False
+                    self.marker_sprites.append(self.marker_sprite)
                 x_pos += cfg.img_pix
                 win_pos += 1
             y_pos += cfg.img_pix

@@ -44,6 +44,8 @@ def MyInitStuff (self):
     self.keys_held = []
     self.key = pyglet.window.key
 
+    self.mouse_win_pos = 0
+
     self.fps = pyglet.window.FPSDisplay(self)
 
     # batches for rendering
@@ -59,6 +61,7 @@ def MyInitStuff (self):
     self.text_batch = pyglet.graphics.Batch()
     self.arrow_batch = pyglet.graphics.Batch()
     self.marble_batch = pyglet.graphics.Batch()
+    self.marker_batch = pyglet.graphics.Batch()
 
     # colors need precedence order for arrows
     #   we only use as many colors to mark arrows we keep in history
@@ -79,6 +82,7 @@ def MyInitStuff (self):
     self.arrow_history_sprites = []
     self.history_color_sprites = []
     self.marble_sprites = []
+    self.marker_sprites = []
 
     self.white_active_squares = []
     self.white_active_squares_position = []
@@ -98,6 +102,17 @@ def MyInitStuff (self):
 
     self.gcube_image = pyglet.image.load("png/misc/gcube.png")
     self.cube_image  = pyglet.image.load("png/misc/cube.png")
+
+    self.pic_marker_list = [
+        "png/markers/picMkCircle.png",
+        "png/markers/picMkTriangle.png",
+        "png/markers/picMkSquare.png",
+        "png/markers/picMkVee.png"
+        ]
+
+    self.marker_images = []
+    for i in range(len(self.pic_marker_list)):
+        self.marker_images.append(pyglet.image.load(self.pic_marker_list[i]))
 
     self.pic_control_list = [
         "png/controls/picINew.png",
