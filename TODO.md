@@ -1,13 +1,16 @@
-Wed Dec  5 12:53:16 EST 2018
+Sat Dec  8 14:32:43 EST 2018
 
 
-v0.1.3 - ?  This TODO
-
-  - markers
+v1.0.0 - ?  This TODO
 
   - packaging
 
   - restructure code (encapsulate, objectify, clean it up, tests and comments)
+
+
+v0.1.3
+
+  - markers (done)
 
 
 v0.1.2
