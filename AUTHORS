@@ -1,22 +1,23 @@
-Fri Dec 14 13:29:46 EST 2018
+Fri Dec 14 14:34:53 EST 2018
+
 
 Notes from Ant <ant@anthive.com>
 
 The AUTHORS file from gfpoken version 1-2 is 
 partially reproduced below and edited to only 
-include references to artwork and manual page 
-since they are all that were used for this 
-Python version.
+include references to some artwork and the 
+manual page since they are all that were used
+for this Python reimplementation.
 
 I did rescale the artwork from 32 to 64 pixels 
-and fixed one image (see other project:
+and fixed one image - see other project:
 
 https://salsa.debian.org/ant-guest/bits-of-gfpoken
 
-The information relevant to the GPL-3.0 items is
-surrounded by GPL===== brackets and the information
-relevant to the Apache-2.0 items is surrounded by
-Apache===== brackets.
+The information relevant to the GPL-3.0 files below
+is surrounded by GPL===== brackets and the 
+information relevant to the Apache-2.0 files is 
+surrounded by Apache===== brackets.
 
 
 GPL=====
@@ -35,7 +36,6 @@ Copyright 1999 Tuomas Kuosmanen.
 
 
 Artwork:
-
 
 License GPL3+
 
@@ -94,7 +94,10 @@ scaled up to 64 pixels.
 8061 Oct 12 18:38 ./png/mirrors/30_half4.png
 8776 Oct 12 18:38 ./png/mirrors/31_move.png
 8378 Oct 12 18:38 ./png/mirrors/32_move.png
+
+(a copy of 00_bg.png)
 6881 Oct 12 18:38 ./png/mirrors/33_bg.png
+
 
 (cube and gcube are based upon inverted copy
 of sink from gfpoken)
@@ -139,7 +142,7 @@ list them here anyways for completeness.
 
 These marbles were redone using blender, I 
 regenerated the black marble sequence and then 
-used that series of pictures to recolor all of 
+used that series of pictures to create and color
 the rest of them.
 
   62427 Oct  8 09:14 ./png/marbles/black_marbles.png
@@ -148,11 +151,10 @@ the rest of them.
   66347 Oct  8 09:14 ./png/marbles/purple_marbles.png
   77534 Oct  8 09:14 ./png/marbles/red_marbles.png
   81004 Oct  8 09:14 ./png/marbles/yellow_marbles.png
-
 Apache=====
 
 
-Code:
+Python Code:
 
 Apache=====
   active.py
@@ -170,6 +172,8 @@ Apache=====
   setup.py
 Apache=====
 
+
+Other Files:
 
 GPL=====
   LICENSE.GPL
