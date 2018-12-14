@@ -1,11 +1,32 @@
-Sat Dec  8 14:32:43 EST 2018
+Fri Dec 14 13:53:15 EST 2018
+
+
+Wishlist (for someone else to do if they'd like :) )
+
+  - it would simplify licensing if I had not used artwork 
+    from gfpoken version 1-2.  I don't see myself having 
+    the time in the near future to do this.  I really need
+    to spend some more time studying Python instead.
 
 
 v1.0.0 - ?  This TODO
 
   - packaging
 
-  - restructure code (encapsulate, objectify, clean it up, tests and comments)
+  - restructure code (encapsulate, objectify, clean it up,
+    tests and comments)
+
+
+v0.1.4
+
+  - licensing
+    - new contributions go under Apache-2.0
+      - new artwork Apache-2.0
+    - artwork used from gfpoken version 1-2 is GPL3+
+
+  - start on packaging
+
+  - removed some of the artwork files that were not being used
 
 
 v0.1.3
