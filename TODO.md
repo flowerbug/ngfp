@@ -1,12 +1,23 @@
-Fri Dec 14 13:53:15 EST 2018
+Fri Dec 14 14:51:11 EST 2018
+
+
+  Bugs and comments to Ant <ant@anthive.com> or via the
+project page.
 
 
 Wishlist (for someone else to do if they'd like :) )
 
   - it would simplify licensing if I had not used artwork 
     from gfpoken version 1-2.  I don't see myself having 
-    the time in the near future to do this.  I really need
-    to spend some more time studying Python instead.
+    the time in the near future to make new artwork.  I 
+    really need to spend some more time studying Python 3
+    and OOP concepts instead.
+
+
+Notes
+
+  I'm not planning on doing networking version at this 
+time - I've never used it myself.
 
 
 v1.0.0 - ?  This TODO
@@ -165,8 +176,3 @@ v0.0.0 - v0.0.2
 
 
 
-  (I'm not planning on doing networking version at this time)
-
-  Bugs and comments to ant@anthive.com - I'm not always checking
-issues here on Salsa as of yet I haven't spent much time figuring
-out all the mechanisms of projects/issues/merges/pulls/etc.
