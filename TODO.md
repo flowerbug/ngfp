@@ -1,4 +1,4 @@
-Fri Dec 14 14:51:11 EST 2018
+Tue Dec 18 09:30:05 EST 2018
 
 
   Bugs and comments to Ant <ant@anthive.com> or via the
@@ -26,6 +26,13 @@ v1.0.0 - ?  This TODO
 
   - restructure code (encapsulate, objectify, clean it up,
     tests and comments)
+
+
+v0.1.5
+
+  - packaging work for PyPI
+
+  - create subdirectory for ngfp, move png/ and create doc/
 
 
 v0.1.4
