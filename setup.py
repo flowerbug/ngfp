@@ -24,17 +24,17 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ngfp",
-    version="0.1.5",
+    version="0.1.5.post1",
     author="Ant",
     author_email="ant@anthive.com",
     description="A puzzle game based upon gfpoken.",
     long_description=long_description,
     url="https://salsa.debian.org/ant-guest/gfpoken-in-python",
     packages=setuptools.find_packages(),
-    install_requires=["pyglet"],
+    install_requires=["pyglet>=1.3.0"],
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: Apache-2.0",
+        "License :: OSI Approved :: Apache Software License",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
         "Operating System :: POSIX :: Linux",
         "Topic :: Games/Entertainment :: Puzzle Games"
