@@ -24,7 +24,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ngfp",
-    version="0.1.5.post1",
+    version="0.1.5.post2",
     author="Ant",
     author_email="ant@anthive.com",
     description="A puzzle game based upon gfpoken.",
@@ -39,5 +39,9 @@ setuptools.setup(
         "Operating System :: POSIX :: Linux",
         "Topic :: Games/Entertainment :: Puzzle Games"
     ],
-    python_requires='>=3'
+    python_requires='>=3',
+    entry_points={
+        'console_scripts':
+            ['ngfp=ngfp:main']
+    }
 )
