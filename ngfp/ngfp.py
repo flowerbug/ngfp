@@ -1,31 +1,20 @@
-#
-#
-# Copyright 2018 Ant <ant@anthive.com>
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-#
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) Ant <ant@anthive.com>
+
 import pyglet
 from pyglet.window import mouse
 from pyglet import clock
 
-import config as cfg
-from my_init import MyInitStuff
-from board import ClearSquareMarkers, ClearAllMarkers, ToggleMarker, DrawBoard
-from labels import UpdateLabels
-from active import ActiveAreaLeftMouseClickAction, ActiveAreaRightMouseClickAction, ActiveAreaMouseMoveAction
-from marbles import CheckMarbleChangeDirection, StopMarble
-from dialog import ShowHelp
+import ngfp.config as cfg
+
+from ngfp.active import ActiveAreaLeftMouseClickAction, ActiveAreaRightMouseClickAction, ActiveAreaMouseMoveAction
+from ngfp.board import ClearSquareMarkers, ClearAllMarkers, ToggleMarker, DrawBoard
+from ngfp.dialog import ShowHelp
+from ngfp.labels import UpdateLabels
+from ngfp.marbles import CheckMarbleChangeDirection, StopMarble
+from ngfp.my_init import MyInitStuff
 
 
 class Window(pyglet.window.Window):

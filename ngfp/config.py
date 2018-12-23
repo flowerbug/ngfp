@@ -1,24 +1,18 @@
-#
-#
-# Copyright 2018 Ant <ant@anthive.com>
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-#
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) Ant <ant@anthive.com>
+
 import copy
 import json
 from pathlib import Path, PurePath
 import os
+
+
+# the path to the images
+#print (os.path.basename(__file__))
+png_path = os.path.dirname(__file__) + "/png/"
+#print (png_path)
 
 
 # the basic game unit for images and moving is
@@ -137,41 +131,41 @@ widget_class_labels = [
     ]
 
 pic_list = [
-    "png/mirrors/00_bg.png",           # background
-    "png/mirrors/01_normal.png",       # simple mirrors: left: \
-    "png/mirrors/02_normal.png",       # simple mirrors: right: /
-    "png/mirrors/03_flip2.png",        # simple flipping mirrors: left: \
-    "png/mirrors/04_flip2.png",        # simple flipping mirrors: right: /
-    "png/mirrors/05_flip4.png",        # quad flipping mirrors: left: \
-    "png/mirrors/06_flip4.png",        # quad flipping mirrors: bounce: o
-    "png/mirrors/07_flip4.png",        # quad flipping mirrors: right: /
-    "png/mirrors/08_flip4.png",        # quad flipping mirrors: bounce: o
-    "png/mirrors/09_block.png",        # box and sink: box: bounce: o  (reflect all)
-    "png/mirrors/10_sink.png",         # box and sink: sink: grab: x  (absorb all)
-    "png/mirrors/11_axial.png",        # axial mirrors: simple vertical: |
-    "png/mirrors/12_axial.png",        # axial mirrors: simple horizontal: -
-    "png/mirrors/13_axial2.png",       # axial mirrors: flipping vertical: ||
-    "png/mirrors/14_axial2.png",       # axial mirrors: flipping horizontal: =
-    "png/mirrors/15_rotator.png",      # rotators simple counterclockwise: left: \\
-    "png/mirrors/16_rotator.png",      # rotators simple clockwise: right: //
-    "png/mirrors/17_rotator2.png",     # rotators flipper clockwise: left: []
-    "png/mirrors/18_rotator2.png",     # rotators flipper counterclockwise: right: ][
-    "png/mirrors/19_half.png",         # 1-way mirrors: left: lower reflects: \<-
-    "png/mirrors/20_half.png",         # 1-way mirrors: left: upper reflects: ->\
-    "png/mirrors/21_half.png",         # 1-way mirrors: right: lower reflects: ->/
-    "png/mirrors/22_half.png",         # 1-way mirrors: right: upper reflects: /<-
-    "png/mirrors/23_half4.png",        # flipping 1-way mirrors: left: lower reflects: rotates clockwise: \\\<-
-    "png/mirrors/24_half4.png",        # flipping 1-way mirrors: right: upper reflects: rotates clockwise: ///<-
-    "png/mirrors/25_half4.png",        # flipping 1-way mirrors: left: upper reflects: rotates clockwise: ->\\\
-    "png/mirrors/26_half4.png",        # flipping 1-way mirrors: right: lower reflects: rotates clockwise: ->///
-    "png/mirrors/27_half4.png",        # flipping 1-way mirrors: left: upper reflects: rotates counterclockwise: ->\\\
-    "png/mirrors/28_half4.png",        # flipping 1-way mirrors: right: upper reflects: rotates counterclockwise: ///<-
-    "png/mirrors/29_half4.png",        # flipping 1-way mirrors: left: lower reflects: rotates counterclockwise: \\\<-
-    "png/mirrors/30_half4.png",        # flipping 1-way mirrors: right: lower reflects: rotates counterclockwise: ->///
-    "png/mirrors/31_move.png",         # moving mirror: left: -->\X\--> ---->\X\
-    "png/mirrors/32_move.png",         # moving mirror: right: <--/X/<-- /X/<----
-    "png/mirrors/33_bg.png"            # background
-    ]
+    png_path + "mirrors/00_bg.png",           # background
+    png_path + "mirrors/01_normal.png",       # simple mirrors: left: \
+    png_path + "mirrors/02_normal.png",       # simple mirrors: right: /
+    png_path + "mirrors/03_flip2.png",        # simple flipping mirrors: left: \
+    png_path + "mirrors/04_flip2.png",        # simple flipping mirrors: right: /
+    png_path + "mirrors/05_flip4.png",        # quad flipping mirrors: left: \
+    png_path + "mirrors/06_flip4.png",        # quad flipping mirrors: bounce: o
+    png_path + "mirrors/07_flip4.png",        # quad flipping mirrors: right: /
+    png_path + "mirrors/08_flip4.png",        # quad flipping mirrors: bounce: o
+    png_path + "mirrors/09_block.png",        # box and sink: box: bounce: o  (reflect all)
+    png_path + "mirrors/10_sink.png",         # box and sink: sink: grab: x  (absorb all)
+    png_path + "mirrors/11_axial.png",        # axial mirrors: simple vertical: |
+    png_path + "mirrors/12_axial.png",        # axial mirrors: simple horizontal: -
+    png_path + "mirrors/13_axial2.png",       # axial mirrors: flipping vertical: ||
+    png_path + "mirrors/14_axial2.png",       # axial mirrors: flipping horizontal: =
+    png_path + "mirrors/15_rotator.png",      # rotators simple counterclockwise: left: \\
+    png_path + "mirrors/16_rotator.png",      # rotators simple clockwise: right: //
+    png_path + "mirrors/17_rotator2.png",     # rotators flipper clockwise: left: []
+    png_path + "mirrors/18_rotator2.png",     # rotators flipper counterclockwise: right: ][
+    png_path + "mirrors/19_half.png",         # 1-way mirrors: left: lower reflects: \<-
+    png_path + "mirrors/20_half.png",         # 1-way mirrors: left: upper reflects: ->\
+    png_path + "mirrors/21_half.png",         # 1-way mirrors: right: lower reflects: ->/
+    png_path + "mirrors/22_half.png",         # 1-way mirrors: right: upper reflects: /<-
+    png_path + "mirrors/23_half4.png",        # flipping 1-way mirrors: left: lower reflects: rotates clockwise: \\\<-
+    png_path + "mirrors/24_half4.png",        # flipping 1-way mirrors: right: upper reflects: rotates clockwise: ///<-
+    png_path + "mirrors/25_half4.png",        # flipping 1-way mirrors: left: upper reflects: rotates clockwise: ->\\\
+    png_path + "mirrors/26_half4.png",        # flipping 1-way mirrors: right: lower reflects: rotates clockwise: ->///
+    png_path + "mirrors/27_half4.png",        # flipping 1-way mirrors: left: upper reflects: rotates counterclockwise: ->\\\
+    png_path + "mirrors/28_half4.png",        # flipping 1-way mirrors: right: upper reflects: rotates counterclockwise: ///<-
+    png_path + "mirrors/29_half4.png",        # flipping 1-way mirrors: left: lower reflects: rotates counterclockwise: \\\<-
+    png_path + "mirrors/30_half4.png",        # flipping 1-way mirrors: right: lower reflects: rotates counterclockwise: ->///
+    png_path + "mirrors/31_move.png",         # moving mirror: left: -->\X\--> ---->\X\
+    png_path + "mirrors/32_move.png",         # moving mirror: right: <--/X/<-- /X/<----
+    png_path + "mirrors/33_bg.png"            # background
+]
 
 # this indexes the above picture list so we know which ones are
 # used for labels on the configure screen
