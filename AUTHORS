@@ -1,4 +1,4 @@
-Fri Dec 14 14:34:53 EST 2018
+Sat Dec 22 21:22:43 EST 2018
 
 
 Notes from Ant <ant@anthive.com>
@@ -184,6 +184,7 @@ GPL=====
 Apache=====
   AUTHORS
   LICENSE
+  MANIFEST.in
   NOTICE
   README.md
   TODO.md
