@@ -1,4 +1,4 @@
-Tue Dec 18 09:30:05 EST 2018
+Sun Dec 23 12:22:40 EST 2018
 
 
   Bugs and comments to Ant <ant@anthive.com> or via the
@@ -22,10 +22,19 @@ time - I've never used it myself.
 
 v1.0.0 - ?  This TODO
 
-  - packaging
+  - where does the man page go?
+
+  - packaging for debian
 
   - restructure code (encapsulate, objectify, clean it up,
     tests and comments)
+
+
+v0.1.6
+
+  - packaging for PyPI Test (works)
+    - make all imports include the ngfp (done)
+    - change all the image imports to use cfg.png_path (done)
 
 
 v0.1.5
