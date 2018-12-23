@@ -1,4 +1,4 @@
-Sun Dec 23 12:22:40 EST 2018
+Sun Dec 23 16:03:43 EST 2018
 
 
   Bugs and comments to Ant <ant@anthive.com> or via the
@@ -28,6 +28,11 @@ v1.0.0 - ?  This TODO
 
   - restructure code (encapsulate, objectify, clean it up,
     tests and comments)
+
+
+v0.1.7
+
+  - fixed missing MANIFEST.in
 
 
 v0.1.6
