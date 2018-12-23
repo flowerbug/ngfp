@@ -7,13 +7,14 @@ import pyglet
 from pyglet.window import mouse
 from pyglet import clock
 
-import config as cfg
-from my_init import MyInitStuff
-from board import ClearSquareMarkers, ClearAllMarkers, ToggleMarker, DrawBoard
-from labels import UpdateLabels
-from active import ActiveAreaLeftMouseClickAction, ActiveAreaRightMouseClickAction, ActiveAreaMouseMoveAction
-from marbles import CheckMarbleChangeDirection, StopMarble
-from dialog import ShowHelp
+import ngfp.config as cfg
+
+from ngfp.active import ActiveAreaLeftMouseClickAction, ActiveAreaRightMouseClickAction, ActiveAreaMouseMoveAction
+from ngfp.board import ClearSquareMarkers, ClearAllMarkers, ToggleMarker, DrawBoard
+from ngfp.dialog import ShowHelp
+from ngfp.labels import UpdateLabels
+from ngfp.marbles import CheckMarbleChangeDirection, StopMarble
+from ngfp.my_init import MyInitStuff
 
 
 class Window(pyglet.window.Window):

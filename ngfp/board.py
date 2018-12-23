@@ -6,10 +6,12 @@
 import pyglet
 import copy
 from time import sleep
-from labels import AddLabels
-from background import DrawBordersAndBackgrounds
-from randboard import InitRandomBoardItems
-import config as cfg
+
+import ngfp.config as cfg
+
+from ngfp.background import DrawBordersAndBackgrounds
+from ngfp.labels import AddLabels
+from ngfp.randboard import InitRandomBoardItems
 
 
 def ClearSquareMarkers (self):

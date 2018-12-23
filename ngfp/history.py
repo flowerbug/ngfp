@@ -5,7 +5,8 @@
 
 import pyglet
 import sys
-import config as cfg
+
+import ngfp.config as cfg
 
 
 def HideInArrow (self):

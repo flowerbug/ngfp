@@ -7,8 +7,10 @@ import pyglet
 import sys
 import copy
 from time import sleep
-import config as cfg
-from history import UpdateAndShowArrow, HideBothArrows, HideOutArrow, HistoryNext, HistoryAndMarbleShift
+
+import ngfp.config as cfg
+
+from ngfp.history import UpdateAndShowArrow, HideBothArrows, HideOutArrow, HistoryNext, HistoryAndMarbleShift
 
 
 def MoveLeft (self):

@@ -4,8 +4,9 @@
 # Copyright (c) Ant <ant@anthive.com>
 
 import pyglet
-import config as cfg
 import copy
+
+import ngfp.config as cfg
 
 
 def DrawBordersAndBackgrounds (self):

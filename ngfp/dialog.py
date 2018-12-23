@@ -15,9 +15,10 @@ from gi.repository import Gio
 from gi.repository import Gtk
 from gi.repository import Gdk
 
-from board import ClearAndResizeBoard, DrawBoard
-import config as cfg
-from marbles import MarbleInMotion
+import ngfp.config as cfg
+
+from ngfp.board import ClearAndResizeBoard, DrawBoard
+from ngfp.marbles import MarbleInMotion
 
 
 setting = Gio.Settings.new("org.gtk.Settings.FileChooser")

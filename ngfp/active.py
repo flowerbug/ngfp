@@ -5,9 +5,11 @@
 
 import pyglet
 import sys
-import config as cfg
-from marbles import DoLeftClickWhiteAction
-from dialog import DoDialogControlAction
+
+import ngfp.config as cfg
+
+from ngfp.dialog import DoDialogControlAction
+from ngfp.marbles import DoLeftClickWhiteAction
 
 
 def WidgetPutClear (self):

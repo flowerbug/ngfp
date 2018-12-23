@@ -9,7 +9,8 @@ import random
 from random import randrange, getrandbits
 from time import sleep
 import copy
-import config as cfg
+
+import ngfp.config as cfg
 
 
 def InitRandomBoardItems (self):

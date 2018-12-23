@@ -15,7 +15,7 @@ with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
 
 setup(
     name="ngfp",
-    version="0.1.5.post5",
+    version="0.1.5.post9",
     author="Ant",
     author_email="ant@anthive.com",
     description="A puzzle game based upon gfpoken.",
@@ -31,6 +31,9 @@ setup(
                       "pygobject"],
     provides=["ngfp"],
     include_package_data=True,
+    entry_points={
+        "console_scripts": ["runngfp = ngfp.ngfp:main"]
+                 },
     python_requires=">=3",
     classifiers=[
         "License :: OSI Approved :: Apache Software License",

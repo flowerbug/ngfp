@@ -5,7 +5,8 @@
 
 import pyglet
 import copy
-import config as cfg
+
+import ngfp.config as cfg
 
 
 def AddLabels (self):
