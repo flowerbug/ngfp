@@ -28,7 +28,7 @@ setup(
                     "wheel >= 0.32.3"],
     packages=find_packages(),
     install_requires=["pyglet >= 1.3.0",
-                      "pygobject"],
+                      "PyGObject >= 3.31.1.dev0"],
     provides=["ngfp"],
     include_package_data=True,
     entry_points={
