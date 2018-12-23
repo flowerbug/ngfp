@@ -1,4 +1,4 @@
-Sun Dec 23 16:03:43 EST 2018
+Sun Dec 23 16:48:15 EST 2018
 
 
   Bugs and comments to Ant <ant@anthive.com> or via the
@@ -28,6 +28,12 @@ v1.0.0 - ?  This TODO
 
   - restructure code (encapsulate, objectify, clean it up,
     tests and comments)
+
+
+v0.1.8
+
+  - Use PyGObject >= 3.31.1.dev0 in setup to avoid error on
+    install
 
 
 v0.1.7
