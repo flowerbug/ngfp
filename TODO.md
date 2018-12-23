@@ -1,4 +1,4 @@
-Sun Dec 23 16:48:15 EST 2018
+Sun Dec 23 17:07:37 EST 2018
 
 
   Bugs and comments to Ant <ant@anthive.com> or via the
@@ -28,6 +28,13 @@ v1.0.0 - ?  This TODO
 
   - restructure code (encapsulate, objectify, clean it up,
     tests and comments)
+
+  - figure out man page
+
+
+v0.1.9
+
+  - add more directions to the README.md about how to install and run
 
 
 v0.1.8

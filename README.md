@@ -5,11 +5,33 @@
 ngfp aka new gfpoken aka gfpoken-in-python, is a Python 3 adaptation of the gfpoken program using pyglet and GTK3.  ngfp is a puzzle game where you place mirrors to interact with marbles rolling through a grid.  The complexity and size of the game can be adjusted.  Some games may have more than one solution but they will all count as winning games.  Have fun!
 
 
-# New Contributions
+# To Install for a Linux/Posix Type System
+
+  I am still working on some details but it should work.  I can only test on a Debian Linux system locally so I welcome bug or informational reports from people who try it out.
+
+  I usually set up a virtual environment to install and try out things as this isolates the newly downloaded dependencies from the rest of the system.  If you are not familiar with that process look into the python3 -m venv <dir> command.  Once that is set up and you have activated it then you can install ngfp by using:
+
+  $ pip install ngfp
+
+  This should bring in any depencies needed.
+
+  Once this completes then to run ngfp from a console terminal you should be able to use the command:
+
+  $ runngfp
+
+  When you are done playing the game and don't want to install other things you can run the following to deactivate it
+
+  $ deactivate
+
+
+  When I can figure out how to get Menu items added and a more clickable way to start the program that will help out people who don't use the terminal command lines.
+
+
+# New Coding or Artwork Contributions
 
   - check TODO or ask to make sure efforts are not duplicated
 
-  - new code will be licensed under Apache-2.0
+  - new code or artwork will be licensed under Apache-2.0
     - attribution will be to "Name" <email@address>
 
   - to make spacing consistent use:
@@ -29,6 +51,6 @@ ngfp aka new gfpoken aka gfpoken-in-python, is a Python 3 adaptation of the gfpo
 
   - artwork which was rescaled to 64 pixels
 
-  - the man page was adapted/edited
+  - the man page was adapted/edited but needs to be set up yet...
 
 
