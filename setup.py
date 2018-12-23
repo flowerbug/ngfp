@@ -3,8 +3,8 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright (c) Ant <ant@anthive.com>
 
-import setuptools
 from os import path
+from setuptools import setup, find_packages
 
 
 # read the contents of your README file
@@ -13,7 +13,7 @@ with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 
-setuptools.setup(
+setup(
     name="ngfp",
     version="0.1.5.post4",
     author="Ant",
@@ -23,9 +23,9 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://salsa.debian.org/ant-guest/gfpoken-in-python",
     license="Apache-2.0",
-    setup_requires=["setuptools >= 38.6.0",
-                    "wheel >= 0.31.0",
-                    "twine >= 1.11.0"],
+    setup_requires=["setuptools >= 40.6.3",
+                    "twine >= 1.12.1",
+                    "wheel >= 0.32.3"],
     packages=find_packages(),
     install_requires=["pyglet >= 1.3.0",
                       "pygobject"],
@@ -39,5 +39,4 @@ setuptools.setup(
         "Intended Audience :: End Users/Desktop",
         "Topic :: Games/Entertainment :: Puzzle Games"
     ],
-    }
 )
