@@ -15,7 +15,7 @@ with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
 
 setup(
     name="ngfp",
-    version="0.1.5.post4",
+    version="0.1.5.post5",
     author="Ant",
     author_email="ant@anthive.com",
     description="A puzzle game based upon gfpoken.",
@@ -30,6 +30,7 @@ setup(
     install_requires=["pyglet >= 1.3.0",
                       "pygobject"],
     provides=["ngfp"],
+    include_package_data=True,
     python_requires=">=3",
     classifiers=[
         "License :: OSI Approved :: Apache Software License",
