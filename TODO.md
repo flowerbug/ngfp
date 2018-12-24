@@ -1,4 +1,4 @@
-Sun Dec 23 17:07:37 EST 2018
+Mon Dec 24 07:37:10 EST 2018
 
 
   Bugs and comments to Ant <ant@anthive.com> or via the
@@ -22,14 +22,18 @@ time - I've never used it myself.
 
 v1.0.0 - ?  This TODO
 
-  - where does the man page go?
-
   - packaging for debian
 
   - restructure code (encapsulate, objectify, clean it up,
     tests and comments)
 
   - figure out man page
+
+
+v0.1.10
+
+  - Revert PyGObject requirement as it gives the same error 
+    as before and also deprecation warnings when running
 
 
 v0.1.9
