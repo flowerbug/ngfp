@@ -1,4 +1,4 @@
-Mon Dec 24 07:37:10 EST 2018
+Mon Dec 24 14:58:46 EST 2018
 
 
   Bugs and comments to Ant <ant@anthive.com> or via the
@@ -28,6 +28,13 @@ v1.0.0 - ?  This TODO
     tests and comments)
 
   - figure out man page
+
+
+v0.1.11
+
+  - bug fix for ToggleMarker in board.py, if there was no
+    initial movement by the mouse over the board the value
+    looked up didn't exist.
 
 
 v0.1.10

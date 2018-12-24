@@ -15,7 +15,7 @@ with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
 
 setup(
     name="ngfp",
-    version="0.1.10",
+    version="0.1.11",
     author="Ant",
     author_email="ant@anthive.com",
     description="A puzzle game based upon gfpoken.",
@@ -25,11 +25,13 @@ setup(
     license="Apache-2.0",
     setup_requires=["setuptools >= 40.6.3",
                     "twine >= 1.12.1",
-                    "wheel >= 0.32.3",
-                    "readme_renderer[md]"],
+                    "wheel >= 0.32.3"
+                    ],
     packages=find_packages(),
     install_requires=["pyglet >= 1.3.0",
-                      "PyGObject"],
+                      "pycairo",
+                      "pygobject"
+                     ],
     provides=["ngfp"],
     include_package_data=True,
     entry_points={
