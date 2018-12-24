@@ -38,10 +38,13 @@ def ClearAllMarkers (self):
 def ToggleMarker (self, mark):
 
 #    print ("ToggleMarker mark, mouse_win_pos : ", mark, self.mouse_win_pos)
-    value = self.board_to_window_index.index(self.mouse_win_pos)
-    how_many_markers = len(self.marker_images)
-    self.board[value][mark+2] = not(self.board[value][mark+2])
-    self.marker_sprites[(value*how_many_markers)+mark].visible = not(self.marker_sprites[(value*how_many_markers)+mark].visible)
+    try:
+        value = self.board_to_window_index.index(self.mouse_win_pos)
+        how_many_markers = len(self.marker_images)
+        self.board[value][mark+2] = not(self.board[value][mark+2])
+        self.marker_sprites[(value*how_many_markers)+mark].visible = not(self.marker_sprites[(value*how_many_markers)+mark].visible)
+    except:
+        pass
 
 
 def ClearAndResizeBoard (self):
