@@ -11,6 +11,7 @@ ngfp aka new gfpoken aka gfpoken-in-python, is a Python 3 adaptation of the gfpo
 
   I usually set up a virtual environment to install and try out things as this isolates the newly downloaded dependencies from the rest of the system.  If you are not familiar with that process look into the python3 -m venv <dir> command.  Once that is set up and you have activated it then you can install ngfp by using:
 
+
   $ pip install ngfp
 
   This should bring in any depencies needed.
