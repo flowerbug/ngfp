@@ -203,50 +203,10 @@ def MyInitStuff (self):
         spr_e.dy = 0
         self.marble_sprites.append(spr_e)
 
-    # cfg.pic_list is a copy of this.  i need to change all the rest of
-    # the references to this list to cfg.pic_list instead and remove this
-    # so it is no longer duplicated...  someday...
-    self.pic_list = [
-        self.png_path + "mirrors/00_bg.png",           # background
-        self.png_path + "mirrors/01_normal.png",       # simple mirrors: left: \
-        self.png_path + "mirrors/02_normal.png",       # simple mirrors: right: /
-        self.png_path + "mirrors/03_flip2.png",        # simple flipping mirrors: left: \
-        self.png_path + "mirrors/04_flip2.png",        # simple flipping mirrors: right: /
-        self.png_path + "mirrors/05_flip4.png",        # quad flipping mirrors: left: \
-        self.png_path + "mirrors/06_flip4.png",        # quad flipping mirrors: bounce: o
-        self.png_path + "mirrors/07_flip4.png",        # quad flipping mirrors: right: /
-        self.png_path + "mirrors/08_flip4.png",        # quad flipping mirrors: bounce: o
-        self.png_path + "mirrors/09_block.png",        # box and sink: box: bounce: o  (reflect all)
-        self.png_path + "mirrors/10_sink.png",         # box and sink: sink: grab: x  (absorb all)
-        self.png_path + "mirrors/11_axial.png",        # axial mirrors: simple vertical: |
-        self.png_path + "mirrors/12_axial.png",        # axial mirrors: simple horizontal: -
-        self.png_path + "mirrors/13_axial2.png",       # axial mirrors: flipping vertical: ||
-        self.png_path + "mirrors/14_axial2.png",       # axial mirrors: flipping horizontal: =
-        self.png_path + "mirrors/15_rotator.png",      # rotators simple counterclockwise: left: \\
-        self.png_path + "mirrors/16_rotator.png",      # rotators simple clockwise: right: //
-        self.png_path + "mirrors/17_rotator2.png",     # rotators flipper clockwise: left: []
-        self.png_path + "mirrors/18_rotator2.png",     # rotators flipper counterclockwise: right: ][
-        self.png_path + "mirrors/19_half.png",         # 1-way mirrors: left: lower reflects: \<-
-        self.png_path + "mirrors/20_half.png",         # 1-way mirrors: left: upper reflects: ->\
-        self.png_path + "mirrors/21_half.png",         # 1-way mirrors: right: lower reflects: ->/
-        self.png_path + "mirrors/22_half.png",         # 1-way mirrors: right: upper reflects: /<-
-        self.png_path + "mirrors/23_half4.png",        # flipping 1-way mirrors: left: lower reflects: rotates clockwise: \\\<-
-        self.png_path + "mirrors/24_half4.png",        # flipping 1-way mirrors: right: upper reflects: rotates clockwise: ///<-
-        self.png_path + "mirrors/25_half4.png",        # flipping 1-way mirrors: left: upper reflects: rotates clockwise: ->\\\
-        self.png_path + "mirrors/26_half4.png",        # flipping 1-way mirrors: right: lower reflects: rotates clockwise: ->///
-        self.png_path + "mirrors/27_half4.png",        # flipping 1-way mirrors: left: upper reflects: rotates counterclockwise: ->\\\
-        self.png_path + "mirrors/28_half4.png",        # flipping 1-way mirrors: right: upper reflects: rotates counterclockwise: ///<-
-        self.png_path + "mirrors/29_half4.png",        # flipping 1-way mirrors: left: lower reflects: rotates counterclockwise: \\\<-
-        self.png_path + "mirrors/30_half4.png",        # flipping 1-way mirrors: right: lower reflects: rotates counterclockwise: ->///
-        self.png_path + "mirrors/31_move.png",         # moving mirror: left: -->\X\--> ---->\X\
-        self.png_path + "mirrors/32_move.png",         # moving mirror: right: <--/X/<-- /X/<----
-        self.png_path + "mirrors/33_bg.png"            # background
-        ]
-
     self.spr_mv_list = []
 
-    for i in range(len(self.pic_list)):
-        image = pyglet.image.load(self.pic_list[i])
+    for i in range(len(cfg.pic_list)):
+        image = pyglet.image.load(cfg.pic_list[i])
         sprite = pyglet.sprite.Sprite(image)
         self.spr_mv_list.append([0, image, sprite, 0, 0])
 
