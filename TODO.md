@@ -1,4 +1,4 @@
-Mon Dec 24 14:58:46 EST 2018
+Mon Dec 24 23:16:14 EST 2018
 
 
   Bugs and comments to Ant <ant@anthive.com> or via the
@@ -28,6 +28,15 @@ v1.0.0 - ?  This TODO
     tests and comments)
 
   - figure out man page
+
+
+v0.1.12
+
+  - moved the markers a little so they weren't right on the
+    edge
+
+  - removed some redundant code (self.pic_list was a copy of
+    cfg.pic_list)
 
 
 v0.1.11
