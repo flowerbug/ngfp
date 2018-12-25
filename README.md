@@ -1,7 +1,7 @@
 
 
 
-# General Information:
+# General Information
 
 ngfp aka new gfpoken aka gfpoken-in-python, is a Python 3 adaptation of the gfpoken program using pyglet and GTK3.  ngfp is a puzzle game where you place mirrors to interact with marbles rolling through a grid.  The complexity and size of the game can be adjusted.  Some games may have more than one solution but they will all count as winning games.  Have fun!
 
@@ -55,9 +55,14 @@ ngfp aka new gfpoken aka gfpoken-in-python, is a Python 3 adaptation of the gfpo
   - new code or artwork will be licensed under Apache-2.0
     - attribution will be to "Name" <email@address>
 
-  - to make spacing consistent use:
 
-      to see what the changes would look like:
+# To Make Spacing Consistent
+
+  Use the following commands before submitting pull requests or 
+patches.
+
+
+  To see what the changes would look like
 
 
 ```shell
@@ -65,7 +70,7 @@ ngfp aka new gfpoken aka gfpoken-in-python, is a Python 3 adaptation of the gfpo
 ```
 
 
-      to make the changes:
+  To make the changes
 
 
 ```shell
