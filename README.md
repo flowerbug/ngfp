@@ -9,21 +9,25 @@ ngfp aka new gfpoken aka gfpoken-in-python, is a Python 3 adaptation of the gfpo
 
   I am still working on some details but it should work.  I can only test on a Debian Linux system locally so I welcome bug or informational reports from people who try it out.
 
-  I usually set up a virtual environment to install and try out things as this isolates the newly downloaded dependencies from the rest of the system.  If you are not familiar with that process look into the python3 -m venv <dir> command.  Once that is set up and you have activated it then you can install ngfp by using:
+  I usually set up a virtual environment to install and try out things as this isolates the newly downloaded dependencies from the rest of the system.  If you are not familiar with that process look into the python3 -m venv <dir> command.  Once that is set up and you have activated it then you can install ngfp by using: 
 
-
+```shell
   $ pip install ngfp
+```
 
   This should bring in any depencies needed.
 
   Once this completes then to run ngfp from a console terminal you should be able to use the command:
 
+```shell
   $ runngfp
+```
 
   When you are done playing the game and don't want to install other things you can run the following to deactivate it
 
+```shell
   $ deactivate
-
+```
 
   When I can figure out how to get Menu items added and a more clickable way to start the program that will help out people who don't use the terminal command lines.
 
@@ -39,11 +43,15 @@ ngfp aka new gfpoken aka gfpoken-in-python, is a Python 3 adaptation of the gfpo
 
       to see what the changes would look like:
 
+```shell
      $ autopep8 . --recursive --select=E101,E121 --diff
+```
 
       to make the changes:
 
+```shell
      $ autopep8 . --recursive --select=E101,E121 --in-place
+```
 
 
 # Previous Artwork and Manual Page
