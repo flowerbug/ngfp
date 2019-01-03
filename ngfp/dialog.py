@@ -585,6 +585,7 @@ class TextViewWindow(Gtk.Window):
         self.textbuffer = self.textview.get_buffer()
         self.textbuffer.set_text(
             "\n    Ngfp is running in directory : " + str(Path.cwd()) + "\n"
+            "    Ngfp code is running from directory : " + os.path.dirname(__file__) + "\n"
             + "\n"
             + "      It saves game files to directory : " + str(cfg.data_path) + "\n"
             + "\n"
