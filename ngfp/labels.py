@@ -27,7 +27,8 @@ def AddLabels (self):
 
     y_pos = cfg.img_pix * (cfg.game_rows)
     for i in range(cfg.game_rows+1):
-        x_pos = cfg.img_pix * (cfg.game_cols+3)
+#        x_pos = cfg.img_pix * (cfg.game_cols+3)
+        x_pos = cfg.img_pix * (cfg.game_cols+2)
         for j in range(cfg.control_cols):
             if ((i % 2) == 0):
                 if (w < w_limit):

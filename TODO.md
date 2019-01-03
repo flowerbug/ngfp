@@ -1,4 +1,4 @@
-Thu Jan  3 09:35:35 EST 2019
+Thu Jan  3 10:46:02 EST 2019
 
 
   Bugs and comments to Ant <ant@anthive.com> or via the
@@ -28,6 +28,13 @@ v1.0.0 - ?  This TODO
     tests and comments)
 
   - figure out man page
+
+
+v0.1.14
+
+  - moved the control column (light green squares)
+    - once in a while it was too easy to click a check or
+      flip board control square by mistake
 
 
 v0.1.13

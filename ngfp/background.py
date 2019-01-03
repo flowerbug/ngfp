@@ -60,9 +60,11 @@ def DrawBordersAndBackgrounds (self):
     # draw vertical green controls
     self.control_active_squares = []
     self.control_active_squares_position = []
-    x_pos = cfg.img_pix * (cfg.game_cols+2)
+#   x_pos = cfg.img_pix * (cfg.game_cols+2)
+    x_pos = cfg.img_pix * (cfg.game_cols+cfg.control_cols+2)
     y_pos = cfg.img_pix * (cfg.game_rows+1)
-    win_pos = self.window_squares - (cfg.control_cols + 1)
+#    win_pos = self.window_squares - (cfg.control_cols + 1)
+    win_pos = self.window_squares - 1
     control_counter = 0
     for y in range(cfg.game_rows+2):
         self.green_sprites.append( pyglet.sprite.Sprite( self.green_bg_image, batch=self.green_batch, x = x_pos, y = y_pos))
@@ -92,9 +94,11 @@ def DrawBordersAndBackgrounds (self):
     self.widget_active_squares = []
     self.widget_active_squares_position = []
     y_pos = cfg.img_pix * (cfg.game_rows+1)
-    win_pos = self.window_squares - cfg.control_cols
+#    win_pos = self.window_squares - cfg.control_cols
+    win_pos = self.window_squares - (cfg.control_cols + 1)
     for x in range(cfg.game_rows+2):
-        x_pos = cfg.img_pix * (cfg.game_cols+3)
+#        x_pos = cfg.img_pix * (cfg.game_cols+3)
+        x_pos = cfg.img_pix * (cfg.game_cols+2)
         for y in range(cfg.control_cols):
             if ((x % 2) == 0):
                 try:
