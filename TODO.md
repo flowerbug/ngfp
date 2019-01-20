@@ -1,4 +1,4 @@
-Thu Jan  3 10:46:02 EST 2019
+Sun 20 Jan 2019 12:08:59 PM EST
 
 
   Bugs and comments to Ant <ant@anthive.com> or via the
@@ -28,6 +28,17 @@ v1.0.0 - ?  This TODO
     tests and comments)
 
   - figure out man page
+
+
+v0.1.15
+
+  - allow change markers only in guess board
+
+  - end of game complex check matching bug the
+    display did not reflect game correctly after
+    checking
+
+  - markers did not show if loaded from file
 
 
 v0.1.14

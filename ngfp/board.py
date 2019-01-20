@@ -224,7 +224,7 @@ def DrawBoard (self):
                 self.marble_sprites[j].visible = False
 
         if (cfg.do_random_board == True):
-#            print ("Draw Random Board")
+#            print ("DrawBoard Draw Random Board")
 
             ClearAndResizeBoard (self)
             InitRandomBoardItems (self)
@@ -234,7 +234,7 @@ def DrawBoard (self):
 #            print ("DrawR self.wplc ", self.widget_pile_list_counts)
         else:
             # it's a newly loaded board
-#            print ("Draw Loaded Board")
+#            print ("DrawBoard Draw Loaded Board")
 
             cfg.game_cols = cfg.new_game_cols
             cfg.game_rows = cfg.new_game_rows
@@ -252,8 +252,8 @@ def DrawBoard (self):
         AddLabels (self)
 
         # draw game grid
-#        print ("draw show board 2", cfg.show_board)
-#        print ("board ", self.board)
+#        print ("DrawBoard show board 2", cfg.show_board)
+#        print ("DrawBoard initial board start", self.board)
         y_pos = cfg.img_pix
         x_pos = cfg.img_pix
         self.game_board_x_lower_limit = x_pos
@@ -276,7 +276,10 @@ def DrawBoard (self):
                 self.board_to_window_index.append(win_pos)
                 for z in range(len(self.marker_images)):
                     self.marker_sprite = pyglet.sprite.Sprite( self.marker_images[z], batch=self.marker_batch, x = x_pos, y = y_pos)
-                    self.marker_sprite.visible = False
+                    if (self.board[board_position][z+2] == True):
+                        self.marker_sprite.visible = True
+                    else:
+                        self.marker_sprite.visible = False
                     self.marker_sprites.append(self.marker_sprite)
                 x_pos += cfg.img_pix
                 win_pos += 1
@@ -291,7 +294,7 @@ def DrawBoard (self):
 #        print ("board_to_window_index", self.board_to_window_index)
 #        print ("game board limits ", self.game_board_x_lower_limit, self.game_board_x_upper_limit,
 #            self.game_board_y_lower_limit, self.game_board_y_upper_limit)
-#        print ("board ", self.board)
+#        print ("DrawBoard board initial board finish", self.board)
 #        print ("widget_pile_list_counts ", self.widget_pile_list_counts)
 
     elif (cfg.show_board == 0):
@@ -299,12 +302,12 @@ def DrawBoard (self):
             self.board_sprites[j].visible = True
         for j in range(len(self.guess_sprites)):
             self.guess_sprites[j].visible = False
-#        print ("draw show board 0", len(self.board_sprites), len(self.guess_sprites), cfg.show_board)
+#        print ("DrawBoard draw show board 0", len(self.board_sprites), len(self.guess_sprites), cfg.show_board)
     else:
         for j in range(len(self.board_sprites)):
             self.board_sprites[j].visible = False
         for j in range(len(self.guess_sprites)):
             self.guess_sprites[j].visible = True
-#        print ("draw show board 1", len(self.board_sprites), len(self.guess_sprites), cfg.show_board)
+#        print ("DrawBoard draw show board 1", len(self.board_sprites), len(self.guess_sprites), cfg.show_board)
 
 
