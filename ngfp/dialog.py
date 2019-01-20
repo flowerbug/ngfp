@@ -428,7 +428,18 @@ def ComplexCheck (self):
             board_match = False
             break
 
-    self.board = copy.deepcopy (tmp_board)
+    # the above may change the display/sprites/etc 
+    # so restore like we are starting from a new board
+    # and redisplay
+    
+    cfg.new_game_cols = cfg.game_cols
+    cfg.new_game_rows = cfg.game_rows
+    cfg.new_board = copy.deepcopy(tmp_board)
+    cfg.new_widget_counts = copy.deepcopy(self.widget_pile_list_counts)
+
+    cfg.show_board = 2  # reinitialize sprites and lists
+    cfg.do_random_board = False
+    DrawBoard (self)
 
     return (board_match)
 
@@ -541,7 +552,7 @@ class MySaveAsWindow(Gtk.Window):
         self.dialog.show_all()
         response = self.dialog.run()
         if response == Gtk.ResponseType.OK:
-            print("Select clicked")
+#            print("Select clicked")
             cfg.dialog_cancelled = False
             cfg.this_fn_to_save = self.dialog.get_filename()
 #            print("Save File selected: " + self.dialog.get_filename())
@@ -806,10 +817,10 @@ def LoadSavedGameFromFile (self):
         return
 
     if (cfg.this_fn_to_open == None):
-        print ("LoadSavedGameFromFile...  No file selected...")
+#        print ("LoadSavedGameFromFile...  No file selected...")
         return
 
-    print ("Open File selected : ", cfg.this_fn_to_open)
+#    print ("Open File selected : ", cfg.this_fn_to_open)
     if (cfg.this_fn_to_open.endswith(".gfp") == True):
         try:
             with open(cfg.this_fn_to_open) as filein:
@@ -871,7 +882,7 @@ def SaveGameToFile (self):
         return
 
     if (cfg.this_fn_to_save == None):
-        print ("SaveGameToFile...  No file selected...")
+#        print ("SaveGameToFile...  No file selected...")
 #        print ("Going back to directory : ", cfg.saved_dir)
         os.chdir(cfg.saved_dir)
         return

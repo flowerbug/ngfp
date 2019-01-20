@@ -143,17 +143,17 @@ class Window(pyglet.window.Window):
             elif ((cfg.show_board == 1) and (self.picked_up == True)):
                 self.picked_up_sprite.visible = True
 #            print ("The 'F2' key was pressed, show board changed to ", cfg.show_board)
-        elif (symbol == pyglet.window.key.F3):
+        elif ((cfg.show_board == 1) and (symbol == pyglet.window.key.F3)):
             ClearSquareMarkers(self)
-        elif (symbol == pyglet.window.key.F4):
+        elif ((cfg.show_board == 1) and (symbol == pyglet.window.key.F4)):
             ClearAllMarkers(self)
-        elif (symbol == pyglet.window.key.J):
+        elif ((cfg.show_board == 1) and (symbol == pyglet.window.key.J)):
             ToggleMarker(self, 0)
-        elif (symbol == pyglet.window.key.K):
+        elif ((cfg.show_board == 1) and (symbol == pyglet.window.key.K)):
             ToggleMarker(self, 1)
-        elif (symbol == pyglet.window.key.L):
+        elif ((cfg.show_board == 1) and (symbol == pyglet.window.key.L)):
             ToggleMarker(self, 2)
-        elif (symbol == pyglet.window.key.SEMICOLON):
+        elif ((cfg.show_board == 1) and (symbol == pyglet.window.key.SEMICOLON)):
             ToggleMarker(self, 3)
         elif symbol == pyglet.window.key.LEFT:
             if self.cube.x > 0:
