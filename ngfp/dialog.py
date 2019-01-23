@@ -420,13 +420,20 @@ def ComplexCheck (self):
     tmp_board = copy.deepcopy (self.board)
 
     board_match = True
-    for i in range(len(self.white_active_squares)):
-        board_out = MarbleInMotion (self, 0, 0, 0, self.white_active_squares[i], False)
-        guess_out = MarbleInMotion (self, 1, 0, 0, self.white_active_squares[i], False)
 
-        if (board_out != guess_out):
-            board_match = False
-            break
+    try:
+        for eval_depth in range(8):
+            for i in range(len(self.white_active_squares)):
+                board_out = MarbleInMotion (self, 0, 0, 0, self.white_active_squares[i], False)
+                guess_out = MarbleInMotion (self, 1, 0, 0, self.white_active_squares[i], False)
+
+                if (board_out != guess_out):
+                    board_match = False
+                    raise StopIteration
+#            print ("ComplexCheck : ", eval_depth)
+
+    except StopIteration:
+        pass
 
     # the above may change the display/sprites/etc 
     # so restore like we are starting from a new board
@@ -607,7 +614,7 @@ class TextViewWindow(Gtk.Window):
             + "        Configuration file name : " + cfg.config_filename + "\n"
             + "\n"
             + "\n"
-            + "    For Game Help Press H, F1 or ?\n"
+            + "    For more Game Help Press H, F1 or ?\n"
             + "      On a Linux system there should also be a man page.\n"
             + "\n"
             + "    To Quit Playing Game Press Q or ESC\n"
@@ -660,19 +667,19 @@ class HelpViewWindow(Gtk.Window):
         self.textview = Gtk.TextView()
         self.textbuffer = self.textview.get_buffer()
         self.textbuffer.set_text(
-            "\n  Ngfp is a puzzle game.  When first started you will be shown a blank grid on the left and on the right a selection of mirrors.  Under each mirror is the number of how many that need to be placed to solve the puzzle.  You have to use all of the mirrors.\n"
+            "\n  Ngfp is a puzzle game.  When Ngfp is first started you will be shown on the left a blank grid called the Guess grid and on the right is a selection of mirrors.  Under each mirror is the number that need to be placed on the Guess grid to solve the puzzle.  You have to use all of the mirrors.\n"
             + "\n"
-            + "  To place a mirror you can left mouse click to select it and then click again on the grid where you want to put it down.  To rotate the mirror after it has been placed you right mouse click on it.  To move a mirror left click on it to select it and then left click it and then left click again where you want to place it.\n"
+            + "  To place a mirror on the Guess grid left mouse click on a mirror to select it, move the mouse over the Guess grid and then click again on the Guess grid where you want to put it down (you do not need to hold the mouse button down).  To rotate the mirror after it has been placed right mouse click on it.  To move a mirror left click on it to select it from the Guess grid and then left click again the Guess grid where you want to place it.  Note that you cannot drop mirrors any place other than on the Guess grid or on the mirrors (the mirror you are moving disappears places where it can't be dropped).\n"
             + "\n"
-            + "  To discover where to put the mirrors you left mouse click on any white square that borders the grid and this starts a colored marble rolling through the grid.  If you have already placed mirrors then the marble will be reflected or absorbed in various ways depending upon the type of mirror.  Each colored marble will have a matching colored arrow marking where it started, but not all marbles will have a matching out arrow (some mirrors capture or absorb the marble or it is possible for the game to generate mirrors which can send the marble in a loop which does not exit).\n"
+            + "  To discover where to put the mirrors left mouse click on any white square that borders the Guess grid and this starts a colored marble rolling through the Guess grid.  If you have already placed mirrors then the marble will be reflected or absorbed in various ways depending upon the type of mirror.  Each colored marble will have a matching colored arrow marking where it started, but not all marbles will have a matching out arrow (some mirrors capture the marble or it is possible for the game to randomly generate mirrors which can send the marble in a loop which the marble does not exit).  The marble rolls where the mirrors reflect it - the out arrows show where the marble should finish.\n"
             + "\n"
-            + "  You can place up to four markers in a grid location to keep track of what you think may be there.  'J', 'K', 'L' and ';' will put a mark (or turn the mark off if you've already made one) in the grid location your mouse last was over.  F3 will clear the marks from that grid location, F4 will clear all marks (there are no undos for F3 or F4).\n"
+            + "  You can place up to four markers in a Guess grid location to keep track of what you think may be there.  'J', 'K', 'L' and ';' will put a mark (or turn the mark off if you've already made one) in the grid location your mouse last was over.  F3 will clear the marks from that grid location, F4 will clear all marks (there is no Undo for F3 or F4).\n"
             + "\n"
-            + "  There are two kinds of solutions to the puzzle.  One is an exact match and the other is a functional match (where all marbles put in from the edges come out where they are supposed to, but the mirrors may not be in the exact same place as the puzzle) - both are considered Wins.\n"
+            + "  There are two kinds of solutions to the puzzle.  One is an exact match and the other is a functional match (where all marbles put in from the edges come out where they are supposed to, but the mirrors may not be in the exact arrangement as the Game grid puzzle) - both are considered Wins.  In a very few cases you may have an invalid solution but Ngfp does not notice it - this is because for some puzzles the complexity is more than Ngfp evaluates (in theory this is related to what is called The Halting Problem in Computer Science).\n"
             + "\n"
-            + "  If you seem to not be getting any response from the game it is likely that you have pressed F2 or the Show Board Icon or have some other game window open.  If you have pressed F2 you can press F2 again to return to playing the game.  There is no going back from pressing the Show Board Icon.  Or close the other game window.\n"
+            + "  There are two status indicators at the bottom corners near the Guess or Game grid.  The Green button in the indicator to the right says that you are in the Guess grid where you can put down markers or mirrors which reflect what you think the puzzle might be.  The Pink button in the indicator to the left says that you are looking at the actual puzzle you are trying to solve (the Game grid).  If you seem to not be getting any response from Ngfp it is likely that you have pressed F2 or the Show Board Icon or have some other game window open.  If you have pressed F2 you can press F2 again to return to playing the game.  The Show Board Icon will also show the actual puzzle, but you cannot toggle back to the Guess grid (use F2 for that).  And if you have a help or dialog window open you have to close it before Ngfp can continue.\n"
             + "\n"
-            + "  Configuration information can be changed, game checked and games can be loaded and saved via the icons in the green column in the center.\n"
+            + "  Configuration information can be changed, game checked to see if you have won and games can be loaded and saved via the icons in the green column in the center.\n"
             + "\n"
             + "\n"
             + "    On a Linux system there should be a man page.\n"
@@ -681,7 +688,16 @@ class HelpViewWindow(Gtk.Window):
             + "  Mouse:\n"
             + "\n"
             + "    Left mouse click picks up and drops mirrors."
+            + "    Left mouse click on a white square starts a marble."
             + "    Right mouse click rotates mirrors."
+            + "\n"
+            + "    Left mouse click on a green square picture to:"
+            + "      - change, load, save or restore the game configuration"
+            + "      - check to see if you have solved the puzzle"
+            + "      - change to the Game grid"
+            + "      - load a previously saved game"
+            + "      - save a game"
+            + "      - show quick help and some game information"
             + "\n"
             + "\n"
             + "  Keys:\n"
