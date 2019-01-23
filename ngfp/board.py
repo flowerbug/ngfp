@@ -108,6 +108,9 @@ def DrawBoard (self):
 
     if (cfg.show_board == 2):
 
+        self.cube.visible = False
+        self.gcube.visible = False
+
         if (len(self.fixed_sprites) != 0):
             for j in range(len(self.fixed_sprites)):
                 #self.fixed_sprites[j].visible = False
@@ -298,12 +301,21 @@ def DrawBoard (self):
 #        print ("widget_pile_list_counts ", self.widget_pile_list_counts)
 
     elif (cfg.show_board == 0):
+
+        self.cube.visible = True
+        self.gcube.visible = False
+
         for j in range(len(self.board_sprites)):
             self.board_sprites[j].visible = True
         for j in range(len(self.guess_sprites)):
             self.guess_sprites[j].visible = False
 #        print ("DrawBoard draw show board 0", len(self.board_sprites), len(self.guess_sprites), cfg.show_board)
+
     else:
+
+        self.cube.visible = False
+        self.gcube.visible = True
+
         for j in range(len(self.board_sprites)):
             self.board_sprites[j].visible = False
         for j in range(len(self.guess_sprites)):

@@ -1,4 +1,4 @@
-Sun 20 Jan 2019 12:08:59 PM EST
+Wed 23 Jan 2019 08:50:51 AM EST
 
 
   Bugs and comments to Ant <ant@anthive.com> or via the
@@ -28,6 +28,16 @@ v1.0.0 - ?  This TODO
     tests and comments)
 
   - figure out man page
+
+
+v0.1.16
+
+  - improve help dialogs and manual page
+  - make complex check more in depth
+  - make it so the Green and Pink indicators are used to 
+    display game state:
+    - Green in Guess grid
+    - Pink in puzzle grid
 
 
 v0.1.15

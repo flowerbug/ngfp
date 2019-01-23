@@ -43,10 +43,12 @@ class Window(pyglet.window.Window):
         x_pos = cfg.img_pix * (cfg.game_cols+1)
         y_pos = 0
         self.gcube = pyglet.sprite.Sprite( self.gcube_image, batch=self.pointer_bottom_batch, x = x_pos, y = y_pos)
+        self.gcube.visible = False
         self.top_sprites.append(self.gcube)
         x_pos = 0
         y_pos = 0
         self.cube = pyglet.sprite.Sprite( self.cube_image, batch=self.pointer_top_batch, x = x_pos, y = y_pos)
+        self.cube.visible = False
         self.top_sprites.append(self.cube)
 
         self.picked_up = False
@@ -138,10 +140,17 @@ class Window(pyglet.window.Window):
             # only toggle between the game board and the guess 
             # board (0 or 1)...
             cfg.show_board = (cfg.show_board + 1) % 2
-            if ((cfg.show_board == 0) and (self.picked_up == True)):
-                self.picked_up_sprite.visible = False
-            elif ((cfg.show_board == 1) and (self.picked_up == True)):
-                self.picked_up_sprite.visible = True
+
+            if (cfg.show_board == 0):
+                self.cube.visible = True
+                self.gcube.visible = False
+                if (self.picked_up == True):
+                    self.picked_up_sprite.visible = False
+            elif (cfg.show_board == 1):
+                self.cube.visible = False
+                self.gcube.visible = True
+                if (self.picked_up == True):
+                    self.picked_up_sprite.visible = True
 #            print ("The 'F2' key was pressed, show board changed to ", cfg.show_board)
         elif ((cfg.show_board == 1) and (symbol == pyglet.window.key.F3)):
             ClearSquareMarkers(self)
@@ -155,21 +164,21 @@ class Window(pyglet.window.Window):
             ToggleMarker(self, 2)
         elif ((cfg.show_board == 1) and (symbol == pyglet.window.key.SEMICOLON)):
             ToggleMarker(self, 3)
-        elif symbol == pyglet.window.key.LEFT:
-            if self.cube.x > 0:
-                self.cube.x -= cfg.img_pix
+#        elif symbol == pyglet.window.key.LEFT:
+#            if self.cube.x > 0:
+#                self.cube.x -= cfg.img_pix
 #            print ("The 'LEFT' key was pressed")
-        elif symbol == pyglet.window.key.RIGHT:
-            if self.cube.x < self.game_board_x_limit:
-                self.cube.x += cfg.img_pix
+#        elif symbol == pyglet.window.key.RIGHT:
+#            if self.cube.x < self.game_board_x_limit:
+#                self.cube.x += cfg.img_pix
 #            print ("The 'RIGHT' key was pressed")
-        elif symbol == pyglet.window.key.UP:
-            if self.cube.y < self.game_board_y_limit:
-                self.cube.y += cfg.img_pix
+#        elif symbol == pyglet.window.key.UP:
+#            if self.cube.y < self.game_board_y_limit:
+#                self.cube.y += cfg.img_pix
 #            print ("The 'UP' key was pressed")
-        elif symbol == pyglet.window.key.DOWN:
-            if self.cube.y > 0:
-                self.cube.y -= cfg.img_pix
+#        elif symbol == pyglet.window.key.DOWN:
+#            if self.cube.y > 0:
+#                self.cube.y -= cfg.img_pix
 #            print ("The 'DOWN' key was pressed")
 
 
