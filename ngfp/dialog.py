@@ -31,11 +31,13 @@ class DialogWindow(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self)
 
+        self.set_keep_above(True)
         self.set_default_size(500, 200)
         self.set_border_width (30)
 #        self.set_title ("DialogWindow")
 
         self.set_position (Gtk.WindowPosition.CENTER)
+
 
         self.box = Gtk.Box (spacing=40, orientation=Gtk.Orientation.VERTICAL)
         self.add(self.box)
@@ -92,8 +94,8 @@ def LoadConfigOrUseCurrent ():
             cfg.class_weights = copy.deepcopy(loaded_config[2][4])
             if (cfg.show_board != 2):
                 DialogWin (
-                    "Ngfp Configuration Loaded",
-                    "          from this file for you... " + cfg.config_filename 
+                    "              Ngfp Configuration Loaded             ",
+                    "                                                    "
                     )
 
     else:
@@ -103,8 +105,8 @@ def LoadConfigOrUseCurrent ():
 #        print ("Use Current Parameters")
         if (cfg.show_board != 2):
             DialogWin (
-                "Ngfp Configuration file doesn't exist",
-                "so the current defaults are being used instead..."
+                "          Ngfp Configuration File Doesn't Exist         ",
+                "     The current defaults are being used instead        "
             )
 
 #    print_cfg ()
@@ -116,16 +118,16 @@ def SaveConfigToFile ():
 #        print ("Creating : ", str(cfg.config_path))
         cfg.config_path.mkdir(mode=0o700, parents=True, exist_ok=False)
         DialogWin (
-            "Ngfp No Configuration Directory Exists",
-            "We've created " + str(cfg.config_path) + " for you and put " + cfg.config_filename + " in there."
+            "           Ngfp No Configuration Directory Exists            ",
+            "         We've created " + str(cfg.config_path) + "          "
             )
 
     with open(cfg.full_config_filename, mode="w") as fileout:
         json.dump([["NGFP_Config\n", 1], [cfg.default_game_cols, cfg.default_game_rows, cfg.default_density, cfg.default_density_fuzz, cfg.default_class_weights],[cfg.game_cols, cfg.game_rows, cfg.density, cfg.density_fuzz, cfg.class_weights]], fileout, indent = 4, separators=(',', ': '))
 
     DialogWin (
-        "Ngfp Configuration Saved",
-        "    in this file for you... " + cfg.config_filename
+        "               Ngfp Configuration Saved                ",
+        "                                                       "
         )
 
 
@@ -134,8 +136,8 @@ class MyConfigWindow(Gtk.ApplicationWindow):
 
     def __init__(self, app):
         Gtk.Window.__init__(self, title="Ngfp Configuration", application=app)
-        self.set_border_width (30)
         self.set_default_size(600, 600)
+        self.set_border_width (30)
         self.set_position (Gtk.WindowPosition.CENTER)
 
         # adjustments (initial value, min value, max value,
@@ -373,8 +375,8 @@ class MyConfigWindow(Gtk.ApplicationWindow):
         self.h4_scale.set_value(cfg.density_fuzz)
         if (cfg.show_board != 2):
             DialogWin (
-                "      Ngfp Configuration Parameters Reset      ",
-                "                      using default values...               "
+                "             Ngfp Configuration Parameters Reset           ",
+                "                      Using default values                 "
             )
 
 #        print_cfg ()
@@ -455,20 +457,27 @@ def CheckBoard (self):
 
 #    print ("CheckBoard dialog ...")
 
+    if (sum(self.widget_pile_list_counts) != 0):
+        DialogWin (
+            "            You Need To Use All Of The Mirrors             ",
+            "                   Sorry   Try again                       "
+            )
+        return
+
     if (SimpleCheck (self) == True):
         DialogWin (
-            "You Won!  Exact Match Found.",
-            "You've solved the puzzle.  Congratulations!!!"
+            "           You Won!  Exact Match Found                     ",
+            "     You've solved the puzzle   Congratulations!           "
             )
     elif (ComplexCheck (self) == True):
         DialogWin (
-            "You Won!  Functionally Identical Match Found",
-            "You've solved the puzzle.  Congratulations!!!"
+            "        You Won!  Functionally Identical Match Found          ",
+            "       You've solved the puzzle   Congratulations!            "
             )
     else:
         DialogWin (
-            "You Lost.  No Match Found.",
-            "           Sorry.  Try again...              "
+            "             You Lost   No Match Found                     ",
+            "                Sorry   Try again                          "
             )
 
 
@@ -498,8 +507,8 @@ class MyOpenWindow(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self, title="Game File Open", has_focus=False)
 
-        self.set_border_width (20)
         self.set_default_size (300,100)
+        self.set_border_width (20)
         self.set_position (Gtk.WindowPosition.MOUSE)
 
         self.dialog = Gtk.FileChooserDialog("Please choose a game file to open", self,
@@ -535,8 +544,8 @@ class MySaveAsWindow(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self, title="Game File Save As", has_focus=False)
 
-        self.set_border_width (20)
         self.set_default_size (300,100)
+        self.set_border_width (20)
         self.set_position (Gtk.WindowPosition.MOUSE)
 
         self.dialog = Gtk.FileChooserDialog("Save your game as", self,
@@ -805,16 +814,16 @@ def LoadSavedGameFromFile (self):
     # check for saved games directory
     if (cfg.data_path.exists() != True):
         DialogWin (
-            "Ngfp Save Game Directory Missing",
-            "You haven't created : " + str(cfg.data_path) + " yet..."
+            "             Ngfp Save Game Directory Missing              ",
+            "You haven't created : " + str(cfg.data_path) + " yet       "
             )
         return
 
     # is there anything in there?
     if (len(os.listdir(path=str(cfg.data_path))) == 0):
         DialogWin (
-            "Ngfp Save Game Directory Empty",
-            "       There are no saved games yet...       "
+            "             Ngfp Save Game Directory Empty                ",
+            "       There are no saved games yet                        "
             )
         return
 
@@ -848,8 +857,8 @@ def LoadSavedGameFromFile (self):
             DrawBoard (self)
         except:
             DialogWin (
-                "Ngfp Loading a previously saved game failed",
-                "  not sure what isn't working with this file : " + str(cfg.this_fn_to_save)
+                "             Ngfp Loading A Previously Saved Game Failed   ",
+                "  Not sure what isn't working with this file : " + str(cfg.this_fn_to_save)
                 )
 #            print ("LoadSavedGameFromFile : ", cfg.this_fn_to_open, "didn't load...")
     elif (cfg.this_fn_to_open.endswith(".json") == True):
@@ -862,9 +871,10 @@ def LoadSavedGameFromFile (self):
             cfg.this_fn_to_save = cfg.this_fn_to_open
             DrawBoard (self)
         except:
-            "Ngfp Loading a previously saved game failed",
-            "  not sure what isn't working with this file : " + str(cfg.this_fn_to_save
-            )
+            DialogWin (
+                "Ngfp Loading A Previously Saved Game Failed",
+                "  Not sure what isn't working with this file : " + str(cfg.this_fn_to_save)
+                )
 #            print ("LoadSavedGameFromFile : ", cfg.this_fn_to_open, "didn't load...")
 
 
@@ -879,8 +889,8 @@ def SaveGameToFile (self):
 #        print ("No save directory exists.  Creating : ", str(cfg.data_path))
         cfg.data_path.mkdir(mode=0o700, parents=True, exist_ok=False)
         DialogWin (
-            "Ngfp No Save Game Directory Exists",
-            "  We've created " + str(cfg.data_path) + " for you..."
+            "             Ngfp No Save Game Directory Exists            ",
+            "  We've created " + str(cfg.data_path) + " for you         "
             )
 
 #    print ("Changing directory to : ", str(cfg.data_path))
