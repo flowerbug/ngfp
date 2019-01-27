@@ -10,7 +10,7 @@ from time import sleep
 
 import ngfp.config as cfg
 
-from ngfp.history import UpdateAndShowArrow, HideBothArrows, HideOutArrow, HistoryNext, HistoryAndMarbleShift
+from ngfp.history import UpdateAndShowArrow, HideBothArrows, HideOutArrow, HistoryNext, HistoryAndMarbleShift, MarbleShift
 
 
 def MoveLeft (self):
@@ -460,9 +460,15 @@ def StartMarble (self, win_pos, visible):
 #        self.marble_sprites[0].dy)
 
 
-def StopMarble (self, win_pos):
+def StopMarble (self, pos):
 
-    pass
+#    print ("StopMarble Pre Shift  : ", self.marble_sprites[pos].x, self.marble_sprites[pos].y)
+    self.marble_sprites[pos].visible = False
+    MarbleShift(self)
+    self.marble_sprites[pos].x = self.marble_sprites[pos-1].x
+    self.marble_sprites[pos].y = self.marble_sprites[pos-1].y
+    self.marble_sprites[pos].visible = True
+#    print ("StopMarble Post Shift : ", self.marble_sprites[pos].x, self.marble_sprites[pos].y)
 
 
 def MarbleInMotion (self, which_board, x_rec, y_rec, win_pos, visible):

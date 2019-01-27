@@ -1,4 +1,4 @@
-Sun 27 Jan 2019 08:18:49 AM EST
+Sun 27 Jan 2019 05:03:46 PM EST
 
 
   Bugs and comments to Ant <ant@anthive.com> or via the
@@ -28,6 +28,11 @@ v1.0.0 - ?  This TODO
     tests and comments)
 
   - figure out man page
+
+
+v0.1.18
+
+  - stop the animation at the edges
 
 
 v0.1.17

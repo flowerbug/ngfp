@@ -179,6 +179,7 @@ def MyInitStuff (self):
     self.arrow_index = 0
     self.anim = []
     self.marble_seq = []
+    anim_index = 0
     for i in range(self.history_limit):
 
         spr_a = pyglet.sprite.Sprite(self.arrow_images[0], batch=self.arrow_batch)
@@ -193,15 +194,31 @@ def MyInitStuff (self):
         spr_d.visible = False
         self.history_color_sprites.append([spr_c, spr_d])
 
-        self.marble_seq.append(pyglet.image.ImageGrid(self.marble_images[i], 1, 16))
-        self.anim.append(pyglet.image.Animation.from_image_sequence(self.marble_seq[i], 0.02, True))
-        spr_e = pyglet.sprite.Sprite(self.anim[i], batch=self.marble_batch)
+        # set up a long looping animation
+        marble_sequence = pyglet.image.ImageGrid(self.marble_images[i], 1, 16)
+        self.marble_seq.append(marble_sequence)
+        self.anim.append(pyglet.image.Animation.from_image_sequence(self.marble_seq[anim_index], 0.02, True))
+        spr_e = pyglet.sprite.Sprite(self.anim[anim_index], batch=self.marble_batch)
         spr_e.visible = True
         spr_e.x = 0
         spr_e.y = 0
         spr_e.dx = 0
         spr_e.dy = 0
         self.marble_sprites.append(spr_e)
+        anim_index += 1
+
+        # now set up the short animation that plays once
+        marble_sequence = marble_sequence[:1]
+        self.marble_seq.append(marble_sequence)
+        self.anim.append(pyglet.image.Animation.from_image_sequence(self.marble_seq[anim_index], 1, False))
+        spr_e = pyglet.sprite.Sprite(self.anim[anim_index], batch=self.marble_batch)
+        spr_e.visible = False
+        spr_e.x = 0
+        spr_e.y = 0
+        spr_e.dx = 0
+        spr_e.dy = 0
+        self.marble_sprites.append(spr_e)
+        anim_index += 1
 
     self.spr_mv_list = []
 
