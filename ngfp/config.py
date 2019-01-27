@@ -110,6 +110,10 @@ default_class_weights = [100, 75, 5, 5, 5, 15, 5]
 # need to keep track of the current square
 square = None
 
+# if the user has to wait until something 
+#  (usually the animation) is done
+no_user_actions = False
+
 
 # labels for configuration dialog
 

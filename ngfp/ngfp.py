@@ -75,15 +75,17 @@ class Window(pyglet.window.Window):
         y_rec = y_win * img_pix
         win_pos = (y_win * self.window_cols) + x_win
 
-        if button == mouse.LEFT:
-#            print("The LEFT mouse button was pressed.", x, x_rec, x_win, y, y_rec, y_win, win_pos)
-            ActiveAreaLeftMouseClickAction(self, x, x_rec, y, y_rec, win_pos)
-        elif button == mouse.MIDDLE:
-#            print("The MIDDLE mouse button was pressed.", x, x_rec, x_win, y, y_rec, y_win, win_pos)
-            pass
-        elif button == mouse.RIGHT:
-#            print("The RIGHT mouse button was pressed.", x, x_rec, x_win, y, y_rec, y_win, win_pos)
-            ActiveAreaRightMouseClickAction(self, x, x_rec, y, y_rec, win_pos)
+        # only do things when something else isn't happening
+        if (cfg.no_user_actions == False):
+            if button == mouse.LEFT:
+#                print("The LEFT mouse button was pressed.", x, x_rec, x_win, y, y_rec, y_win, win_pos)
+                ActiveAreaLeftMouseClickAction(self, x, x_rec, y, y_rec, win_pos)
+            elif button == mouse.MIDDLE:
+#                print("The MIDDLE mouse button was pressed.", x, x_rec, x_win, y, y_rec, y_win, win_pos)
+                pass
+            elif button == mouse.RIGHT:
+#                print("The RIGHT mouse button was pressed.", x, x_rec, x_win, y, y_rec, y_win, win_pos)
+                ActiveAreaRightMouseClickAction(self, x, x_rec, y, y_rec, win_pos)
 
 
     def on_mouse_release(self, x, y, button, modifiers):
@@ -92,6 +94,10 @@ class Window(pyglet.window.Window):
 
 
     def on_mouse_motion(self, x, y, dx, dy):
+
+        # don't do anything when something else is happening
+        if (cfg.no_user_actions == True):
+            return ()
 
         img_pix = cfg.img_pix
         x_win = x // img_pix
