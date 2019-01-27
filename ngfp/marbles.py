@@ -468,11 +468,13 @@ def StopMarble (self, pos):
     self.marble_sprites[pos].x = self.marble_sprites[pos-1].x
     self.marble_sprites[pos].y = self.marble_sprites[pos-1].y
     self.marble_sprites[pos].visible = True
+    cfg.no_user_actions = False
 #    print ("StopMarble Post Shift : ", self.marble_sprites[pos].x, self.marble_sprites[pos].y)
 
 
 def MarbleInMotion (self, which_board, x_rec, y_rec, win_pos, visible):
 
+    cfg.no_user_actions = True
     HideBothArrows (self)
     start_pos = win_pos
     self.start_direction = None
@@ -589,9 +591,11 @@ def CheckMarbleChangeDirection (self, sprite_index, x, y):
             self.marble_sprites[sprite_index].dy = 0
             self.marble_stop_direction = None
             self.marble_tick_count = self.tick_limit
+            StopMarble(self, sprite_index)
 
     if (self.marble_tick_count > self.tick_limit):
 #        print ("Check Marble Exceeded tick_count of ", self.tick_limit)
+        StopMarble(self, sprite_index)
         pass
 
 

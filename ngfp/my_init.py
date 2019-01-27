@@ -305,6 +305,6 @@ def MyInitStuff (self):
     self.dir_down = []
 
     # some kind of limit to break out of loops
-    self.tick_limit = 100 + (self.board_squares * 2)
+    self.tick_limit = 100 + (self.board_squares * 4)
 
 
