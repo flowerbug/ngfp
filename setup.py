@@ -15,7 +15,7 @@ with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
 
 setup(
     name="ngfp",
-    version="0.1.16",
+    version="0.1.17",
     author="Ant",
     author_email="ant@anthive.com",
     description="A puzzle game based upon gfpoken.",
