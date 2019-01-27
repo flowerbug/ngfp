@@ -58,6 +58,11 @@ def HistoryAndMarbleShift (self):
 
     # we need to rotate both the arrows and marbles together
     self.color_batch_list.append(self.color_batch_list.pop(0))
+    MarbleShift(self)
+
+
+def MarbleShift(self):
+
     self.marble_sprites.append(self.marble_sprites.pop(0))
 
 
