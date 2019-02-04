@@ -19,6 +19,7 @@ import ngfp.config as cfg
 
 from ngfp.board import ClearAndResizeBoard, DrawBoard
 from ngfp.marbles import MarbleInMotion
+from ngfp.version import GetVersion
 
 
 setting = Gio.Settings.new("org.gtk.Settings.FileChooser")
@@ -450,6 +451,8 @@ def ComplexCheck (self):
     cfg.do_random_board = False
     DrawBoard (self)
 
+    cfg.show_board = 1
+    cfg.no_user_actions = False
     return (board_match)
 
 
@@ -615,6 +618,8 @@ class TextViewWindow(Gtk.Window):
             "    Ngfp code is running from directory : " + os.path.dirname(__file__) + "\n"
             + "\n"
             + "      It saves game files to directory : " + str(cfg.data_path) + "\n"
+            + "\n"
+            "    Ngfp Version is : " + GetVersion() + "\n"
             + "\n"
             + "        Open file name : " + str(cfg.this_fn_to_open) + "\n"
             + "        Save file name : " + str(cfg.this_fn_to_save) + "\n"
