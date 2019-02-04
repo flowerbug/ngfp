@@ -6,6 +6,8 @@
 from os import path
 from setuptools import setup, find_packages
 
+from ngfp.version import GetVersion
+
 
 # read the contents of your README file
 this_directory = path.abspath(path.dirname(__file__))
@@ -13,9 +15,12 @@ with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 
+__version__ = GetVersion()
+
+
 setup(
     name="ngfp",
-    version="0.1.19",
+    version=__version__,
     author="Ant",
     author_email="ant@anthive.com",
     description="A puzzle game based upon gfpoken.",

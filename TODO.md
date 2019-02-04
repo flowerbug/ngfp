@@ -1,4 +1,4 @@
-Sun 27 Jan 2019 06:34:09 PM EST
+Mon 04 Feb 2019 06:50:58 PM EST
 
 
   Bugs and comments to Ant <ant@anthive.com> or via the
@@ -28,6 +28,12 @@ v1.0.0 - ?  This TODO
     tests and comments)
 
   - figure out man page
+
+
+v0.2.0
+
+  - end of game freeze fixed
+  - add version.py
 
 
 v0.1.19
