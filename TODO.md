@@ -1,4 +1,4 @@
-Mon 04 Feb 2019 06:50:58 PM EST
+Tue 05 Feb 2019 12:50:35 PM EST
 
 
   Bugs and comments to Ant <ant@anthive.com> or via the
@@ -28,6 +28,13 @@ v1.0.0 - ?  This TODO
     tests and comments)
 
   - figure out man page
+
+
+v0.2.1
+
+  - end of game bug
+    - marbles and arrows getting out of sync
+      when checking if we've won
 
 
 v0.2.0

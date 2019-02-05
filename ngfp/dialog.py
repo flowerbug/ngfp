@@ -421,6 +421,11 @@ def ComplexCheck (self):
 #    print ("ComplexCheck")
 
     tmp_board = copy.deepcopy (self.board)
+    tmp_history_arrow_index = self.arrow_index
+    tmp_arrow_history_sprites = self.arrow_history_sprites[:]
+    tmp_history_color_sprites = self.history_color_sprites[:]
+    tmp_color_batch_list = self.color_batch_list[:]
+    tmp_marble_sprites = self.marble_sprites[:]
 
     board_match = True
 
@@ -446,6 +451,12 @@ def ComplexCheck (self):
     cfg.new_game_rows = cfg.game_rows
     cfg.new_board = copy.deepcopy(tmp_board)
     cfg.new_widget_counts = copy.deepcopy(self.widget_pile_list_counts)
+
+    self.arrow_index = tmp_history_arrow_index
+    self.arrow_history_sprites = tmp_arrow_history_sprites[:]
+    self.history_color_sprites = tmp_history_color_sprites[:]
+    self.color_batch_list = tmp_color_batch_list[:]
+    self.marble_sprites = tmp_marble_sprites[:]
 
     cfg.show_board = 2  # reinitialize sprites and lists
     cfg.do_random_board = False

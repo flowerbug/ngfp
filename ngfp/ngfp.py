@@ -68,15 +68,15 @@ class Window(pyglet.window.Window):
 
     def on_mouse_press(self, x, y, button, modifiers):
 
-        img_pix = cfg.img_pix
-        x_win = x // img_pix
-        x_rec = x_win * img_pix
-        y_win = y // img_pix
-        y_rec = y_win * img_pix
-        win_pos = (y_win * self.window_cols) + x_win
-
         # only do things when something else isn't happening
         if (cfg.no_user_actions == False):
+            img_pix = cfg.img_pix
+            x_win = x // img_pix
+            x_rec = x_win * img_pix
+            y_win = y // img_pix
+            y_rec = y_win * img_pix
+            win_pos = (y_win * self.window_cols) + x_win
+
             if button == mouse.LEFT:
 #                print("The LEFT mouse button was pressed.", x, x_rec, x_win, y, y_rec, y_win, win_pos)
                 ActiveAreaLeftMouseClickAction(self, x, x_rec, y, y_rec, win_pos)
