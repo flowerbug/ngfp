@@ -1,4 +1,4 @@
-Tue 05 Feb 2019 12:50:35 PM EST
+Sun 15 Sep 2019 12:41:31 PM EDT
 
 
   Bugs and comments to Ant <ant@anthive.com> or via the
@@ -28,6 +28,11 @@ v1.0.0 - ?  This TODO
     tests and comments)
 
   - figure out man page
+
+
+v0.2.2
+
+  - added restart game key (F5)
 
 
 v0.2.1
