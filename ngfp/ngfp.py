@@ -10,7 +10,7 @@ from pyglet import clock
 import ngfp.config as cfg
 
 from ngfp.active import ActiveAreaLeftMouseClickAction, ActiveAreaRightMouseClickAction, ActiveAreaMouseMoveAction
-from ngfp.board import ClearSquareMarkers, ClearAllMarkers, ToggleMarker, DrawBoard
+from ngfp.board import ClearSquareMarkers, ClearAllMarkers, ToggleMarker, RestartGame, DrawBoard
 from ngfp.dialog import ShowHelp
 from ngfp.labels import UpdateLabels
 from ngfp.marbles import CheckMarbleChangeDirection, StopMarble
@@ -162,6 +162,8 @@ class Window(pyglet.window.Window):
             ClearSquareMarkers(self)
         elif ((cfg.show_board == 1) and (symbol == pyglet.window.key.F4)):
             ClearAllMarkers(self)
+        elif ((cfg.show_board == 1) and (symbol == pyglet.window.key.F5)):
+            RestartGame(self)
         elif ((cfg.show_board == 1) and (symbol == pyglet.window.key.J)):
             ToggleMarker(self, 0)
         elif ((cfg.show_board == 1) and (symbol == pyglet.window.key.K)):

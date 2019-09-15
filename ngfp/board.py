@@ -47,6 +47,24 @@ def ToggleMarker (self, mark):
         pass
 
 
+def RestartGame (self):
+
+    #print ("RestartGame")
+    ClearAllMarkers (self)
+
+    # reset the widget pile count list
+    self.widget_pile_list_counts = copy.deepcopy(self.orig_widget_pile_list_counts)
+    # clear guesses
+    value = len(self.board)
+    for i in range(value):
+        self.board[i][1] = 0
+
+    # make any guess sprites look like the background
+    if (len(self.guess_sprites) != 0):
+        for j in range(len(self.guess_sprites)):
+            self.guess_sprites[j].image = self.game_bg_image
+
+
 def ClearAndResizeBoard (self):
 
 
@@ -232,6 +250,7 @@ def DrawBoard (self):
             ClearAndResizeBoard (self)
             InitRandomBoardItems (self)
             DrawBordersAndBackgrounds (self)
+            self.orig_widget_pile_list_counts = copy.deepcopy(self.widget_pile_list_counts)
             cfg.do_random_board = False
 #            print ("DrawR self.wpl ", self.widget_pile_list)
 #            print ("DrawR self.wplc ", self.widget_pile_list_counts)
@@ -248,6 +267,7 @@ def DrawBoard (self):
             self.board = copy.deepcopy(cfg.new_board)
             del self.widget_pile_list_counts
             self.widget_pile_list_counts = copy.deepcopy(cfg.new_widget_counts)
+            self.orig_widget_pile_list_counts = copy.deepcopy(cfg.new_widget_counts)
             DrawBordersAndBackgrounds (self)
 #            print ("DrawL self.wpl ", self.widget_pile_list)
 #            print ("DrawL self.wplc ", self.widget_pile_list_counts)
