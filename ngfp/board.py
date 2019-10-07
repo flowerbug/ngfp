@@ -52,8 +52,22 @@ def RestartGame (self):
     #print ("RestartGame")
     ClearAllMarkers (self)
 
-    # reset the widget pile count list
-    self.widget_pile_list_counts = copy.deepcopy(self.orig_widget_pile_list_counts)
+    # reset and then recount the widget pile count list
+    try:
+        del self.widget_pile_list_counts
+    except AttributeError:
+        pass
+
+    self.widget_pile_list_counts = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+    # ok, now recount what is on the board
+    value = len(self.board)
+    for i in range(value):
+        mirror_value = self.board[i][0]
+        if (mirror_value != 0):
+            lookup_value = self.widget_lookup_table[mirror_value] - 1
+            self.widget_pile_list_counts[lookup_value] += 1
+
     # clear guesses
     value = len(self.board)
     for i in range(value):
@@ -250,7 +264,6 @@ def DrawBoard (self):
             ClearAndResizeBoard (self)
             InitRandomBoardItems (self)
             DrawBordersAndBackgrounds (self)
-            self.orig_widget_pile_list_counts = copy.deepcopy(self.widget_pile_list_counts)
             cfg.do_random_board = False
 #            print ("DrawR self.wpl ", self.widget_pile_list)
 #            print ("DrawR self.wplc ", self.widget_pile_list_counts)
@@ -267,7 +280,6 @@ def DrawBoard (self):
             self.board = copy.deepcopy(cfg.new_board)
             del self.widget_pile_list_counts
             self.widget_pile_list_counts = copy.deepcopy(cfg.new_widget_counts)
-            self.orig_widget_pile_list_counts = copy.deepcopy(cfg.new_widget_counts)
             DrawBordersAndBackgrounds (self)
 #            print ("DrawL self.wpl ", self.widget_pile_list)
 #            print ("DrawL self.wplc ", self.widget_pile_list_counts)
