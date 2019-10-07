@@ -1,4 +1,4 @@
-Sun 15 Sep 2019 12:41:31 PM EDT
+Mon 07 Oct 2019 11:45:53 AM EDT
 
 
   Bugs and comments to Ant <ant@anthive.com> or via the
@@ -28,6 +28,11 @@ v1.0.0 - ?  This TODO
     tests and comments)
 
   - figure out man page
+
+
+v0.2.3
+
+  - restart game bug fix (needed to recount mirrors)
 
 
 v0.2.2
