@@ -269,8 +269,6 @@ class Window(pyglet.window.Window):
 
 #        self.fps.draw()
 
-        self.flip()
-
 
 def main():
     window = Window(width=cfg.img_pix*(cfg.game_cols+cfg.control_cols+3), height=cfg.img_pix*(cfg.game_rows+2), caption="Ngfp", resizable=False, fullscreen=False, visible=False)

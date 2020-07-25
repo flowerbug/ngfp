@@ -484,7 +484,6 @@ def MarbleInMotion (self, which_board, x_rec, y_rec, win_pos, visible):
     self.cube.visible = False
     self.pointer_top_batch.draw()
     self.variable_guess_batch.draw()
-    self.flip()
     ShowWhiteInArrow (self, win_pos, visible)
     for i in range(self.history_limit):
         self.color_batch_list[i].draw()
@@ -492,7 +491,6 @@ def MarbleInMotion (self, which_board, x_rec, y_rec, win_pos, visible):
     StartMarble(self, win_pos, visible)
     self.marble_batch.draw()
     self.arrow_batch.draw()
-    self.flip()
     self.cube.visible = True
 #    print ("Starting to move game marble from ", start_pos, "in direction ", self.start_direction)
 
@@ -514,7 +512,6 @@ def MarbleInMotion (self, which_board, x_rec, y_rec, win_pos, visible):
 #                self.cube.x = cube_xy[0]
 #                self.cube.y = cube_xy[1]
 #                self.pointer_top_batch.draw()
-#                self.flip()
 #            print ("Moved: game marble Tick, CP, CD ", tick_count, current_pos, current_direction)
 #            sleep (0.08)
             current_pos += new_dir
