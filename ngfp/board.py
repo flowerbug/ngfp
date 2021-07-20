@@ -78,6 +78,21 @@ def RestartGame (self):
         for j in range(len(self.guess_sprites)):
             self.guess_sprites[j].image = self.game_bg_image
 
+    # hide history, arrows and marbles
+    if (len(self.arrow_history_sprites) != 0):
+        for j in range(len(self.arrow_history_sprites)):
+            self.arrow_history_sprites[j][0].visible = False
+            self.arrow_history_sprites[j][1].visible = False
+
+    if (len(self.history_color_sprites) != 0):
+        for j in range(len(self.history_color_sprites)):
+            self.history_color_sprites[j][0].visible = False
+            self.history_color_sprites[j][1].visible = False
+
+    if (len(self.marble_sprites) != 0):
+        for j in range(len(self.marble_sprites)):
+            self.marble_sprites[j].visible = False
+
 
 def ClearAndResizeBoard (self):
 
