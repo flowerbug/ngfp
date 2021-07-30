@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
-# Copyright (c) Ant <ant@anthive.com>
+# Copyright (c) Flowerbug <flowerbug@anthive.com>
 
 import os
 import pyglet
@@ -646,7 +646,7 @@ class TextViewWindow(Gtk.Window):
             + "\n"
             + "\n"
             + "    Project Location :"
-            + "    https://salsa.debian.org/ant-guest/gfpoken-in-python\n"
+            + "    https://github.com/flowerbug/ngfp\n"
             + "\n"
             + "    To leave this window close it..."
             )
