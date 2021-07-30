@@ -1,4 +1,4 @@
-Thu Jan  3 10:43:35 EST 2019
+Fri 30 Jul 2021 10:10:04 AM EDT
 
   The file AUTHORS describes the licenses used for
 each of the files used in this work (the artwork,
@@ -19,7 +19,7 @@ HDR1S=====
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
-# Copyright (c) Ant <ant@anthive.com>
+# Copyright (c) Flowerbug <flowerbug@anthive.com>
 HDR1E=====
 
 
@@ -28,7 +28,7 @@ License Header:
 LIC1S=====
 #
 #
-# Copyright 2018-2019 Ant <ant@anthive.com>
+# Copyright 2018-2021 Flowerbug <flowerbug@anthive.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

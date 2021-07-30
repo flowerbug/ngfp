@@ -1,7 +1,7 @@
-Sat Dec 22 21:22:43 EST 2018
+Fri 30 Jul 2021 10:14:45 AM EDT
 
 
-Notes from Ant <ant@anthive.com>
+Notes from Flowerbug <flowerbug@anthive.com>
 
 The AUTHORS file from gfpoken version 1-2 is 
 partially reproduced below and edited to only 
@@ -12,7 +12,7 @@ for this Python reimplementation.
 I did rescale the artwork from 32 to 64 pixels 
 and fixed one image - see other project:
 
-https://salsa.debian.org/ant-guest/bits-of-gfpoken
+https://github.com/flowerbug/bits-of-gfpoken
 
 The information relevant to the GPL-3.0 files below
 is surrounded by GPL===== brackets and the 
@@ -113,7 +113,7 @@ Apache=====
 
 License Apache-2.0
 
-Artwork created by Ant <ant@anthive.com>
+Artwork created by Flowerbug <flowerbug@anthive.com>
 
 The following are very simple works not really 
 needing a copyright in my opinion but I will 

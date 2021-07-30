@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # SPDX-License-Identifier: Apache-2.0
-# Copyright (c) Ant <ant@anthive.com>
+# Copyright (c) Flowerbug <flowerbug@anthive.com>
 
 from os import path
 from setuptools import setup, find_packages
@@ -21,12 +21,12 @@ __version__ = GetVersion()
 setup(
     name="ngfp",
     version=__version__,
-    author="Ant",
-    author_email="ant@anthive.com",
+    author="Flowerbug",
+    author_email="flowerbug@anthive.com",
     description="A puzzle game based upon gfpoken.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://salsa.debian.org/ant-guest/gfpoken-in-python",
+    url="https://https://github.com/flowerbug/ngfp",
     license="Apache-2.0",
     setup_requires=["setuptools >= 40.6.3",
                     "twine >= 1.12.1",

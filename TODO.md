@@ -1,7 +1,7 @@
-Mon 07 Oct 2019 11:45:53 AM EDT
+Fri 30 Jul 2021 10:27:10 AM EDT
 
 
-  Bugs and comments to Ant <ant@anthive.com> or via the
+  Bugs and comments send e-mail Flowerbug <flowerbug@anthive.com> or via the
 project page.
 
 
@@ -28,6 +28,21 @@ v1.0.0 - ?  This TODO
     tests and comments)
 
   - figure out man page
+
+
+v0.2.6
+
+  - move code to github
+
+
+v0.2.5
+
+  - remove history, arrow and marble sprites when restarting
+
+
+v0.2.4
+
+  - remove flips
 
 
 v0.2.3
