@@ -48,37 +48,6 @@ ngfp aka new gfpoken aka gfpoken-in-python, is a Python 3 adaptation of the gfpo
 
 
 
-# New Coding or Artwork Contributions
-
-  - check TODO or ask to make sure efforts are not duplicated
-
-  - new code or artwork will be licensed under Apache-2.0
-    - attribution will be to "Name" <email@address>
-
-
-# To Make Spacing Consistent
-
-  Use the following commands before submitting pull requests or 
-patches.
-
-
-  To see what the changes would look like
-
-
-```shell
-     $ autopep8 . --recursive --select=E101,E121 --diff
-```
-
-
-  To make the changes
-
-
-```shell
-     $ autopep8 . --recursive --select=E101,E121 --in-place
-```
-
-
-
 # Previous Artwork and Manual Page
 
   From gfpoken version 1-2 the following things were used (see AUTHORS for the list of files and their copyrights and licensing):

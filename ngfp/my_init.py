@@ -12,9 +12,14 @@ import pyglet
 import ngfp.config as cfg
 
 from ngfp.dialog import LoadConfigOrUseCurrent
+from ngfp.version import GetVersion
 
 
 def MyInitStuff (self):
+
+    print("Pyglet version : ", pyglet.version)
+    print("OpenGL version : ", self.context.get_info().get_version())
+    print("Ngfp version   : ", GetVersion(), "\n")
 
     random.seed()
 
@@ -24,7 +29,7 @@ def MyInitStuff (self):
 
     # screens, sizes and locations
     #   some of these change as the board changes size
-    self.top_display = pyglet.canvas.get_display()
+    self.top_display = pyglet.display.get_display()
     self.top_screen = self.top_display.get_default_screen()
     self.full_screen_width = self.top_screen.width
     self.full_screen_height = self.top_screen.height
