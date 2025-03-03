@@ -272,7 +272,7 @@ class Window(pyglet.window.Window):
 
 def main():
     window = Window(width=cfg.img_pix*(cfg.game_cols+cfg.control_cols+3), height=cfg.img_pix*(cfg.game_rows+2), caption="Ngfp", resizable=False, fullscreen=False, visible=False)
-    pyglet.clock.schedule_interval(window.update, 1/120.0) # update at 60Hz
+    pyglet.clock.schedule_interval(window.update, 1/120.0)
     pyglet.app.run()
 
 

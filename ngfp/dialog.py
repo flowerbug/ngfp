@@ -604,7 +604,7 @@ class TextViewWindow(Gtk.Window):
 
         Gtk.Window.__init__(self, title="About Ngfp")
 
-        self.top_display = pyglet.canvas.get_display()
+        self.top_display = pyglet.display.get_display()
         self.top_screen = self.top_display.get_default_screen()
         self.full_screen_width = self.top_screen.width
         self.full_screen_height = self.top_screen.height
@@ -671,7 +671,7 @@ class HelpViewWindow(Gtk.Window):
 
         Gtk.Window.__init__(self, title="Ngfp Help")
 
-        self.top_display = pyglet.canvas.get_display()
+        self.top_display = pyglet.display.get_display()
         self.top_screen = self.top_display.get_default_screen()
         self.full_screen_width = self.top_screen.width
         self.full_screen_height = self.top_screen.height

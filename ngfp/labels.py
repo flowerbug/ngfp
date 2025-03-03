@@ -37,7 +37,7 @@ def AddLabels (self):
                         count_str,
                         font_name="Sans Regular",
                         font_size=28,
-                        bold=True,
+                        weight="bold",
                         color=[245, 0, 0, 255],
                         width=cfg.img_pix, height=cfg.img_pix,
                         x=x_pos+34, y=y_pos+24,
